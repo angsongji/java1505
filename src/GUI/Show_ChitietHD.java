@@ -1,6 +1,7 @@
 
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -31,13 +32,14 @@ public final class Show_ChitietHD extends JPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             p1 = new JPanel();
                 p1.setBackground(Color.white); 
-                p1.setSize(0, 120);
-                p1.setLayout(new FlowLayout(1));
+                //p1.setSize(0, 120);
+                p1.setLayout(new BorderLayout());
                     JLabel title = new JLabel("CHI TIET HOA DON", JLabel.CENTER);
+                        p1.setPreferredSize(new Dimension(title.getWidth(),80));
                         title.setAlignmentX(Component.CENTER_ALIGNMENT);
                         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 28));
                         title.setForeground(Color.decode("#0A3D62"));
-            p1.add(title);
+            p1.add(title,BorderLayout.CENTER);
             
             p2 = new JPanel();
                 p2.setBackground(Color.white); 
@@ -98,7 +100,7 @@ public final class Show_ChitietHD extends JPanel{
                 p6.setBackground(Color.white);
                 p6.setPreferredSize(new Dimension(600, 280));
          
-                    String[] columnNames = {"Ten SP", "size", "So luong","Gia"," Tong cong"};
+                    String[] columnNames = {"Ten SP", "size", "So luong","Gia"," Thanh tien"};
                     JPanel pa = new JPanel();
                         pa.setLayout(new FlowLayout(1,10,0));
                         pa.setBackground(Color.white);
