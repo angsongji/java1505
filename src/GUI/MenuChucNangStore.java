@@ -233,6 +233,17 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         wrap.revalidate(); // Cập nhật lại cấu trúc của JPanel
         wrap.repaint();
     }
+    
+     public void showTrangLichsuHD(JPanel wrap){
+        int crong=(int)wrap.getPreferredSize().getWidth();
+        int ccao=(int)wrap.getPreferredSize().getHeight();
+        wrap.removeAll();
+        TrangLichsuHD lshd = new TrangLichsuHD(crong,600);
+        wrap.add(lshd);
+        wrap.revalidate(); 
+        wrap.repaint();
+    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -280,7 +291,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
                                     
                                     break;
                                 case "Lịch sử hóa đơn":
-                                    
+                                    showTrangLichsuHD(main.pageContent);
                                     break;
                                 case "Đăng xuất":
                                     view_thong_bao a=new view_thong_bao(400, 300,main,"Bạn có chắc chắn muốn đăng xuất?","Xác nhận đăng xuất");
