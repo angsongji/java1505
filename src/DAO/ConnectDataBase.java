@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Database;
+package DAO;
 
 /**
  *
@@ -29,8 +29,6 @@ public class ConnectDataBase {
        driver = "com.mysql.jdbc.Driver";
        userName = "root";//username tuy may moi nguoi khac nhau
        password = "Oanh2004!";//password tuy may moi nguoi khac nhau
-       connect();
-
    }
    public ConnectDataBase(String url, String dbName, String driver, String userName, String password) {
       this.url = url;
@@ -41,60 +39,52 @@ public class ConnectDataBase {
    }
 
    private void connect() throws SQLException {
-      if (conn != null) {
-         return;
-      }
       try {
          Class.forName(driver);
+         conn = DriverManager.getConnection(url + dbName, userName, password);
       } catch (ClassNotFoundException e) {
          throw new SQLException("Driver not found");
       }
-      conn = DriverManager.getConnection(url + dbName, userName, password);
+      
    }
 
    public void disconnect() throws SQLException {
       if (conn != null) {
+          try{
          conn.close();
          conn = null;
+         }catch (SQLException E){}
       }
    }
-
-   public void executeQuery(String sql) throws SQLException {
-      connect();
-      Statement statement = conn.createStatement();
-      statement.executeQuery(sql);
-      statement.close();
+   public ResultSet executeQuery(String sql){//executeQuery() được sử dụng để thực thi các câu lệnh SELECT trả về dữ liệu trong ResultSet
+       ResultSet rs = null;
+       try {
+            Statement statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
+            
+        } catch (SQLException ex) {}
+       return rs;
+   }
+   
+   public void executeUpdate(String sql) throws SQLException {//executeUpdate() trong JDBC được sử dụng để thực thi các câu lệnh SQL như INSERT, UPDATE, DELETE hoặc các câu lệnh khác như CREATE TABLE, ALTER TABLE và DROP TABLE
+      //connect();
+      try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException ex) {}
    }
 
-   public void executeUpdate(String sql) throws SQLException {
-      connect();
-      Statement statement = conn.createStatement();
-      statement.executeUpdate(sql);
-      statement.close();
-   }
-
-   public ResultSet executeSelect(String sql) throws SQLException {
-      connect();
-      Statement statement = conn.createStatement();
-      ResultSet resultSet = statement.executeQuery(sql);
-      return resultSet;
-   }
     public static void main(String[] args) throws SQLException {
         ConnectDataBase cn=new ConnectDataBase();
+        cn.connect();
         if(cn.conn==null)
         {
             System.out.println("Kết nối thất bạii");
         }
         else
             System.out.println("Kêt nối thành công");
-        String sql="Select * from nhanvien";
-        ResultSet rs=cn.executeSelect(sql);
-        while (rs.next()) {
-                System.out.println(rs.getString(1) + "  " + rs.getString(2) 
-                        + "  " + rs.getString(3));
-                //hien thi len textfild
-              
-            }
+//        String sql="DELETE FROM chucnang WHERE MACHUCNANG='QLSP' ";
+//        cn.executeUpdate(sql);
     }
    
 }

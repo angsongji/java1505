@@ -25,7 +25,8 @@ import java.awt.event.MouseListener;
 import java.awt.GridBagConstraints;
 import java.awt.Component;
 
-
+import DAO.ConnectDataBase;
+import java.sql.*;
 public class MenuChucNangStore extends JPanel implements MouseListener{
     private StoreScreen main;
     private JLabel nameStaff;
@@ -82,7 +83,12 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
 
 
         chucnangStore= new ArrayList<>();
-        
+//        ConnectDataBase c= new ConnectDataBase(); 
+//        ResultSet resultQuerry=c.executeQuery("SELECT * FROM chucnang");
+//        while(resultQuerry.next()){
+//            chucnangStore.add(resultQuerry.getString(2));
+//        }
+//        c.disconnect();
         chucnangStore.add("Tài khoản cá nhân");
        chucnangStore.add("Sản phẩm");
        chucnangStore.add("Quản lý tài khoản");
@@ -92,7 +98,35 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         chucnangStore.add("Đăng xuất");
        
         imgChucnangStore =  new ArrayList<>();
-
+//        while(resultQuerry.next()){
+//           String director="./src/images/";
+//           switch(resultQuerry.getString(1)){
+//               case "TKCN":
+//                   director+="user_icon.png";
+//                   break;
+//                case "SP":
+//                   director+="shirt_icon.png";
+//                   break;
+//                 case "QLTK":
+//                   director+="account_icon.png";
+//                   break;
+//                   case "QLKH":
+//                   director+="customer_icon.png";
+//                   break;
+//                   case "QLSP":
+//                   director+="product_icon.png";
+//                   break;
+//                   case "LSHD":
+//                   director+="bill_icon.png";
+//                   break;
+//                   case "PQ":
+//                   director+="bill_icon.png";
+//                   break;
+//                   case "DX":
+//                   director+="signout_icon.png";
+//                   break;
+//           }
+//        }
         imgChucnangStore.add(new ImageIcon("./src/images/user_icon.png"));
         imgChucnangStore.add(new ImageIcon("./src/images/shirt_icon.png"));
         imgChucnangStore.add(new ImageIcon("./src/images/account_icon.png"));
