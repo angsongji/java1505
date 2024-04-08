@@ -27,16 +27,20 @@ import java.awt.Component;
 
 import DAO.ConnectDataBase;
 import java.sql.*;
+import BUS.chucnangBUS;
+import DTO.chucnangDTO;
 public class MenuChucNangStore extends JPanel implements MouseListener{
     private StoreScreen main;
     private JLabel nameStaff;
-    private ArrayList<String> chucnangStore;
-    private ArrayList<ImageIcon> imgChucnangStore;
+    private ArrayList<chucnangDTO> listChucnang;
+    private ArrayList<String> iconChucnangStore;
     private Font font_chucnang;
     private JPanel inforMenu;
     private JPanel listChucnangMenu;
     private int chieurong,chieucao;
     private int selectedItem;
+    
+ 
     public MenuChucNangStore(int chieurong,int chieucao,StoreScreen s){
         main=s;
         
@@ -81,23 +85,24 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         
         add(inforMenu,BorderLayout.NORTH);
 
-
-        chucnangStore= new ArrayList<>();
+        
+        chucnangBUS chucnangBus= new chucnangBUS();
+        listChucnang= chucnangBus.getList();
 //        ConnectDataBase c= new ConnectDataBase(); 
 //        ResultSet resultQuerry=c.executeQuery("SELECT * FROM chucnang");
 //        while(resultQuerry.next()){
 //            chucnangStore.add(resultQuerry.getString(2));
 //        }
-//        c.disconnect();
-        chucnangStore.add("Tài khoản cá nhân");
-       chucnangStore.add("Sản phẩm");
-       chucnangStore.add("Quản lý tài khoản");
-       chucnangStore.add("Quản lý khách hàng");
-       chucnangStore.add("Quản lý sản phẩm");
-        chucnangStore.add("Lịch sử hóa đơn");
-        chucnangStore.add("Đăng xuất");
+////        c.disconnect();
+//        chucnangStore.add("Tài khoản cá nhân");
+//       chucnangStore.add("Sản phẩm");
+//       chucnangStore.add("Quản lý tài khoản");
+//       chucnangStore.add("Quản lý khách hàng");
+//       chucnangStore.add("Quản lý sản phẩm");
+//        chucnangStore.add("Lịch sử hóa đơn");
+//        chucnangStore.add("Đăng xuất");
        
-        imgChucnangStore =  new ArrayList<>();
+        iconChucnangStore =  new ArrayList<>();
 //        while(resultQuerry.next()){
 //           String director="./src/images/";
 //           switch(resultQuerry.getString(1)){
@@ -127,57 +132,40 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
 //                   break;
 //           }
 //        }
-        imgChucnangStore.add(new ImageIcon("./src/images/user_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/shirt_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/account_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/customer_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/product_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/bill_icon.png"));
-        imgChucnangStore.add(new ImageIcon("./src/images/signout_icon.png"));
+        iconChucnangStore.add("./src/images/user_icon.png");
+        iconChucnangStore.add("./src/images/shirt_icon.png");
+        iconChucnangStore.add("./src/images/account_icon.png");
+        iconChucnangStore.add("./src/images/customer_icon.png");
+        iconChucnangStore.add("./src/images/product_icon.png");
+        iconChucnangStore.add("./src/images/bill_icon.png");
+        iconChucnangStore.add("./src/images/bill_icon.png");
+        iconChucnangStore.add("./src/images/bill_icon.png");
+        iconChucnangStore.add("./src/images/bill_icon.png");
+        iconChucnangStore.add("./src/images/signout_icon.png");
        
-        font_chucnang= new Font("Tahoma", Font.PLAIN, 14);
-        if(chucnangStore.size()<9){
+        if(listChucnang.size()<9){
             listChucnangMenu = new JPanel(new FlowLayout());
 
         }else{
-
             listChucnangMenu = new JPanel(new GridLayout(0,1));
-            
         }
         listChucnangMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            listChucnangMenu.setOpaque(true);
-       // listChucnangMenu.setLayout(new BoxLayout(listChucnangMenu, BoxLayout.Y_AXIS));
-      // listChucnangMenu.setPreferredSize(new Dimension(chieurong, chieucao/2));
-        
-        
+        listChucnangMenu.setOpaque(true);
+     
         // Tạo một JList chứa danh sách
         JScrollPane scrollPane = new JScrollPane( listChucnangMenu);
         scrollPane.setBorder(null);
         // Tạo JScrollPane và chứa JList bên trong nó
         // JScrollPane scrollPane = new JScrollPane(listChucnangMenu,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-       for(int i=0;i<chucnangStore.size();i++){
-            JPanel chucnang= new JPanel();
-            if(chucnangStore.size()<9){
+       for(int i=0;i<listChucnang.size();i++){
+            JPanel chucnang;
+            if(listChucnang.size()<9){
                 listChucnangMenu.setPreferredSize(new Dimension(chieurong,40));
-                chucnang.setPreferredSize(new Dimension(chieurong,40));
+                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),iconChucnangStore.get(i),(int)listChucnangMenu.getPreferredSize().getWidth(), (int)listChucnangMenu.getPreferredSize().getHeight());
             }else{
-                chucnang.setPreferredSize(new Dimension((int)scrollPane.getPreferredSize().getWidth(),40));
+                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),iconChucnangStore.get(i),(int)scrollPane.getPreferredSize().getWidth(),40);
             }
-            chucnang.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            chucnang.setOpaque(true);
-           
-            chucnang.setLayout(new BorderLayout());
-
-            JLabel imgchucnang = new JLabel(imgChucnangStore.get(i),JLabel.CENTER);
-            imgchucnang.setPreferredSize(new Dimension(50,30));
-            chucnang.add( imgchucnang,BorderLayout.WEST);
-
-            JLabel nameChucnang=new JLabel(chucnangStore.get(i)+"");
-            nameChucnang.setFont(font_chucnang);
-            nameChucnang.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
             
-            
-            chucnang.add(nameChucnang,BorderLayout.CENTER);
             chucnang.addMouseListener(this);
            
             listChucnangMenu.add(chucnang);

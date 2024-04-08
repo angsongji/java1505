@@ -38,7 +38,7 @@ public class ConnectDataBase {
       this.password = password;
    }
 
-   private void connect() throws SQLException {
+   public void connect() throws SQLException {
       try {
          Class.forName(driver);
          conn = DriverManager.getConnection(url + dbName, userName, password);
