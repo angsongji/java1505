@@ -38,7 +38,7 @@ public class SearchInStore extends JPanel implements MouseListener{
     private JButton submit;
     private Font font_title;
     private int chieurong;
-    private String[] titleTimkiem={"Theo tên hoặc MASP","Giá thấp nhất","đến","Giá cao nhất","Theo loại","Ngày bắt đầu","đến","Ngày kết thúc"};
+    private String[] titleTimkiem={"Theo tên","Giá thấp nhất","đến","Giá cao nhất","Theo loại","Ngày bắt đầu","đến","Ngày kết thúc"};
     public SearchInStore(int chieurong){
         this.chieurong=chieurong;
         init();

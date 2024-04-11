@@ -19,7 +19,6 @@ public class quyenDAO {
         try{
              c = new ConnectDataBase();
         }catch(SQLException e){
-            System.out.println("That bai");
         }
     }
      
@@ -34,11 +33,8 @@ public class quyenDAO {
                     list.add(item);
                 }
             }
-            System.out.println("Lay danh sach quyen thanh cong");
             c.disconnect();
-        }catch(SQLException e){
-            System.out.println("Lay danh sach quyen that bai");
-        }
+        }catch(SQLException e){}
         return list;
     }
      
@@ -47,11 +43,8 @@ public class quyenDAO {
             c.connect();
             String query= "INSERT INTO quyen VALUES ('"+item.getMAQUYEN()+"','"+item.getTENQUYEN()+"');";
             c.executeUpdate(query);
-            System.out.println("Them quyen thanh cong");
             c.disconnect();
-        }catch(SQLException e){
-            System.out.println("Them quyen that bai");
-        }
+        }catch(SQLException e){}
     }
      
      public void delete(quyenDTO item){
@@ -60,10 +53,7 @@ public class quyenDAO {
             String query = "DELETE FROM quyen WHERE MAQUYEN = '"+item.getMAQUYEN()+"'";
             c.executeUpdate(query);
             c.disconnect();
-            System.out.println("Xoa quyen thanh cong");
-        }catch(SQLException e){
-            System.out.println("Xoa quyen that bai");
-        }
+        }catch(SQLException e){}
     }
      
      public static void main(String[] args) {

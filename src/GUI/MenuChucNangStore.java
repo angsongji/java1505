@@ -72,10 +72,8 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
 
         
         nameStaff= new JLabel("<html>ABCre asdá ư</html>");
-    
         nameStaff.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
         nameStaff.setForeground(Cacthuoctinh_phuongthuc_chung.light_gray);
-       // nameStaff.setPreferredSize(new Dimension((int)inforMenu.getPreferredSize().getWidth(),70));
         inforMenu.add(nameStaff);
         
        
@@ -88,50 +86,8 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         
         chucnangBUS chucnangBus= new chucnangBUS();
         listChucnang= chucnangBus.getList();
-//        ConnectDataBase c= new ConnectDataBase(); 
-//        ResultSet resultQuerry=c.executeQuery("SELECT * FROM chucnang");
-//        while(resultQuerry.next()){
-//            chucnangStore.add(resultQuerry.getString(2));
-//        }
-////        c.disconnect();
-//        chucnangStore.add("Tài khoản cá nhân");
-//       chucnangStore.add("Sản phẩm");
-//       chucnangStore.add("Quản lý tài khoản");
-//       chucnangStore.add("Quản lý khách hàng");
-//       chucnangStore.add("Quản lý sản phẩm");
-//        chucnangStore.add("Lịch sử hóa đơn");
-//        chucnangStore.add("Đăng xuất");
        
         iconChucnangStore =  new ArrayList<>();
-//        while(resultQuerry.next()){
-//           String director="./src/images/";
-//           switch(resultQuerry.getString(1)){
-//               case "TKCN":
-//                   director+="user_icon.png";
-//                   break;
-//                case "SP":
-//                   director+="shirt_icon.png";
-//                   break;
-//                 case "QLTK":
-//                   director+="account_icon.png";
-//                   break;
-//                   case "QLKH":
-//                   director+="customer_icon.png";
-//                   break;
-//                   case "QLSP":
-//                   director+="product_icon.png";
-//                   break;
-//                   case "LSHD":
-//                   director+="bill_icon.png";
-//                   break;
-//                   case "PQ":
-//                   director+="bill_icon.png";
-//                   break;
-//                   case "DX":
-//                   director+="signout_icon.png";
-//                   break;
-//           }
-//        }
         iconChucnangStore.add("./src/images/user_icon.png");
         iconChucnangStore.add("./src/images/shirt_icon.png");
         iconChucnangStore.add("./src/images/account_icon.png");
@@ -155,8 +111,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         // Tạo một JList chứa danh sách
         JScrollPane scrollPane = new JScrollPane( listChucnangMenu);
         scrollPane.setBorder(null);
-        // Tạo JScrollPane và chứa JList bên trong nó
-        // JScrollPane scrollPane = new JScrollPane(listChucnangMenu,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
        for(int i=0;i<listChucnang.size();i++){
             JPanel chucnang;
             if(listChucnang.size()<9){

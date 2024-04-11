@@ -62,7 +62,9 @@ public class ConnectDataBase {
             Statement statement = conn.createStatement();
             rs = statement.executeQuery(sql);
             
-        } catch (SQLException ex) {}
+        } catch (SQLException ex) {
+            System.out.println("Thêm thất bại");
+        }
        return rs;
    }
    
@@ -71,7 +73,9 @@ public class ConnectDataBase {
       try {
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
-        } catch (SQLException ex) {}
+        } catch (SQLException ex) {
+            System.out.println("Thực hiện thất bại");
+        }
    }
 
     public static void main(String[] args) throws SQLException {
