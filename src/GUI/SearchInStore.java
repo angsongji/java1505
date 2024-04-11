@@ -28,7 +28,7 @@ import javax.swing.border.SoftBevelBorder;
 
 
 public class SearchInStore extends JPanel implements MouseListener{
-    private JTextField nameOrMASP;
+    private JTextField name;
     private JTextField cheapestPrice;
     private JTextField highestPrice;
     private JComboBox<String> typeShirt;
@@ -38,7 +38,8 @@ public class SearchInStore extends JPanel implements MouseListener{
     private JButton submit;
     private Font font_title;
     private int chieurong;
-    private String[] titleTimkiem={"Theo tên","Giá thấp nhất","đến","Giá cao nhất","Theo loại","Ngày bắt đầu","đến","Ngày kết thúc"};
+    //private String[] titleTimkiem={"Theo tên","Giá thấp nhất","đến","Giá cao nhất","Theo loại","Ngày bắt đầu","đến","Ngày kết thúc"};
+    private String[] titleTimkiem={};
     public SearchInStore(int chieurong){
         this.chieurong=chieurong;
         init();
@@ -53,7 +54,8 @@ public class SearchInStore extends JPanel implements MouseListener{
         b.addMouseListener(this);
     }
     public void init(){
-        setPreferredSize(new Dimension(chieurong, 130));
+        if(titleTimkiem.length != 0)
+        {setPreferredSize(new Dimension(chieurong, 130));
         
         JPanel jp_title= new JPanel();
         jp_title.setLayout(new BorderLayout());
@@ -91,10 +93,10 @@ public class SearchInStore extends JPanel implements MouseListener{
             input.setLayout(new BorderLayout());
            // {"Theo tên hoặc MASP","Giá thấp nhất","đến","Giá cao nhất","Theo loại","Ngày bắt đầu","đến","Ngày kết thúc"};
             switch (titleTimkiem[i]) {
-                case "Theo tên hoặc MASP":
-                    nameOrMASP= new JTextField();
+                case "Theo tên":
+                    name= new JTextField();
                     
-                    input.add(nameOrMASP,BorderLayout.CENTER);
+                    input.add(name,BorderLayout.CENTER);
                     break;
                 case "Giá thấp nhất":
                     cheapestPrice = new JTextField();
@@ -163,7 +165,7 @@ public class SearchInStore extends JPanel implements MouseListener{
         
         
         add(x);
-
+        }
     }
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -114,11 +114,47 @@ public class MenuChucNangStore extends JPanel implements MouseListener{
         
        for(int i=0;i<listChucnang.size();i++){
             JPanel chucnang;
+            String nameIcon="./src/images/";
+            switch (listChucnang.get(i).getTENCHUCNANG()){
+                case "Tài khoản cá nhân":
+                    nameIcon+="user_icon.png";
+                    break;
+                case "Sản phẩm":
+                    nameIcon+="shirt_icon.png";
+                    break;
+                case "Giỏ hàng":
+                    nameIcon+="cart_icon.png";
+                    break;
+                case "Lịch sử hóa đơn":
+                    nameIcon+="bill_icon.png";
+                    break;
+                case "Nhà cung cấp":
+                    nameIcon+="product_icon.png";
+                    break;
+                case "Quản lý nhân viên":
+                    nameIcon+="staff_icon.png";
+                    break;
+                case "Quản lý tài khoản":
+                    nameIcon+="account_icon.png";
+                    break;
+                case "Quản lý khách hàng":
+                    nameIcon+="customer_icon.png";
+                    break;
+                case "Quản lí phiếu nhập":
+                    nameIcon+="receipt_icon.png";
+                    break;
+                case "Phân Quyền":
+                    nameIcon+="phanquyen_icon.png";
+                    break;
+                case "Đăng xuất":
+                    nameIcon+="signout_icon.png";
+                    break;
+            }
             if(listChucnang.size()<9){
                 listChucnangMenu.setPreferredSize(new Dimension(chieurong,40));
-                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),iconChucnangStore.get(i),(int)listChucnangMenu.getPreferredSize().getWidth(), (int)listChucnangMenu.getPreferredSize().getHeight());
+                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),nameIcon,(int)listChucnangMenu.getPreferredSize().getWidth(), (int)listChucnangMenu.getPreferredSize().getHeight());
             }else{
-                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),iconChucnangStore.get(i),(int)scrollPane.getPreferredSize().getWidth(),40);
+                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),nameIcon,(int)scrollPane.getPreferredSize().getWidth(),40);
             }
             
             chucnang.addMouseListener(this);
