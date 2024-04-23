@@ -24,6 +24,7 @@ public class StoreScreen extends JFrame{
     private JLabel exitStore;
     private MenuChucNangStore menu;
     protected CenterContentStore centerContent;
+    private String MAQUYEN = "QQLBH";
     public StoreScreen(){
         chieurong=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         chieucao=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-40;
@@ -90,7 +91,7 @@ public class StoreScreen extends JFrame{
       
         
         
-        menu= new MenuChucNangStore((int)chieurong/7,chieucao,this);
+        menu= new MenuChucNangStore(MAQUYEN,(int)chieurong/7,chieucao,this);
         
         centerContent= new CenterContentStore(chieurong-(int)menu.getPreferredSize().getWidth()-20, chieucao-20-(int)title_bar.getPreferredSize().getHeight(), this);
         //end

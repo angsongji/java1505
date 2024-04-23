@@ -46,12 +46,12 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
     private JPanel JP_includeChucnangMenu;
     private int chieurong, chieucao;
     private int int_selectedItem;
-    private String MAQUYEN = "QNV";
+    private String MAQUYEN;
     private JPanel JP_selected;
 
-    public MenuChucNangStore(int chieurong, int chieucao, StoreScreen s) {
+    public MenuChucNangStore(String maquyen,int chieurong, int chieucao, StoreScreen s) {
         SS_main = s;
-
+        this.MAQUYEN = maquyen;
         this.chieurong = chieurong;
         this.chieucao = chieucao;
         int_selectedItem = -1;

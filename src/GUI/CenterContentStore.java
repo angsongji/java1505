@@ -202,6 +202,15 @@ public class CenterContentStore extends JPanel {
                             LoginUI login = new LoginUI();
                         }
                 break;
+            case "PN":{
+                JPanel pn = new JPanel();
+                pn.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
+                pn.add(new JLabel("Đây là trang phiếu nhập"));
+                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
+                showThaotac(JP_thaotac);
+                showPageContent(pn);
+                break;
+            }
             default:
                 JPanel p = new JPanel();
                 p.add(new JLabel("Chưa có chức năng này", JLabel.CENTER));
