@@ -54,6 +54,20 @@ public class chucnangDAO {
             System.out.println("Them chuc nang that bai");
         }
     }
+    public chucnangDTO search(String x){
+        try{
+            c.connect();
+            
+            String query= "SELECT * FROM chucnang WHERE MACHUCNANG='"+x+"' OR TENCHUCNANG='"+x+"'";
+            ResultSet re = c.executeQuery(query);
+            while(re.next()){
+                return new chucnangDTO(re.getString("MACHUCNANG"),re.getString("TENCHUCNANG"));
+            }
+            c.disconnect();
+        }catch(SQLException e){
+        }
+        return null;
+    }
     
     public void delete(chucnangDTO item){
         try{
@@ -68,15 +82,16 @@ public class chucnangDAO {
     }
     
     public static void main(String[] args) {
-        ArrayList<chucnangDTO> list = new ArrayList<>();
+//        ArrayList<chucnangDTO> list = new ArrayList<>();
         chucnangDAO c= new chucnangDAO();
-        list=c.listChucNang();
-        for(chucnangDTO i : list){
-            System.out.println(i.getMACHUCNANG()+" "+i.getTENCHUCNANG());
-        }
-        
-        chucnangDTO c_new= new chucnangDTO("TEST", "THEMCHUCNANG");
-        c.delete(c_new);
+//        list=c.listChucNang();
+//        for(chucnangDTO i : list){
+//            System.out.println(i.getMACHUCNANG()+" "+i.getTENCHUCNANG());
+//        }
+//        
+        chucnangDTO c_new= c.search("Quản lý tài khoản");
+        System.out.println(c_new.getMACHUCNANG());
+        //c.delete(c_new);
     }
     
 }

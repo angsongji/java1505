@@ -31,7 +31,7 @@ public class chucnangGUI extends JPanel{
         setPreferredSize(new Dimension(chieucao,chieurong));
         setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         setOpaque(true);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10,0));
         
         nameIcon.setPreferredSize(new Dimension(50,30));
         add( nameIcon,BorderLayout.WEST);

@@ -93,7 +93,7 @@ class SignUp extends JFrame {
 //        });
         
                 //----------STORE LOGO-------------
-                    imageLabel = new JLabel(new ImageIcon("./src/images/store_logo.png"));
+                    imageLabel = new JLabel(Cacthuoctinh_phuongthuc_chung.storeLogoLogout);
                 
                 // -------- STORE'S NAME ---------
                     namestore = new JLabel(Cacthuoctinh_phuongthuc_chung.storeName.toUpperCase(), JLabel.CENTER);

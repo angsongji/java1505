@@ -18,14 +18,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StoreScreen extends JFrame{
-    private int chieucao;
-    private int chieurong;
-    private JPanel title_bar;
+    public int chieucao;
+    public int chieurong;
+    public JPanel title_bar;
     private JLabel exitStore;
     private MenuChucNangStore menu;
-    private SearchInStore search;
-    private ThaotacInStore thaotac;
-    public JPanel pageContent;
+    protected CenterContentStore centerContent;
     public StoreScreen(){
         chieurong=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         chieucao=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-40;
@@ -33,7 +31,7 @@ public class StoreScreen extends JFrame{
     }
 
     
-    public void init(){
+    private void init(){
         setSize(chieurong, chieucao);
        // setExtendedState(JFrame.MAXIMIZED_BOTH); // Đặt JFrame full màn hình
         // thanh dau tien cua chuong trinh gom: logo, ten cua hang, nut thanh chuong trinh 
@@ -88,37 +86,13 @@ public class StoreScreen extends JFrame{
 
          
         //end
-
-        pageContent =new JPanel();
         
       
         
         
-        menu= new MenuChucNangStore(chieurong,chieucao,this);
+        menu= new MenuChucNangStore((int)chieurong/7,chieucao,this);
         
-        JPanel centerContent= new JPanel();
-        centerContent.setPreferredSize(new Dimension(chieurong, chieucao));
-        centerContent.setLayout(new FlowLayout(3,10,0));
-        centerContent.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
-        centerContent.setOpaque(true);
-       
-        search = new SearchInStore(chieurong-(int)menu.getPreferredSize().getWidth()-20);
-        centerContent.add(search);
-
-        thaotac= new ThaotacInStore(chieurong-(int)menu.getPreferredSize().getWidth()-20);
-        centerContent.add(thaotac);
-        
-        pageContent.setLayout(new BorderLayout());
-        pageContent.add(new JLabel("Chưa lựa chọn chức năng",JLabel.CENTER),BorderLayout.CENTER);
-        pageContent.setPreferredSize(new Dimension(chieurong-(int)menu.getPreferredSize().getWidth()-20,chieucao-20-(int)search.getPreferredSize().getHeight()-(int)thaotac.getPreferredSize().getHeight()-(int)title_bar.getPreferredSize().getHeight()));
-        pageContent.setBackground(Color.WHITE);
-        pageContent.setOpaque(true);
-        //end
-
-        
-        
-
-        centerContent.add(pageContent);
+        centerContent= new CenterContentStore(chieurong-(int)menu.getPreferredSize().getWidth()-20, chieucao-20-(int)title_bar.getPreferredSize().getHeight(), this);
         //end
 
         setLayout(new BorderLayout());
@@ -134,5 +108,8 @@ public class StoreScreen extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setVisible(true);
+    }
+    public static void main(String[] args) {
+        StoreScreen s= new StoreScreen();
     }
 }

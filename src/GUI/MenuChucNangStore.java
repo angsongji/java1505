@@ -24,362 +24,309 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.GridBagConstraints;
 import java.awt.Component;
+import DTO.chitietquyenDTO;
 
 import DAO.ConnectDataBase;
 import java.sql.*;
 import BUS.chucnangBUS;
+import DAO.chitietquyenDAO;
+import DAO.chucnangDAO;
 import DTO.chucnangDTO;
-public class MenuChucNangStore extends JPanel implements MouseListener{
-    private StoreScreen main;
-    private JLabel nameStaff;
-    private ArrayList<chucnangDTO> listChucnang;
-    private ArrayList<String> iconChucnangStore;
+import java.awt.Image;
+import javax.swing.JOptionPane;
+
+public class MenuChucNangStore extends JPanel implements MouseListener {
+
+    private StoreScreen SS_main;
+    private JLabel JL_nameStaff;
+    private ArrayList<chucnangDTO> cnDTO_listByMAQUYEN;
+    private ArrayList<String> String_listNameChucnang;
     private Font font_chucnang;
-    private JPanel inforMenu;
-    private JPanel listChucnangMenu;
-    private int chieurong,chieucao;
-    private int selectedItem;
-    
- 
-    public MenuChucNangStore(int chieurong,int chieucao,StoreScreen s){
-        main=s;
-        
-        this.chieurong=(int)chieurong/7;
-        this.chieucao=chieucao;
-        selectedItem=-1;
-        
+    private JPanel JP_inforNhanvien;
+    private JPanel JP_includeChucnangMenu;
+    private int chieurong, chieucao;
+    private int int_selectedItem;
+    private String MAQUYEN = "QNV";
+    private JPanel JP_selected;
+
+    public MenuChucNangStore(int chieurong, int chieucao, StoreScreen s) {
+        SS_main = s;
+
+        this.chieurong = chieurong;
+        this.chieucao = chieucao;
+        int_selectedItem = -1;
+
         init();
-        
+
     }
 
-    public void init(){
+    private void init() {
         setPreferredSize(new Dimension(chieurong, 0));
         setLayout(new BorderLayout());
         setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         setOpaque(true);
 
-        inforMenu= new JPanel();
-        inforMenu.setLayout(new FlowLayout(1,0,15));
-        inforMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-        inforMenu.setOpaque(true);
-        inforMenu.setPreferredSize(new Dimension(chieurong, chieurong+chieurong/3));
-        JLabel logoStore= new JLabel(Cacthuoctinh_phuongthuc_chung.logoNVbanhang);
-        logoStore.setPreferredSize(new Dimension(chieurong,chieurong));
+        JP_inforNhanvien = new JPanel();
+        JP_inforNhanvien.setLayout(new FlowLayout(1, 0, 15));
+        JP_inforNhanvien.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        JP_inforNhanvien.setOpaque(true);
+        JP_inforNhanvien.setPreferredSize(new Dimension(chieurong, chieurong + chieurong / 3));
+
+        //ép kích thuoc anh
+ Image originalImage = Cacthuoctinh_phuongthuc_chung.storeLogoLogin.getImage();
+
+        // Kích thước mới bạn muốn
+        int newWidth = 170;
+        int newHeight = 170;
+
+        // Thay đổi kích thước của hình ảnh
+        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        
+        
+        
+        JLabel logoStore = new JLabel(new ImageIcon(resizedImage));
+        logoStore.setPreferredSize(new Dimension(chieurong, chieurong));
         logoStore.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         logoStore.setOpaque(true);
-        inforMenu.add(logoStore);
+        JP_inforNhanvien.add(logoStore);
 
+        JL_nameStaff = new JLabel("<html>ABCre asdá ư</html>");
+        JL_nameStaff.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
+        JL_nameStaff.setForeground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        JP_inforNhanvien.add(JL_nameStaff);
 
-        
-        nameStaff= new JLabel("<html>ABCre asdá ư</html>");
-        nameStaff.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
-        nameStaff.setForeground(Cacthuoctinh_phuongthuc_chung.light_gray);
-        inforMenu.add(nameStaff);
-        
-       
+        add(JP_inforNhanvien, BorderLayout.NORTH);
 
-       
-        
-        
-        add(inforMenu,BorderLayout.NORTH);
-
-        
-        chucnangBUS chucnangBus= new chucnangBUS();
-        listChucnang= chucnangBus.getList();
-       
-        iconChucnangStore =  new ArrayList<>();
-        iconChucnangStore.add("./src/images/user_icon.png");
-        iconChucnangStore.add("./src/images/shirt_icon.png");
-        iconChucnangStore.add("./src/images/account_icon.png");
-        iconChucnangStore.add("./src/images/customer_icon.png");
-        iconChucnangStore.add("./src/images/product_icon.png");
-        iconChucnangStore.add("./src/images/bill_icon.png");
-        iconChucnangStore.add("./src/images/bill_icon.png");
-        iconChucnangStore.add("./src/images/bill_icon.png");
-        iconChucnangStore.add("./src/images/bill_icon.png");
-        iconChucnangStore.add("./src/images/signout_icon.png");
-       
-        if(listChucnang.size()<9){
-            listChucnangMenu = new JPanel(new FlowLayout());
-
-        }else{
-            listChucnangMenu = new JPanel(new GridLayout(0,1));
+        String_listNameChucnang = lístNameChucnang(this.MAQUYEN);
+        cnDTO_listByMAQUYEN = lístChucnang(this.MAQUYEN);
+        if (cnDTO_listByMAQUYEN.size() < 9) {
+            JP_includeChucnangMenu = new JPanel(new FlowLayout());
+        } else {
+            JP_includeChucnangMenu = new JPanel(new GridLayout(0, 1));
         }
-        listChucnangMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-        listChucnangMenu.setOpaque(true);
-     
-        // Tạo một JList chứa danh sách
-        JScrollPane scrollPane = new JScrollPane( listChucnangMenu);
+
+        JP_includeChucnangMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        JP_includeChucnangMenu.setOpaque(true);
+
+        JScrollPane scrollPane = new JScrollPane(JP_includeChucnangMenu);
         scrollPane.setBorder(null);
-        
-       for(int i=0;i<listChucnang.size();i++){
-            JPanel chucnang;
-            String nameIcon="./src/images/";
-            switch (listChucnang.get(i).getTENCHUCNANG()){
+
+        for (int i = 0; i < cnDTO_listByMAQUYEN.size(); i++) {
+            String nameIcon = "./src/images/";
+            switch (cnDTO_listByMAQUYEN.get(i).getTENCHUCNANG()) {
+                case "Nhà cung cấp":
+                    nameIcon += "nhacungcap_icon.png";
+                    break;
                 case "Tài khoản cá nhân":
-                    nameIcon+="user_icon.png";
+                    nameIcon += "user_icon.png";
                     break;
                 case "Sản phẩm":
-                    nameIcon+="shirt_icon.png";
+                    nameIcon += "shirt_icon.png";
                     break;
-                case "Giỏ hàng":
-                    nameIcon+="cart_icon.png";
+                case "Hoá đơn":
+                    nameIcon += "bill_icon.png";
                     break;
-                case "Lịch sử hóa đơn":
-                    nameIcon+="bill_icon.png";
+                case "Nhân viên":
+                    nameIcon += "staff_icon.png";
                     break;
-                case "Nhà cung cấp":
-                    nameIcon+="product_icon.png";
+                case "Tài khoản":
+                    nameIcon += "account_icon.png";
                     break;
-                case "Quản lý nhân viên":
-                    nameIcon+="staff_icon.png";
+                case "Khách hàng":
+                    nameIcon += "customer_icon.png";
                     break;
-                case "Quản lý tài khoản":
-                    nameIcon+="account_icon.png";
+                case "Loại":
+                    nameIcon += "loaiSP_icon.png";
                     break;
-                case "Quản lý khách hàng":
-                    nameIcon+="customer_icon.png";
+                case "Size":
+                    nameIcon += "size_icon.png";
                     break;
-                case "Quản lí phiếu nhập":
-                    nameIcon+="receipt_icon.png";
+                case "Phiếu nhập":
+                    nameIcon += "receipt_icon.png";
                     break;
-                case "Phân Quyền":
-                    nameIcon+="phanquyen_icon.png";
+                case "Phân quyền":
+                    nameIcon += "phanquyen_icon.png";
+                    break;
+                case "Thống kê":
+                    nameIcon += "thongke_icon.png";
                     break;
                 case "Đăng xuất":
-                    nameIcon+="signout_icon.png";
+                    nameIcon += "signout_icon.png";
                     break;
             }
-            if(listChucnang.size()<9){
-                listChucnangMenu.setPreferredSize(new Dimension(chieurong,40));
-                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),nameIcon,(int)listChucnangMenu.getPreferredSize().getWidth(), (int)listChucnangMenu.getPreferredSize().getHeight());
-            }else{
-                chucnang = new chucnangGUI(listChucnang.get(i).getTENCHUCNANG(),nameIcon,(int)scrollPane.getPreferredSize().getWidth(),40);
+            JPanel chucnang;
+            if (cnDTO_listByMAQUYEN.size() < 9) {
+                JP_includeChucnangMenu.setPreferredSize(new Dimension(chieurong, 40));
+                chucnang = new chucnangGUI(cnDTO_listByMAQUYEN.get(i).getTENCHUCNANG(), nameIcon, (int) JP_includeChucnangMenu.getPreferredSize().getWidth(), (int) JP_includeChucnangMenu.getPreferredSize().getHeight());
+            } else {
+                chucnang = new chucnangGUI(cnDTO_listByMAQUYEN.get(i).getTENCHUCNANG(), nameIcon, (int) scrollPane.getPreferredSize().getWidth(), 40);
             }
-            
+            chucnang.setName(cnDTO_listByMAQUYEN.get(i).toString());
             chucnang.addMouseListener(this);
-           
-            listChucnangMenu.add(chucnang);
-           
+
+            JP_includeChucnangMenu.add(chucnang);
+
         }
-       // JScrollPane scrollListChucnang= new JScrollPane(listChucnangMenu);
+        // JScrollPane scrollListChucnang= new JScrollPane(listChucnangMenu);
         //scrollListChucnang.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-         // Luôn hiển thị thanh cuộn dọc
+        // Luôn hiển thị thanh cuộn dọc
         //add(scrollListChucnang);
-        
-        add(scrollPane,BorderLayout.CENTER);
-        JPanel south= new JPanel();
-        south.setPreferredSize(new Dimension(chieurong,20));
+        add(scrollPane, BorderLayout.CENTER);
+        JPanel south = new JPanel();
+        south.setPreferredSize(new Dimension(chieurong, 20));
         south.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         south.setOpaque(true);
-        add(south,BorderLayout.SOUTH);
-        
-       // showThongtintaikhoan(main.pageContent);
+        add(south, BorderLayout.SOUTH);
+
     }
-    public void changeColorJPanelChildFromParent(JPanel parent,int index,Color bg,Color fg){
+
+    public ArrayList<chucnangDTO> lístChucnang(String MAQUYEN) {
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
+        chitietquyenDAO ctqDAO = new chitietquyenDAO();
+        ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
+        ArrayList<chucnangDTO> listChucnang = new ArrayList<>();
+
+        for (chitietquyenDTO i : listChitietQuyen) {
+            chucnangDAO cnDAO = new chucnangDAO();
+            chucnangDTO k = cnDAO.search(i.getMACHUCNANG());
+            boolean flag_tontai = false;
+            for (chucnangDTO j : listChucnang) {
+                if (j.equals(k)) {
+                    flag_tontai = true;
+                    break;
+                }
+            }
+            if (!flag_tontai) {
+                listChucnang.add(k);
+            }
+        }
+        listChucnang.add(new chucnangDTO("NULLThK", "Thống kê"));
+        listChucnang.add(new chucnangDTO("NULLDX", "Đăng xuất"));
+        return listChucnang;
+    }
+
+    public ArrayList<String> lístNameChucnang(String MAQUYEN) {
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
+        chitietquyenDAO ctqDAO = new chitietquyenDAO();
+        ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
+        ArrayList<String> listNameChucnang = new ArrayList<>();
+
+        for (chitietquyenDTO i : listChitietQuyen) {
+            chucnangDAO cnDAO = new chucnangDAO();
+            String name = cnDAO.search(i.getMACHUCNANG()).getTENCHUCNANG();
+            if (!listNameChucnang.contains(name)) {
+                listNameChucnang.add(name);
+            }
+        }
+        listNameChucnang.add("Thống kê");
+        listNameChucnang.add("Đăng xuất");
+        return listNameChucnang;
+    }
+
+    public void changeColorJPanelChildFromParent(JPanel parent, int index, Color bg, Color fg) {
         Component[] components = parent.getComponents();
-        for(int i=0;i<components.length;i++){
-            JPanel p= (JPanel) components[i];
-            if(i==index) changeColorJPanelChild(p, bg, fg);
+        for (int i = 0; i < components.length; i++) {
+            JPanel p = (JPanel) components[i];
+            if (i == index) {
+                changeColorJPanelChild(p, bg, fg);
+            }
         }
     }
-    public void changeColorJPanelChild( JPanel p,Color bg,Color fg){
+
+    public void changeColorJPanelChild(JPanel p, Color bg, Color fg) {
         p.setBackground(bg);
+        p.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Component[] components = p.getComponents();
         for (Component component : components) {
             if (component instanceof JLabel) {
                 JLabel label = (JLabel) component;
-                    try{
-                        label.setForeground(fg);
 
-                    }catch (NullPointerException t) {
-                        // Xử lý logic khi JLabel có thể null
-                        t.printStackTrace(); // In ra thông tin về lỗi (tùy chọn)
-                    }
+                label.setForeground(fg);
+
             }
         }
         MouseListener[] mouseListeners = p.getMouseListeners();
-                                for (MouseListener listener : mouseListeners) {
-                                    p.removeMouseListener(listener);
-                                }
-        p.addMouseListener(this);
-        
-    
-      
+        for (MouseListener listener : mouseListeners) {
+            p.removeMouseListener(listener);
+        }
+
     }
-    public int findSelectedItem(JPanel find,JPanel parent){
+
+    public int findSelectedItem(JPanel find, JPanel parent) {
         Component[] components = parent.getComponents();
-        for(int i=0;i<components.length;i++){
-            if(components[i]==find) return i; 
+        for (int i = 0; i < components.length; i++) {
+            if (components[i] == find) {
+                return i;
+            }
         }
         return 0;
     }
-    public void showThongtintaikhoan(JPanel wrap){
-        int crong=(int)wrap.getPreferredSize().getWidth();
-        int ccao=(int)wrap.getPreferredSize().getHeight();
-        wrap.removeAll();
-        wrap.add(new ThongTinTaiKhoan("Nguyễn Hoàng Thanh Phương","sinh viên","thanhphuong2004","","","15-03-2024", crong, ccao,main.pageContent.getBackground()));
-        wrap.revalidate(); // Cập nhật lại cấu trúc của JPanel
-        wrap.repaint();
 
-    }
-    public void showTrangsanpham(JPanel wrap){
-        int crong=(int)wrap.getPreferredSize().getWidth();
-        int ccao=(int)wrap.getPreferredSize().getHeight();
-        wrap.removeAll();
-        TrangSanPham t = new TrangSanPham(crong, 600,main.pageContent.getBackground());
-        JScrollPane scrollPane = new JScrollPane(t);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        wrap.add(scrollPane);
-        wrap.revalidate(); // Cập nhật lại cấu trúc của JPanel
-        wrap.repaint();
-    }
-    public void showTrangtaikhoan(JPanel wrap){
-        int crong=(int)wrap.getPreferredSize().getWidth();
-        int ccao=(int)wrap.getPreferredSize().getHeight();
-        wrap.removeAll();
-        TrangTaiKhoan t = new TrangTaiKhoan(crong,600);
-        JScrollPane scrollPane = new JScrollPane(t);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        wrap.add(scrollPane);
-        wrap.revalidate(); // Cập nhật lại cấu trúc của JPanel
-        wrap.repaint();
-    }
-    
-     public void showTrangLichsuHD(JPanel wrap){
-        int crong=(int)wrap.getPreferredSize().getWidth();
-        int ccao=(int)wrap.getPreferredSize().getHeight();
-        wrap.removeAll();
-        TrangLichsuHD lshd = new TrangLichsuHD(crong,600);
-        wrap.add(lshd);
-        wrap.revalidate(); 
-        wrap.repaint();
-    }
-    
     @Override
     public void mouseClicked(MouseEvent e) {
 
-         JPanel menuItem = (JPanel) e.getSource();
-            Component[] components = menuItem.getComponents();
-            for (Component component : components) {
-                if (component instanceof JLabel ) {
-                    JLabel label = (JLabel) component;
-                    try{
-                        String labelText =label.getText();
-                        if(labelText != null){
-                            if(selectedItem>=0 & selectedItem!=findSelectedItem(menuItem,listChucnangMenu)){
-                                changeColorJPanelChildFromParent(listChucnangMenu,selectedItem,Cacthuoctinh_phuongthuc_chung.darkness_blue, Cacthuoctinh_phuongthuc_chung.sky_blue);
-                                
-                            }
-                            selectedItem=findSelectedItem(menuItem,listChucnangMenu);
-                            MouseListener[] mouseListeners = menuItem.getMouseListeners();
-                                for (MouseListener listener : mouseListeners) {
-                                    menuItem.removeMouseListener(listener);
-                                }
-                                menuItem.addMouseListener(new MouseAdapter() {
-                                    @Override
-                                    public void mouseClicked(MouseEvent e) {
-                                       this.mouseClicked(e);
-                                    }
-                                });
-                            menuItem.setBackground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-                            label.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-                           
-      
-                            switch(labelText){
-                                case "Tài khoản cá nhân":
-                                    showThongtintaikhoan(main.pageContent);
-                                    break;
-                                case "Sản phẩm":
-                                    showTrangsanpham(main.pageContent);
-                                    break;
-                                case "Quản lý tài khoản":
-                                    showTrangtaikhoan(main.pageContent);
-                                    break;
-                                case "Quản lý khách hàng":
-                                    
-                                    break;
-                                case "Quản lý sản phẩm":
-                                    
-                                    break;
-                                case "Lịch sử hóa đơn":
-                                    showTrangLichsuHD(main.pageContent);
-                                    break;
-                                case "Đăng xuất":
-                                    view_thong_bao a=new view_thong_bao(400, 300,main,"Bạn có chắc chắn muốn đăng xuất?","Xác nhận đăng xuất");
-                                    main.pageContent.removeAll();
-                                    main.pageContent.validate();
-                                    main.pageContent.repaint();
-                                        break;
-                            }
-                                 
-                               
-                              
-                            
-                        }
-                    } catch (NullPointerException t) {
-                        // Xử lý logic khi JLabel có thể null
-                        t.printStackTrace(); // In ra thông tin về lỗi (tùy chọn)
-                    }
-    
-                    
-                    
-        
-                }
-            }
-       
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
-    }
+        if (JP_selected != null) {
+            changeColorJPanelChild(JP_selected, Cacthuoctinh_phuongthuc_chung.darkness_blue, Cacthuoctinh_phuongthuc_chung.sky_blue);
+            JP_selected.addMouseListener(this);
+        }
 
+        JPanel itemChucnang = (JPanel) e.getSource();
+        changeColorJPanelChild(itemChucnang, Cacthuoctinh_phuongthuc_chung.sky_blue, Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        JP_selected = itemChucnang;
+
+        chucnangDTO cnSelelect = new chucnangDTO(itemChucnang.getName());
+        switch (cnSelelect.getMACHUCNANG()) {
+            case "TK":
+           case "HD":
+                SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+                break;
+            default:{
+                 SS_main.centerContent.changeCenterContent(cnSelelect, MAQUYEN);
+                break;
+            }
+               
+        }
+    }
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+      
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
     }
 
-    
     @Override
-        public void mouseEntered(MouseEvent e) {
-            JPanel menuItem = (JPanel) e.getSource();
-           
-            menuItem.setBackground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-            menuItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            Component[] components = menuItem.getComponents();
-            for (Component component : components) {
-                if (component instanceof JLabel) {
-                    JLabel label = (JLabel) component;
-                    
-                        
-                        label.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-                    
-                }
+    public void mouseEntered(MouseEvent e) {
+        JPanel menuItem = (JPanel) e.getSource();
+
+        menuItem.setBackground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+        menuItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Component[] components = menuItem.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+
+                label.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+
             }
-            
         }
 
-        @Override
-        public void mouseExited(MouseEvent e) {
-            JPanel menuItem = (JPanel) e.getSource();
-            menuItem.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            Component[] components = menuItem.getComponents();
-            for (Component component : components) {
-                if (component instanceof JLabel) {
-                    JLabel label = (JLabel) component;
-                   
-                   
-                       
-                        label.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-                    
-                    
-                }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        JPanel menuItem = (JPanel) e.getSource();
+        menuItem.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        Component[] components = menuItem.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+
+                label.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+
             }
         }
+    }
 }

@@ -60,7 +60,7 @@ public class LoginUI {
         logoPanel.setBounds(50, 25, 200, 200); 
         logoPanel.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         logoPanel.setOpaque(true);
-        logoPanel.add(new JLabel(new ImageIcon("./src/images/store_logo.png")));
+        logoPanel.add(new JLabel(Cacthuoctinh_phuongthuc_chung.storeLogoLogout));
         storePanel.add(logoPanel);
 
         // Tạo label cho tên cửa hàng và đặt vị trí

@@ -16,6 +16,11 @@ public class quyenDTO {
         MAQUYEN=m;
         TENQUYEN=t;
     }
+    public quyenDTO(String toString){
+        String []s= toString.split(",");
+        MAQUYEN=s[0];
+        TENQUYEN=s[1];
+    }
     public String getMAQUYEN(){
         return MAQUYEN;
     }
@@ -27,6 +32,16 @@ public class quyenDTO {
     }
     public void setTENQUYEN(String s){
         TENQUYEN=s;
+    }
+    @Override
+    public String toString(){
+        return MAQUYEN+","+TENQUYEN;
+    }
+    public static void main(String[] args) {
+        String m="QQL,QUYỀN QUẢN LÍ";
+        quyenDTO k= new quyenDTO(m);
+        System.out.println(k.getMAQUYEN());
+        System.out.println(k.getTENQUYEN());
     }
     
 }

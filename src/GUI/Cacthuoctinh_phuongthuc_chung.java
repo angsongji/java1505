@@ -21,6 +21,8 @@ public class Cacthuoctinh_phuongthuc_chung{
     public static ImageIcon return_icon= new ImageIcon("./src/images/return_icon.png");
     public static ImageIcon logoStore= new ImageIcon("./src/images/store_icon.png");
     public static ImageIcon logoNVbanhang= new ImageIcon("./src/images/man-saler.png");//250x250
+    public static ImageIcon storeLogoLogout =  new ImageIcon("./src/images/store_logo_logout.png");
+     public static ImageIcon storeLogoLogin =  new ImageIcon("./src/images/store_logo_login.png");
     public static Font font_header= new Font("Tahoma",Font.BOLD,17);
     public static String font_family="Tahoma";
     
