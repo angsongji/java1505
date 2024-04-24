@@ -106,7 +106,8 @@ CREATE TABLE `hoadon` (
   `NGAYHD` date NOT NULL,
   `MAKH` int(11) NOT NULL,
   `MANV` varchar(10) NOT NULL,
-  `TONGTIEN` double NOT NULL
+  `TONGTIEN` double NOT NULL,
+  `TIENGIAMGIA` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -325,7 +326,7 @@ INSERT INTO `chitietsanpham` VALUES ('AF001','SIZE5',6),('AF002','SIZE5',4),('AF
 
 INSERT INTO `hinh` VALUES ('AF001_1.jpg','AF001'),('AF001_2.jpg','AF001'),('AF002_1.jpg','AF002'),('AF002_2.jpg','AF002'),('AF003_1.jpg','AF003'),('AF003_2.jpg','AF003'),('AH001.jpg','AH001'),('AK001.jpg','AK001'),('AL001.jpg','AL001'),('AL002.jpg','AL002'),('ASM001_1.jpg','ASM001'),('ASM001_2.jpg','ASM001'),('ASM002_1.jpg','ASM002'),('ASM002_2.jpg','ASM002'),('ASM003_1.jpg','ASM003'),('ASM003_2.jpg','ASM003');
 
-INSERT INTO `hoadon` VALUES ('HD001','2023-08-13','3','NV003',1360000),('HD002','2023-07-22','6','NV003',270000);
+INSERT INTO `hoadon` VALUES ('HD001','2023-08-13','3','NV003',1260000,100000),('HD002','2023-07-22','6','NV003',270000,0);
 
 INSERT INTO `khachhang` VALUES (1,'Tuấn Khùng','908112345',230),(2,'Quỳnh Quỳnh','909112443',200),(3,'Trịnh Trần Phương Tuấn','907545661',150),(4,'Hà Lê','909887123',220),(5,'Hương Võ','909700813',280),(6,'Yến Hoàng','907661234',180);
 
