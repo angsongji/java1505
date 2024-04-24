@@ -69,7 +69,21 @@ public class CenterContentStore extends JPanel {
 
     public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
  System.out.println(cnDTO.getMACHUCNANG());
- 
+ if(cnDTO.getMACHUCNANG().equals("KH")){
+     this.pageContent.removeAll();
+      this.pageContent.setLayout(new BorderLayout(0, 0));
+      view_quan_li_khach_hang qlkh = new view_quan_li_khach_hang(chieurong, chieucao);
+        this.pageContent.add(qlkh, BorderLayout.CENTER);
+
+        this.pageContent.revalidate();
+        this.pageContent.repaint();
+
+     return;
+ }
+  
+                  
+
+               
         SearchInStore JP_search = new SearchInStore(cnDTO.getTENCHUCNANG(), pageContent);
         showSearch(JP_search);
 
@@ -163,13 +177,7 @@ public class CenterContentStore extends JPanel {
                 break;
             }
                 
-            case "KH":{
-                  view_quan_li_khach_hang qlkh = new view_quan_li_khach_hang(widthPageContent, heightPageContent);
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, qlkh);
-                showThaotac(JP_thaotac);
-                 showPageContent(qlkh);
-                break;
-            }
+           
             case "SIZE":{
                   JPanel size = new JPanel();
                 size.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
