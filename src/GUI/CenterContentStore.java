@@ -70,10 +70,29 @@ public class CenterContentStore extends JPanel {
     public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
  System.out.println(cnDTO.getMACHUCNANG());
  if(cnDTO.getMACHUCNANG().equals("KH")){
+     this.search.removeAll();
+     this.search.revalidate();
+        this.search.repaint();
      this.pageContent.removeAll();
       this.pageContent.setLayout(new BorderLayout(0, 0));
       view_quan_li_khach_hang qlkh = new view_quan_li_khach_hang(chieurong, chieucao);
         this.pageContent.add(qlkh, BorderLayout.CENTER);
+
+        this.pageContent.revalidate();
+        this.pageContent.repaint();
+
+     return;
+ }
+  if(cnDTO.getMACHUCNANG().equals("PN")){
+     this.search.removeAll();
+     this.search.revalidate();
+        this.search.repaint();
+     this.pageContent.removeAll();
+      this.pageContent.setLayout(new BorderLayout(0, 0));
+      JPanel pn = new JPanel();
+                pn.setPreferredSize(new Dimension(chieurong, chieurong));
+                pn.add(new JLabel("Đây là trang phiếu nhập"));
+        this.pageContent.add(pn, BorderLayout.CENTER);
 
         this.pageContent.revalidate();
         this.pageContent.repaint();
@@ -210,15 +229,15 @@ public class CenterContentStore extends JPanel {
                             LoginUI login = new LoginUI();
                         }
                 break;
-            case "PN":{
-                JPanel pn = new JPanel();
-                pn.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
-                pn.add(new JLabel("Đây là trang phiếu nhập"));
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
-                showThaotac(JP_thaotac);
-                showPageContent(pn);
-                break;
-            }
+//            case "PN":{
+//                JPanel pn = new JPanel();
+//                pn.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
+//                pn.add(new JLabel("Đây là trang phiếu nhập"));
+//                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
+//                showThaotac(JP_thaotac);
+//                showPageContent(pn);
+//                break;
+//            }
             default:
                 JPanel p = new JPanel();
                 p.add(new JLabel("Chưa có chức năng này", JLabel.CENTER));
