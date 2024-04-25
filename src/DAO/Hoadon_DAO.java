@@ -5,7 +5,6 @@
 package DAO;
 
 import DTO.Hoadon_DTO;
-import DTO.Nhanvien_DTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,11 +32,12 @@ public class Hoadon_DAO {
                 {
                     String maHD = rs.getString("SOHD");
                     String ngayHD = rs.getTimestamp("NGAYHD").toString();
-                    String maKH = rs.getString("MAKH");
+                    int maKH = rs.getInt("MAKH");
                     String maNV = rs.getString("MANV");
+                    int giamgia = rs.getInt("TIENGIAMGIA");
                     int tongtien = rs.getInt("TONGTIEN");
                     
-                    Hoadon_DTO hd = new Hoadon_DTO(maHD, ngayHD, maKH, maNV, tongtien);
+                    Hoadon_DTO hd = new Hoadon_DTO(maHD, ngayHD, maKH, maNV,giamgia, tongtien);
                     dshd.add(hd);
                 }
             }
@@ -53,7 +53,7 @@ public class Hoadon_DAO {
      public void add(Hoadon_DTO item){
         try {
             mySQL.connect();
-            String query= "INSERT INTO hoadon VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','" +item.getTongTien()+");";
+            String query= "INSERT INTO hoadon VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  +item.getGiamgia() +"','"+item.getTongTien()+");";
             mySQL.executeUpdate(query);
             System.out.println("Them Hoa don thanh cong");
             mySQL.disconnect();
