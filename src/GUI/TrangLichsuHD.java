@@ -55,6 +55,8 @@ public final class TrangLichsuHD extends JPanel  {
                 p.setBackground(Color.WHITE);
             right.add(p);
                 
+            
+            
             left = new JPanel();
             left.setPreferredSize(new Dimension(chieurong/3, 0));
             left.setBackground(Color.white);
@@ -62,27 +64,45 @@ public final class TrangLichsuHD extends JPanel  {
         this.add(left);
         this.add(right);
             
-        
+        // create title
+        String[] columnNames = {"Ngay", "KH", "Nhanvien","Hoadon","Giamgia","Thanhtien" }; 
+                    JPanel titlePanel = new JPanel();
+                        titlePanel.setLayout(new FlowLayout(1,0,0));
+                        titlePanel.setBackground(Color.decode("#60A3BC"));
+                        titlePanel.setPreferredSize(new Dimension((chieurong), 30));
+                     for (String col : columnNames) {
+                            JLabel l = new JLabel(col,JLabel.CENTER);
+                                l.setPreferredSize(new Dimension(((chieurong)/3)/6, 30));
+                                l.setFont(new Font(l.getFont().getName(), Font.CENTER_BASELINE, 12));
+                                l.setForeground(Color.white);
+                        titlePanel.add(l);
+                     }
+            left.add(titlePanel);       
         lshd = new Hoadon_BUS();
             for (Hoadon_DTO hd : lshd.dshoadon) {
                 JPanel pa = new JPanel();
-                    pa.setLayout(new FlowLayout(0,5,0));
+                    pa.setLayout(new FlowLayout(1,0,0));
                     pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#0A3D62")));
                     pa.setBackground(Color.white);
                     JLabel lab1 = new JLabel((String) hd.getNgayHD(), JLabel.CENTER);
-                    JLabel lab2 = new JLabel((String) hd.getMaKH(), JLabel.CENTER);
+                    JLabel lab2 = new JLabel(Integer.toString(hd.getMaKH()), JLabel.CENTER);
                     JLabel lab3 = new JLabel((String) hd.getMaNV(), JLabel.CENTER);
                     JLabel lab4 = new JLabel((String) hd.getMaHD(), JLabel.CENTER);
                     JLabel lab5 = new JLabel(Integer.toString(hd.getTongTien()) , JLabel.CENTER);
-                    lab1.setPreferredSize(new Dimension(((chieurong/3)-40)/5, 30));
-                    lab2.setPreferredSize(new Dimension(((chieurong/3)-40)/5, 30));
-                    lab3.setPreferredSize(new Dimension(((chieurong/3)-40)/5, 30));
-                    lab4.setPreferredSize(new Dimension(((chieurong/3)-40)/5, 30));
-                    lab5.setPreferredSize(new Dimension(((chieurong/3)-40)/5, 30));
+                    JLabel lab6 = new JLabel(Integer.toString(hd.getGiamgia()) , JLabel.CENTER);
+
+                    lab1.setPreferredSize(new Dimension((chieurong/3)/6, 30));
+                    lab2.setPreferredSize(new Dimension((chieurong/3)/6, 30));
+                    lab3.setPreferredSize(new Dimension((chieurong/3)/6, 30));
+                    lab4.setPreferredSize(new Dimension((chieurong/3)/6, 30));
+                    lab6.setPreferredSize(new Dimension((chieurong/3)/6, 30));                    
+                    lab5.setPreferredSize(new Dimension((chieurong/3)/6, 30));
+                    
                 pa.add(lab1);
                 pa.add(lab2);
                 pa.add(lab3);
                 pa.add(lab4);
+                pa.add(lab6);
                 pa.add(lab5);
         left.add(pa);
                 pa.addMouseListener(new MouseAdapter() {
@@ -104,7 +124,7 @@ public final class TrangLichsuHD extends JPanel  {
                                 System.out.print(a);
                             }
                         try {
-                            ChitietHD_GUI s = new ChitietHD_GUI(chieurong, chieucao, LCont.get(3), LCont.get(0), LCont.get(1), LCont.get(2), LCont.get(4));
+                            ChitietHD_GUI s = new ChitietHD_GUI(chieurong, chieucao, LCont.get(3), LCont.get(0), LCont.get(1), LCont.get(2), LCont.get(4),LCont.get(5));
                             right.add(s);
                             right.revalidate();
                             right.repaint();
