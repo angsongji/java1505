@@ -2,7 +2,7 @@
 package GUI;
 
 import BUS.ChitietHD_BUS;
-import DAO.ConnectDataBase12;
+import DAO.ConnectDataBase;
 import DTO.ChitietHD_DTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
