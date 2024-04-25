@@ -32,7 +32,7 @@ public class Hoadon_DAO {
                 {
                     String maHD = rs.getString("SOHD");
                     String ngayHD = rs.getTimestamp("NGAYHD").toString();
-                    String maKH = rs.getString("MAKH");
+                    int maKH = rs.getInt("MAKH");
                     String maNV = rs.getString("MANV");
                     int giamgia = rs.getInt("TIENGIAMGIA");
                     int tongtien = rs.getInt("TONGTIEN");
