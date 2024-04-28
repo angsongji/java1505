@@ -83,6 +83,36 @@ public class ShoppingCartUI extends JPanel {
         endPanel.setBackground(new Color(96, 163, 188));
         add(endPanel);
 
+        // Mã giảm giá
+        JLabel discountCodeLabel = new JLabel("Mã giảm giá:");
+        discountCodeLabel.setBounds(300, 510, 150, 30);
+        discountCodeLabel.setForeground(new Color(10, 61, 98));
+        discountCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        endPanel.add(discountCodeLabel);
+
+        JTextField discountCodeField = new JTextField();
+        discountCodeField.setBounds(300, 540, 200, 30);
+        discountCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
+        endPanel.add(discountCodeField);
+
+        JButton applyDiscountButton = new JButton("Áp dụng");
+        applyDiscountButton.setBounds(520, 540, 100, 30);
+        applyDiscountButton.setForeground(new Color(96, 163, 188));
+        applyDiscountButton.setBackground(new Color(10, 61, 98));
+        applyDiscountButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        applyDiscountButton.setFocusPainted(false);
+        endPanel.add(applyDiscountButton);
+
+        applyDiscountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            String discountCode = discountCodeField.getText();
+        // Thực hiện kiểm tra mã giảm giá và áp dụng
+
+        // Cập nhật tổng tiền và hiển thị lại
+            }
+        });
+
         // Thanh toán
         JButton payButton = new JButton("Thanh toán");
         payButton.setBounds(1050, 520, 150, 50);
