@@ -89,7 +89,7 @@ if(i.getTENCHUCNANG().equals(cnDTO.getTENCHUCNANG())){
         int heightJP_content=ccao - (int)JP_listNameChucnangConCuaHoadon.getPreferredSize().getHeight();
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLHD":
-                JPanel p = new JPanel();
+                ShoppingCartUI p = new ShoppingCartUI();
                 p.setPreferredSize(new Dimension(crong-20,heightJP_content-20));
                 p.add(new JLabel("Giỏ hàng trống"));
                 
