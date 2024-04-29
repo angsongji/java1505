@@ -5,12 +5,6 @@
  */
 package DAO;
 
-/**
- *
- * @author hp
- */
-import com.mysql.jdbc.Driver;
-
 import java.sql.*;
 
 public class ConnectDataBase {
@@ -26,7 +20,7 @@ public class ConnectDataBase {
       //driver = new org.gjt.mm.mysql.Driver();
        url = "jdbc:mysql://localhost:3306/";
        dbName = "qlba";
-       driver = "com.mysql.jdbc.Driver";
+       driver = "com.mysql.cj.jdbc.Driver";
        userName = "root";//username tuy may moi nguoi khac nhau
        password = "Oanh2004!";//password tuy may moi nguoi khac nhau
    }
