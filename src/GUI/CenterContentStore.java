@@ -68,13 +68,16 @@ public class CenterContentStore extends JPanel {
     }
 
     public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
- System.out.println(cnDTO.getMACHUCNANG());
  if(cnDTO.getMACHUCNANG().equals("KH")){
      this.search.removeAll();
      this.search.revalidate();
         this.search.repaint();
+         this.thaotac.removeAll();
+     this.thaotac.revalidate();
+        this.thaotac.repaint();
      this.pageContent.removeAll();
       this.pageContent.setLayout(new BorderLayout(0, 0));
+      
       view_quan_li_khach_hang qlkh = new view_quan_li_khach_hang(chieurong, chieucao);
         this.pageContent.add(qlkh, BorderLayout.CENTER);
 
@@ -87,13 +90,19 @@ public class CenterContentStore extends JPanel {
      this.search.removeAll();
      this.search.revalidate();
         this.search.repaint();
+        this.thaotac.removeAll();
+     this.thaotac.revalidate();
+        this.thaotac.repaint();
      this.pageContent.removeAll();
       this.pageContent.setLayout(new BorderLayout(0, 0));
+      
       JPanel pn = new JPanel();
                 pn.setPreferredSize(new Dimension(chieurong, chieurong));
                 pn.add(new JLabel("Đây là trang phiếu nhập"));
         this.pageContent.add(pn, BorderLayout.CENTER);
 
+        
+        
         this.pageContent.revalidate();
         this.pageContent.repaint();
 
