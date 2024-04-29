@@ -114,7 +114,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private ArrayList<chitietquyenDTO> listHANHDONG(String MACHUCNANG, String MAQUYEN) {
         ArrayList<chitietquyenDTO> hanhdong = new ArrayList<>();
         if (!MACHUCNANG.contains("NULL")) {
-            System.out.println("MACHUCNANG"+MACHUCNANG);
+            System.out.println("MACHUCNANG" + MACHUCNANG);
             chitietquyenDAO ctqDAO = new chitietquyenDAO();
             String query = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "' AND MACHUCNANG='" + MACHUCNANG + "'";
 
@@ -125,6 +125,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
             }
         }
+      if(MACHUCNANG.equals("HD")) hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "In PDF"));
+      if(MACHUCNANG.equals("NCC"))  hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Import Excel"));
         return hanhdong;
     }
 
@@ -148,7 +150,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
                 break;
             }
-            case "PQ":{
+            case "PQ": {
                 thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);
                 break;
             }
@@ -203,52 +205,77 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             }
         }
     }
+
     public void thaotacPQ(String hanhdong, hanhdongGUI itemClicked) {
-        phanquyen pq = (phanquyen)pageContent;
+        phanquyen pq = (phanquyen) pageContent;
         quyenBUS qBUS = new quyenBUS();
+        chitietquyenBUS ctqBUS =new chitietquyenBUS();
         switch (hanhdong) {
-                    case "Thêm":
-                        addQuyen addquyen = new addQuyen(pq);
-                        break;
-                    case "Sửa": {
-                        switch (itemClicked.title.getText()) {
+            case "Thêm":
+                addQuyen addquyen = new addQuyen(pq);
+                break;
+            case "Sửa": {
+                switch (itemClicked.title.getText()) {
                     case "Sửa":
                         //JOptionPane.showMessageDialog(null, "Double Click vào ô cần sửa thông tin\nKhông thể sửa đổi MANCC!\nTên nhà cung cấp không chứa chữ số và các kí tự đặc biệt\nSố điện thoại 10 số bắt đầu là số 0\nHoàn thành sửa đổi thì ấn nút Lưu");
-
+                        JOptionPane.showMessageDialog(null, "Bạn đang thực hiện chỉnh sửa quyền\nẤn Lưu/Thoát khi đã hoàn tất chỉnh sửa!");
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
-                        pq.updateTENQUYEN(pq.currentQuyen,0);
+                        pq.updateTENQUYEN(pq.currentQuyen, 0);
                         pq.isEditingEnabled = true;
                         break;
                     case "Lưu/Thoát":
-                           itemClicked.title.setText("Sửa");
-                                    itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
-                                    pq.updateTENQUYEN(pq.currentQuyen,1);
-                                    pq.isEditingEnabled = false;
-                        break;
-                        }
-                        break;
-                    }
-                    case "Xóa": {
-                       int r2 = JOptionPane.showConfirmDialog(null, "Chỉ có thể xóa quyền này khi không tồn tại tài khoản thuộc quyền này\nBạn có chắc chắn muốn xóa quyền đang chọn?", "Xóa quyền ", JOptionPane.YES_NO_OPTION);
+                        int r2 = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn lưu chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
-                            System.out.println(pq.currentQuyen);
-                            System.out.println(qBUS.checkCanDelete(pq.currentQuyen));
-                            if(qBUS.checkCanDelete(pq.currentQuyen)){
-                               qBUS.delete(pq.currentQuyen.getMAQUYEN());
-                                pq.deleteJP_NameQuyen(pq.currentQuyen);
-                                
-                               System.out.println("tencurrent quyen sau khi xoa tren thanh lau chon: "+pq.currentQuyen.toString());
-                                
-                                JOptionPane.showMessageDialog(null, "Xóa quyền thành công");
+                            itemClicked.title.setText("Sửa");
+                            itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                            System.out.println("Quyen truoc khi sua"+pq.currentQuyen.toString());
+                            pq.updateTENQUYEN(pq.currentQuyen, 1);
+                            System.out.println("Quyen sau khi sua"+pq.currentQuyen.toString());
+                            qBUS.updateTENQUYEN(pq.currentQuyen);
+                            ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
+                            pq.isEditingEnabled = false;
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!");
+                        } else {
+                            int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
+                            if (r2_1 == JOptionPane.NO_OPTION) {
+                                int r2_2 = JOptionPane.showConfirmDialog(null, "Những sửa đổi sẽ không được lưu sau khi bạn thoát!!\nBạn có chắc chắn thoát chỉnh sửa??", "Thoát", JOptionPane.YES_NO_OPTION);
+                                if (r2_2 == JOptionPane.YES_OPTION) {
+
+                                    itemClicked.title.setText("Sửa");
+                                    itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                                    pq.updateTENQUYEN(pq.currentQuyen, 2);
+                                    
+                                    pq.isEditingEnabled = false;
+                                }
                             }
-                            else JOptionPane.showMessageDialog(null, "Xóa thất bại do có tài khoản thuộc quyền này");
-                       }
+                        }
+
                         break;
-                    
-                       }
+                }
+                break;
+            }
+            case "Xóa": {
+                int r2 = JOptionPane.showConfirmDialog(null, "Chỉ có thể xóa quyền này khi không tồn tại tài khoản thuộc quyền này\nBạn có chắc chắn muốn xóa quyền đang chọn?", "Xóa quyền ", JOptionPane.YES_NO_OPTION);
+                if (r2 == JOptionPane.YES_OPTION) {
+                    System.out.println(pq.currentQuyen);
+                    System.out.println(qBUS.checkCanDelete(pq.currentQuyen));
+                    if (qBUS.checkCanDelete(pq.currentQuyen)) {
+                        qBUS.delete(pq.currentQuyen.getMAQUYEN());
+                        pq.deleteJP_NameQuyen(pq.currentQuyen);
+
+                        System.out.println("tencurrent quyen sau khi xoa tren thanh lau chon: " + pq.currentQuyen.toString());
+
+                        JOptionPane.showMessageDialog(null, "Xóa quyền thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa thất bại do có tài khoản thuộc quyền này");
                     }
-                
+                }
+                break;
+
+            }
+        }
+
     }
 
     public void thaotacNCC(String hanhdong, hanhdongGUI itemClicked) {
@@ -400,7 +427,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
 
                 break;
             }
-             case "Xóa": {
+            case "Xóa": {
                 switch (itemClicked.title.getText()) {
                     case "Xóa":
                         JOptionPane.showMessageDialog(null, "Để chọn nhiều ô cần xóa:\nKéo chuột\nGiữ Ctrl và click vào các ô cần xóa");

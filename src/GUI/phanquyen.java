@@ -63,13 +63,13 @@ public class phanquyen extends JPanel implements MouseListener {
     private ArrayList<quyenDTO> listQuyen;
     private ArrayList<chucnangDTO> listChucnang;
     private JPanel JP_quyenSelected;
-     public boolean isEditingEnabled = false;
+    public boolean isEditingEnabled = false;
 
-    public phanquyen(int crong, int ccao,quyenDTO quyenUser) {
+    public phanquyen(int crong, int ccao, quyenDTO quyenUser) {
         this.ccao = ccao;
         this.crong = crong;
         startQuyen = quyenUser;
-        currentQuyen = new quyenDTO(startQuyen.getMAQUYEN(),startQuyen.getTENQUYEN());
+        currentQuyen = new quyenDTO(startQuyen.getMAQUYEN(), startQuyen.getTENQUYEN());
         init();
     }
 
@@ -84,18 +84,17 @@ public class phanquyen extends JPanel implements MouseListener {
             JLabel title_quyen = new JLabel(i.getTENQUYEN(), JLabel.CENTER);
             btn_quyen.setPreferredSize(new Dimension((int) title_quyen.getPreferredSize().getWidth() + 50, (int) title_quyen.getPreferredSize().getHeight() + 20));
             btn_quyen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            
-            if(i.getMAQUYEN().equals(startQuyen.getMAQUYEN())){
+
+            if (i.getMAQUYEN().equals(startQuyen.getMAQUYEN())) {
                 title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-            btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            btn_quyen.setOpaque(true);
-            JP_quyenSelected = btn_quyen;
-            }else{
+                btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+                btn_quyen.setOpaque(true);
+                JP_quyenSelected = btn_quyen;
+            } else {
                 title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
-            btn_quyen.setOpaque(true);
+                btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
+                btn_quyen.setOpaque(true);
             }
-            
 
             title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
             btn_quyen.setName(i.toString());
@@ -103,42 +102,40 @@ public class phanquyen extends JPanel implements MouseListener {
             btn_quyen.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                     ((JLabel)JP_quyenSelected.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            JP_quyenSelected.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
-            JP_quyenSelected.setOpaque(true);
-                    
+                    ((JLabel) JP_quyenSelected.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+                    JP_quyenSelected.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
+                    JP_quyenSelected.setOpaque(true);
+
                     JPanel btn = (JPanel) e.getSource();
-                    ((JLabel)btn.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+                    ((JLabel) btn.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
                     btn.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            btn.setOpaque(true);
-            JP_quyenSelected = btn;
+                    btn.setOpaque(true);
+                    JP_quyenSelected = btn;
                     repaintDataInTable(btn.getName());
                 }
             });
             JP_listNameQuyen.add(btn_quyen);
         }
 
-
-
         chucnangBUS cnBUS = new chucnangBUS();
         listChucnang = cnBUS.getList();
         //Tiêu đề cột dọc
         // Tạo đối tượng DefaultTableModel với dữ liệu và tên cột
-        tableModel = new DefaultTableModel(){
-         @Override
-    public Class getColumnClass(int columnIndex) {
-        if (columnIndex == 0) {
-            // Trả về kiểu dữ liệu mặc định cho cột đầu tiên
-            return super.getColumnClass(columnIndex);
-        } else {
-            // Trả về kiểu dữ liệu Boolean cho các cột còn lại
-            return Boolean.class;
-        }
-    }
-      };
+        tableModel = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                if (columnIndex == 0) {
+                    // Trả về kiểu dữ liệu mặc định cho cột đầu tiên
+                    return super.getColumnClass(columnIndex);
+                } else {
+                    // Trả về kiểu dữ liệu Boolean cho các cột còn lại
+                    return Boolean.class;
+                }
+            }
+        };
         tableModel.setColumnIdentifiers(columnNames);
 
-        table = new JTable(tableModel){
+        table = new JTable(tableModel) {
 
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -164,73 +161,76 @@ public class phanquyen extends JPanel implements MouseListener {
         add(JP_listNameQuyen);
         add(scrollPane);
     }
-    public void deleteJP_NameQuyen(quyenDTO qDTO){
+
+    public void deleteJP_NameQuyen(quyenDTO qDTO) {
         Component[] JP_childNameQuyen = JP_listNameQuyen.getComponents();
-         for (int i = 0; i < JP_childNameQuyen.length; i++) {
+        for (int i = 0; i < JP_childNameQuyen.length; i++) {
             JPanel p = (JPanel) JP_childNameQuyen[i];
-                          
-           quyenDTO quyenCLick = new quyenDTO(p.getName());
-                  if (quyenCLick.getMAQUYEN().equals(startQuyen.getMAQUYEN())) {
-                      ((JLabel)p.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-                    p.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            p.setOpaque(true);
-            p.repaint();
-            p.validate(); 
-            JP_quyenSelected=p;
-            }
-                  else if(quyenCLick.getMAQUYEN().equals(qDTO.getMAQUYEN())){
-            JP_listNameQuyen.remove(i);
-  break;
+
+            quyenDTO quyenCLick = new quyenDTO(p.getName());
+            if (quyenCLick.getMAQUYEN().equals(startQuyen.getMAQUYEN())) {
+                ((JLabel) p.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+                p.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+                p.setOpaque(true);
+                p.repaint();
+                p.validate();
+                JP_quyenSelected = p;
+            } else if (quyenCLick.getMAQUYEN().equals(qDTO.getMAQUYEN())) {
+                JP_listNameQuyen.remove(i);
+                break;
             }
         }
-                     JP_listNameQuyen.revalidate(); // Cập nhật layout
-            JP_listNameQuyen.repaint(); 
-            repaintDataInTable(startQuyen.toString());
+        JP_listNameQuyen.revalidate(); // Cập nhật layout
+        JP_listNameQuyen.repaint();
+        repaintDataInTable(startQuyen.toString());
     }
-    public void addJP_NameQuyen(quyenDTO qDTO){
-        JPanel btn_quyen = new JPanel(new BorderLayout());
-            JLabel title_quyen = new JLabel(qDTO.getTENQUYEN(), JLabel.CENTER);
-            btn_quyen.setPreferredSize(new Dimension((int) title_quyen.getPreferredSize().getWidth() + 50, (int) title_quyen.getPreferredSize().getHeight() + 20));
-            btn_quyen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
-            btn_quyen.setName(qDTO.toString());
-            btn_quyen.add(title_quyen, BorderLayout.CENTER);
-            title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
-            btn_quyen.setOpaque(true);
-            btn_quyen.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    
-                     ((JLabel)JP_quyenSelected.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            JP_quyenSelected.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
-            JP_quyenSelected.setOpaque(true);
-                    
-                    JPanel btn = (JPanel) e.getSource();
-                    ((JLabel)btn.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-                    btn.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-            btn.setOpaque(true);
-            JP_quyenSelected = btn;
-                    repaintDataInTable(btn.getName());
 
-                }
-            });
-            JP_listNameQuyen.add(btn_quyen);
-            JP_listNameQuyen.repaint();
-            JP_listNameQuyen.revalidate();
+    public void addJP_NameQuyen(quyenDTO qDTO) {
+        JPanel btn_quyen = new JPanel(new BorderLayout());
+        JLabel title_quyen = new JLabel(qDTO.getTENQUYEN(), JLabel.CENTER);
+        btn_quyen.setPreferredSize(new Dimension((int) title_quyen.getPreferredSize().getWidth() + 50, (int) title_quyen.getPreferredSize().getHeight() + 20));
+        btn_quyen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btn_quyen.setName(qDTO.toString());
+        btn_quyen.add(title_quyen, BorderLayout.CENTER);
+        title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        btn_quyen.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
+        btn_quyen.setOpaque(true);
+        btn_quyen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                ((JLabel) JP_quyenSelected.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+                JP_quyenSelected.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
+                JP_quyenSelected.setOpaque(true);
+
+                JPanel btn = (JPanel) e.getSource();
+                ((JLabel) btn.getComponents()[0]).setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+                btn.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+                btn.setOpaque(true);
+                JP_quyenSelected = btn;
+                repaintDataInTable(btn.getName());
+
+            }
+        });
+        JP_listNameQuyen.add(btn_quyen);
+        JP_listNameQuyen.repaint();
+        JP_listNameQuyen.revalidate();
     }
 
     private void addDataInTable() {
         Vector data;
         tableModel.setRowCount(0);
 
-        chitietquyenDAO ctqDAO = new chitietquyenDAO();
+        
+        
+        chitietquyenBUS ctqBUS = new chitietquyenBUS();
         for (chucnangDTO i : listChucnang) {
             data = new Vector();
             data.add(i.getTENCHUCNANG());
             for (String hd : columnNames) {
                 if (!hd.equals("")) {
-                    if (ctqDAO.seach(new chitietquyenDTO(startQuyen.getMAQUYEN(), i.getMACHUCNANG(), hd))) {
+                    if (ctqBUS.search(new chitietquyenDTO(startQuyen.getMAQUYEN(), i.getMACHUCNANG(), hd))) {
                         data.add(true);
                     } else {
                         data.add(false);
@@ -241,15 +241,16 @@ public class phanquyen extends JPanel implements MouseListener {
         }
         table.setModel(tableModel);
     }
+
     private void repaintDataInTable(String mq) {
         quyenDTO new_quyen = new quyenDTO(mq);
         currentQuyen.setMAQUYEN(new_quyen.getMAQUYEN());
         currentQuyen.setTENQUYEN(new_quyen.getTENQUYEN());
-        chitietquyenDAO ctqDAO = new chitietquyenDAO();
+         chitietquyenBUS ctqBUS = new chitietquyenBUS();
         TableModel model = table.getModel();
         for (int i = 0; i < listChucnang.size(); i++) {
             for (int j = 1; j < columnNames.length; j++) {
-                if (ctqDAO.seach(new chitietquyenDTO(currentQuyen.getMAQUYEN(), listChucnang.get(i).getMACHUCNANG(), columnNames[j]))) {
+                if (ctqBUS.search(new chitietquyenDTO(currentQuyen.getMAQUYEN(), listChucnang.get(i).getMACHUCNANG(), columnNames[j]))) {
                     model.setValueAt(true, i, j);
                 } else {
                     model.setValueAt(false, i, j);
@@ -272,44 +273,75 @@ public class phanquyen extends JPanel implements MouseListener {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Căn giữa dữ liệu trong các ô
         table.setDefaultRenderer(Object.class, centerRenderer);
     }
-    
-    public void updateTENQUYEN(quyenDTO qDTO,int status){
-         Component[] JP_childNameQuyen = JP_listNameQuyen.getComponents();
-         for (int i = 0; i < JP_childNameQuyen.length; i++) {
-             JPanel p =(JPanel)JP_childNameQuyen[i];
-             if(p.getName().equals(qDTO.toString())){
-                  
-                 switch (status) {
-                     case 0:
-                         
-                            JTextField tenquyen = new JTextField(qDTO.getTENQUYEN());
-                             p.removeAll();
-                            p.add(tenquyen);
-                         break;
-                     case 1:
-                         String new_tenquyen=((JTextField)p.getComponents()[0]).getText();
-                       quyenDTO new_quyen = new quyenDTO(p.getName());
-                       new_quyen.setTENQUYEN(new_tenquyen);
-                         currentQuyen.setTENQUYEN(new_tenquyen);
-                       p.setName(new_quyen.toString());
-                          JLabel title_quyen = new JLabel(new_tenquyen, JLabel.CENTER);
-                          title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
-           title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
-            p.removeAll();
-                          p.add(title_quyen);
+
+    public void updateTENQUYEN(quyenDTO qDTO, int status) {
+        Component[] JP_childNameQuyen = JP_listNameQuyen.getComponents();
+        for (int i = 0; i < JP_childNameQuyen.length; i++) {
+            JPanel p = (JPanel) JP_childNameQuyen[i];
+            if (p.getName().equals(qDTO.toString())) {
+
+                switch (status) {
+                    case 0:
+
+                        JTextField tenquyen = new JTextField(qDTO.getTENQUYEN());
+                        p.removeAll();
+                        p.add(tenquyen);
                         break;
-                 }
-               
-                 
-                 
-                 
-                 p.repaint();
-                 p.validate();
-                 break;
-             }
-         }
-          JP_listNameQuyen.revalidate(); // Cập nhật layout
-            JP_listNameQuyen.repaint();  
+                    case 1: {
+                        String new_tenquyen = ((JTextField) p.getComponents()[0]).getText();
+                        quyenDTO new_quyen = new quyenDTO(p.getName());
+                        new_quyen.setTENQUYEN(new_tenquyen);
+                        currentQuyen.setTENQUYEN(new_tenquyen);
+                        p.setName(new_quyen.toString());
+                        JLabel title_quyen = new JLabel(new_tenquyen, JLabel.CENTER);
+                        title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+                        title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
+                        p.removeAll();
+                        p.add(title_quyen);
+                        break;
+                    }
+
+                    case 2: {
+                        JLabel title_quyen = new JLabel(currentQuyen.getTENQUYEN(), JLabel.CENTER);
+                        title_quyen.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+                        title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
+                        p.removeAll();
+                        p.add(title_quyen);
+                        repaintDataInTable(p.getName());
+                        break;
+                    }
+
+                }
+
+                p.repaint();
+                p.validate();
+                break;
+            }
+        }
+        JP_listNameQuyen.revalidate(); // Cập nhật layout
+        JP_listNameQuyen.repaint();
+    }
+    
+    public ArrayList<chitietquyenDTO> getListUpdateCtqTheoMAUQYEN(){
+        ArrayList<chitietquyenDTO> listCtqTheoMAQUYEN = new ArrayList<>();
+        
+        String q = currentQuyen.getMAQUYEN();
+
+        TableModel model = table.getModel();
+        for (int i = 0; i < listChucnang.size(); i++) {
+            for (int j = 1; j < columnNames.length; j++) {
+              
+                  if( model.getValueAt(i, j).equals(true)){
+                      
+                      chitietquyenDTO ctqNew = new chitietquyenDTO(q,  listChucnang.get(i).getMACHUCNANG(),columnNames[j] );
+                    
+                     
+                      listCtqTheoMAQUYEN.add(ctqNew);
+                  } 
+                
+            }
+        }
+        return listCtqTheoMAQUYEN;
     }
 //
 //    public static void main(String[] args) {

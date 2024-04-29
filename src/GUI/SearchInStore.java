@@ -41,14 +41,14 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
     private JButton reset;
     private JButton submit;
     private Font font_title;
-    private String TENCHUCNANG;
+    private String MACHUCNANG;
     private ArrayList<String> listTitle;
     private Component pageContent;
 
     // private String[] titleTimkiem={"Theo tên"};
-    public SearchInStore(String TENCHUCNANG, Component pageContent) {
+    public SearchInStore(String MACHUCNANG, Component pageContent) {
         this.pageContent = pageContent;
-        this.TENCHUCNANG = TENCHUCNANG;
+        this.MACHUCNANG = MACHUCNANG;
         init();
 
     }
@@ -167,20 +167,25 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
     private void init() {
 
         listTitle = new ArrayList<>();
-        switch (TENCHUCNANG) {
+        switch (MACHUCNANG) {
             
-            case "NULLTEN": {
+            case "NULLTK": {
                 String[] list = {};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Phân quyền": {
+                        case "NULLHD": {
+                String[] list = {};
+                listTitle.addAll(Arrays.asList(list));
+                break;
+            }
+            case "PQ": {
                 String[] list = {};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
             //={"Theo tên","Giá thấp nhất","đến","Giá cao nhất","Theo loại",}
-            case "Nhà cung cấp": {
+            case "NCC": {
                 System.out.println("Nha cung cap");
                 String[] list = {"Theo tên hoặc MANCC"};
                 listTitle.addAll(Arrays.asList(list));
@@ -188,58 +193,58 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 break;
             }
 
-            case "Tài khoản cá nhân": {
-                String[] list = {};
-                listTitle.addAll(Arrays.asList(list));
-                break;
-            }
-            case "Sản phẩm": {
+//            case "Tài khoản cá nhân": {
+//                String[] list = {};
+//                listTitle.addAll(Arrays.asList(list));
+//                break;
+//            }
+            case "SP": {
                 String[] list = {"Theo tên sản phẩm", "Theo loại"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Tài khoản": {
+            case "TK": {
                 String[] list = {"Theo USERNAME", "Tình trạng"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Khách hàng": {
+            case "KH": {
                 String[] list = {"Theo tên hoặc MAKH", "Điểm tích lũy"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Giỏ hàng": {
-                String[] list = {};
-                listTitle.addAll(Arrays.asList(list));
-                break;
-            }
-            case "Nhân viên": {
+//            case "Giỏ hàng": {
+//                String[] list = {};
+//                listTitle.addAll(Arrays.asList(list));
+//                break;
+//            }
+            case "NV": {
                 String[] list = {"Theo tên hoặc MANV","Theo chức vụ"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Phiếu nhập": {
+            case "PN": {
                 String[] list = {"Theo MAPN", "Theo ngày nhập"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Thống kê": {
+            case "NULLThK": {
                 String[] list = {"Ngày bắt đầu", "đến", "Ngày kết thúc", "Theo loại"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Hóa đơn": {
-               
+            case "HD": {
+                System.out.println("LA TAI SAOOOOOOO");
                 String[] list = {"Theo MAHD", "Ngày bắt đầu", "đến", "Ngày kết thúc"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Loại": {
+            case "LOAI": {
                 String[] list = {"Theo tên hoặc MALOAI"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-            case "Size": {
+            case "SIZE": {
                 String[] list = {};
                 listTitle.addAll(Arrays.asList(list));
                 break;

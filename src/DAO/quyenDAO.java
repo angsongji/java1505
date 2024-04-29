@@ -55,6 +55,17 @@ public class quyenDAO {
             c.disconnect();
         }catch(SQLException e){}
     }
+     
+        public void update(quyenDTO qNEW){
+                    try {
+            c.connect();
+
+            String query = " UPDATE quyen SET TENQUYEN='" + qNEW.getTENQUYEN() + "' WHERE MAQUYEN='" + qNEW.getMAQUYEN()+ "'";
+            c.executeUpdate(query);
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+        }
 //     
 //     public static void main(String[] args) {
 //        ArrayList<quyenDTO> list = new ArrayList<>();

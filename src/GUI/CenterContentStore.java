@@ -111,8 +111,8 @@ public class CenterContentStore extends JPanel {
   
                   
 
-               
-        SearchInStore JP_search = new SearchInStore(cnDTO.getTENCHUCNANG(), pageContent);
+               System.out.println("TENCHUCNANG"+cnDTO.getTENCHUCNANG());
+        SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent);
         showSearch(JP_search);
 
         pageContent.removeAll();

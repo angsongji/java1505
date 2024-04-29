@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import BUS.chitietquyenBUS;
+import DTO.chitietquyenDTO;
 import DTO.chucnangDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,7 +41,12 @@ public class chucnangHoadon extends JPanel implements MouseListener{
     }
     
      private void init(chucnangDTO cnDTO,String maquyen) {
-        listChucnangCon.add(new chucnangDTO("NULLHD","NULLTEN"));
+         chitietquyenBUS ctqBUS = new chitietquyenBUS();
+               if(ctqBUS.search(new chitietquyenDTO(maquyen,"HD","Thêm"))){
+                   System.out.println("CO HAY KHONGGG");
+                   listChucnangCon.add(new chucnangDTO("NULLHD","NULLTEN"));
+               }
+                     
         listChucnangCon.add(new chucnangDTO("HD","Hóa đơn"));
         JP_listNameChucnangConCuaHoadon = new JPanel(new FlowLayout(3));
         for(chucnangDTO i: listChucnangCon){
@@ -52,7 +59,7 @@ public class chucnangHoadon extends JPanel implements MouseListener{
             btn_taikhoan.setPreferredSize(new Dimension((int) title_taikhoan.getPreferredSize().getWidth() + 50, (int) title_taikhoan.getPreferredSize().getHeight() + 20));
             btn_taikhoan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             
-if(i.getTENCHUCNANG().equals(cnDTO.getTENCHUCNANG())){
+if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
                 title_taikhoan.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
             btn_taikhoan.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
             btn_taikhoan.setOpaque(true);
@@ -91,8 +98,6 @@ if(i.getTENCHUCNANG().equals(cnDTO.getTENCHUCNANG())){
             case "NULLHD":
                 ShoppingCartUI p = new ShoppingCartUI();
                 p.setPreferredSize(new Dimension(crong-20,heightJP_content-20));
-                p.add(new JLabel("Giỏ hàng trống"));
-                
                 JP_contentCuaNameChucnangCon.add(p);
                 break;
             case "HD":

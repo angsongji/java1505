@@ -108,17 +108,18 @@ public class chitietquyenDAO {
        }catch(SQLException e){}
         return list;
     }
-//    public void delete(chitietquyenDTO item){
-//        try{
-//            c.connect();
-//            String query = "DELETE FROM chitietquyen WHERE MACHUCNANG = '"+item.getMACHUCNANG()+"'";
-//            c.executeUpdate(query);
-//            c.disconnect();
-//            System.out.println("Xoa chuc nang thanh cong");
-//        }catch(SQLException e){
-//            System.out.println("Xoa chuc nang that bai");
-//        }
-//    }
+    public void delete(chitietquyenDTO item){
+        try{
+            c.connect();
+            String query = "DELETE FROM chitietquyen WHERE MACHUCNANG = '"+item.getMACHUCNANG()+"' AND MAQUYEN='"+item.getMAQUYEN()+"' AND HANHDONG='"+item.getHANHDONG()+"'";
+            c.executeUpdate(query);
+            c.disconnect();
+            System.out.println("Xoa chitietquyen thanh cong");
+        }catch(SQLException e){
+            System.out.println("Xoa chitietquyen  that bai");
+        }
+    }
+    
     
     
 }

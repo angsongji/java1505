@@ -89,4 +89,23 @@ public class quyenBUS {
       
         
     }
+    
+    public void updateTENQUYEN(quyenDTO qNEW){
+        for(quyenDTO k : list){
+            if((k.getMAQUYEN().equals(qNEW.getMAQUYEN()))){
+                if(!k.getTENQUYEN().equals(qNEW.getTENQUYEN()))
+                {
+                    k.setTENQUYEN(qNEW.getTENQUYEN());
+                    updateTENQUYENInSQL(qNEW);
+                }
+                break;
+            }
+        }
+    }
+    
+     private void updateTENQUYENInSQL(quyenDTO qNEW){
+         quyenDAO qDAO = new quyenDAO();
+         qDAO.update(qNEW);
+     }
+    
 }

@@ -1,5 +1,6 @@
 package GUI;
 
+import BUS.chitietquyenBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -278,8 +279,15 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         chucnangDTO cnSelelect = new chucnangDTO(itemChucnang.getName());
         switch (cnSelelect.getMACHUCNANG()) {
             case "TK":
-           case "HD":
+          
                 SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+                break;
+             case "HD":
+                 chitietquyenBUS ctqBUS = new chitietquyenBUS();
+               if(ctqBUS.search(new chitietquyenDTO(MAQUYEN,"HD","Thêm")))
+                   SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+               else
+                   SS_main.centerContent.changeCenterContent(cnSelelect, MAQUYEN);
                 break;
             default:{
                  SS_main.centerContent.changeCenterContent(cnSelelect, MAQUYEN);

@@ -49,6 +49,6 @@ public chitietquyenDTO(String s){
         return HANHDONG;
     }
     public String toString(){
-        return MACHUCNANG+","+MACHUCNANG+","+HANHDONG;
+        return MAQUYEN+","+MACHUCNANG+","+HANHDONG;
     }
 }
