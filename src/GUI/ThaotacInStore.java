@@ -1,5 +1,6 @@
 package GUI;
 
+import BUS.TaiKhoanBUS;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,10 +24,12 @@ import java.util.ArrayList;
 import BUS.chitietquyenBUS;
 import BUS.loaiSPBUS;
 import BUS.nhacungcapBUS;
+import BUS.quyenBUS;
 import DAO.chitietquyenDAO;
 import DTO.chitietquyenDTO;
 import DTO.chucnangDTO;
 import DAO.chucnangDAO;
+import DTO.TaiKhoanDTO;
 import DTO.nhacungcapDTO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -145,6 +148,10 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
                 break;
             }
+            case "PQ":{
+                thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);
+                break;
+            }
             case "NCC": {
                 thaotacNCC(ctqDTO.getHANHDONG(), itemClicked);
                 break;
@@ -195,6 +202,53 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 label.setForeground(Color.BLACK);
             }
         }
+    }
+    public void thaotacPQ(String hanhdong, hanhdongGUI itemClicked) {
+        phanquyen pq = (phanquyen)pageContent;
+        quyenBUS qBUS = new quyenBUS();
+        switch (hanhdong) {
+                    case "Thêm":
+                        addQuyen addquyen = new addQuyen(pq);
+                        break;
+                    case "Sửa": {
+                        switch (itemClicked.title.getText()) {
+                    case "Sửa":
+                        //JOptionPane.showMessageDialog(null, "Double Click vào ô cần sửa thông tin\nKhông thể sửa đổi MANCC!\nTên nhà cung cấp không chứa chữ số và các kí tự đặc biệt\nSố điện thoại 10 số bắt đầu là số 0\nHoàn thành sửa đổi thì ấn nút Lưu");
+
+                        itemClicked.title.setText("Lưu/Thoát");
+                        itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
+                        pq.updateTENQUYEN(pq.currentQuyen,0);
+                        pq.isEditingEnabled = true;
+                        break;
+                    case "Lưu/Thoát":
+                           itemClicked.title.setText("Sửa");
+                                    itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                                    pq.updateTENQUYEN(pq.currentQuyen,1);
+                                    pq.isEditingEnabled = false;
+                        break;
+                        }
+                        break;
+                    }
+                    case "Xóa": {
+                       int r2 = JOptionPane.showConfirmDialog(null, "Chỉ có thể xóa quyền này khi không tồn tại tài khoản thuộc quyền này\nBạn có chắc chắn muốn xóa quyền đang chọn?", "Xóa quyền ", JOptionPane.YES_NO_OPTION);
+                        if (r2 == JOptionPane.YES_OPTION) {
+                            System.out.println(pq.currentQuyen);
+                            System.out.println(qBUS.checkCanDelete(pq.currentQuyen));
+                            if(qBUS.checkCanDelete(pq.currentQuyen)){
+                               qBUS.delete(pq.currentQuyen.getMAQUYEN());
+                                pq.deleteJP_NameQuyen(pq.currentQuyen);
+                                
+                               System.out.println("tencurrent quyen sau khi xoa tren thanh lau chon: "+pq.currentQuyen.toString());
+                                
+                                JOptionPane.showMessageDialog(null, "Xóa quyền thành công");
+                            }
+                            else JOptionPane.showMessageDialog(null, "Xóa thất bại do có tài khoản thuộc quyền này");
+                       }
+                        break;
+                    
+                       }
+                    }
+                
     }
 
     public void thaotacNCC(String hanhdong, hanhdongGUI itemClicked) {

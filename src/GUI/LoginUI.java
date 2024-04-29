@@ -154,6 +154,7 @@ public class LoginUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                //Lay duoc doi tuong TaikhoanDTO sau do khoi tao StoreScreen voi tham so la TaikhoanDTO do
                 StoreScreen s = new StoreScreen();
             }
         });

@@ -189,7 +189,7 @@ public class CenterContentStore extends JPanel {
             }
                
             case "PQ":{
-                phanquyen pq = new phanquyen(widthPageContent, heightPageContent);
+                phanquyen pq = new phanquyen(widthPageContent, heightPageContent,SS_main.quyenUser);
                 ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pq);
                 showThaotac(JP_thaotac);
                 showPageContent(pq);
