@@ -44,6 +44,16 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private String MACHUCNANG;
     private String MAQUYEN;
     private Component pageContent;
+     private StoreScreen s;
+    public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent,StoreScreen s) {
+        this.s=s;
+        this.pageContent = pageContent;
+        this.MACHUCNANG = MACHUCNANG;
+        this.MAQUYEN = MAQUYEN;
+        listHanhdong = new ArrayList<>();
+        font_title = new Font("Tahoma", Font.PLAIN, 14);
+        init();
+    }
 
     public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent) {
         this.pageContent = pageContent;
@@ -234,8 +244,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             System.out.println("Quyen sau khi sua"+pq.currentQuyen.toString());
                             qBUS.updateTENQUYEN(pq.currentQuyen);
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
+                            
                             pq.isEditingEnabled = false;
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!");
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để thấy những sửa đổi đã lưu");
+                            s.dispose();
+                             LoginUI l = new LoginUI();
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
                             if (r2_1 == JOptionPane.NO_OPTION) {
