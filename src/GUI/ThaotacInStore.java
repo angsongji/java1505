@@ -228,6 +228,10 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 thaotacLOAI(ctqDTO.getHANHDONG(), itemClicked);
                 break;
             }
+                case "NV": {
+                thaotacNV(ctqDTO.getHANHDONG(), itemClicked);
+                break;
+            }
         }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException(
@@ -523,5 +527,20 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             }
         }
     }
-
+public void thaotacNV(String hanhdong, hanhdongGUI itemClicked) {
+        Trangnhanvien_GUI nvGUI = (Trangnhanvien_GUI) pageContent;
+        Nhanvien_BUS loaiBUS = new Nhanvien_BUS();
+        switch (hanhdong) {
+            case "Thêm": {
+                addNhanvienGUI addnv = new addNhanvienGUI(nvGUI);
+                break;
+            }
+            case "Sửa": {
+                JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa thông tin nhân viên");
+                        break;}
+            case "Xóa": {
+                JOptionPane.showMessageDialog(null, "Click vào dòng cần Xóa nhân viên");
+                        break;}        
+        }
+}
 }
