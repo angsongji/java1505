@@ -98,6 +98,13 @@ public class loaiSPBUS {
         }
         return flag;
     }
+    public boolean checkTINHTRANG(String MALOAI){
+        for (loaiSP j : list) {
+            if(j.getMALOAI().equals(MALOAI))
+                return (j.getTINHTRANG()==1);
+        }
+        return true;
+    }
 
     public ArrayList<loaiSP> search(ArrayList<String> data_filter) {
         ArrayList<loaiSP> re = new ArrayList<>();

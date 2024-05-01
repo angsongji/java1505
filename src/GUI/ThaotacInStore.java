@@ -1,5 +1,6 @@
 package GUI;
 
+import BUS.Nhanvien_BUS;
 import BUS.TaiKhoanBUS;
 import java.awt.Font;
 import java.awt.BorderLayout;

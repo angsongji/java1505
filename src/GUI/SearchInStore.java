@@ -170,7 +170,8 @@ public class SearchInStore extends JPanel implements MouseListener {
                 loai.add("Tât cả");
 
                 for (loaiSP q : listLoai) {
-                    loai.add(q.getTENLOAI());
+                    if(loaiBUS.checkTINHTRANG(q.getMALOAI()))
+                        loai.add(q.getTENLOAI());
                 }
                 typeShirt = new JComboBox<>(loai);
                 listComponentTimkiem.add(typeShirt);

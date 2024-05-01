@@ -11,7 +11,11 @@ import java.util.logging.Logger;
 public class Nhanvien_DAO {
         public ConnectDataBase mySQL; 
     public Nhanvien_DAO() {
-        mySQL = new ConnectDataBase();
+            try {
+                mySQL = new ConnectDataBase();
+            } catch (SQLException ex) {
+                Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     public ArrayList<Nhanvien_DTO> list()
     {
@@ -43,29 +47,41 @@ public class Nhanvien_DAO {
     
         
    public void add(Nhanvien_DTO item) {
-        mySQL.connect();
-        String query= "INSERT INTO nhanvien VALUES ('" + item.getManv() +"','"+ item.getTennv() +"','" +item.getChucvu() +"','" +item.getSdt() + "','" +item.getDiachi() +"','" +item.getEmail()+");";
-        mySQL.executeUpdate(query);
-        System.out.println("Them nhan vien thanh cong!");
-        mySQL.disconnect();
+            try {
+                mySQL.connect();
+                String query= "INSERT INTO nhanvien VALUES ('" + item.getManv() +"','"+ item.getTennv() +"','" +item.getChucvu() +"','" +item.getSdt() + "','" +item.getDiachi() +"','" +item.getEmail()+");";
+                mySQL.executeUpdate(query);
+                System.out.println("Them nhan vien thanh cong!");
+                mySQL.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
       
     }
     
      public void update(Nhanvien_DTO item) {
-        mySQL.connect();
-        String query= "UPDATE nhanvien set TENNV = '" + item.getTennv()+"', CHUCVU='"+ item.getChucvu()+ "', SDT=" + item.getSdt() + "', DIACHI=" + item.getDiachi()+ "', EMAIL=" + item.getEmail() + " WHERE MANV='" + item.getManv() + "'";
-        mySQL.executeUpdate(query);
-        System.out.println("Cap nhat thong tin nhan vien thanh cong!");
-        mySQL.disconnect();
+            try {
+                mySQL.connect();
+                String query= "UPDATE nhanvien set TENNV = '" + item.getTennv()+"', CHUCVU='"+ item.getChucvu()+ "', SDT=" + item.getSdt() + "', DIACHI=" + item.getDiachi()+ "', EMAIL=" + item.getEmail() + " WHERE MANV='" + item.getManv() + "'";
+                mySQL.executeUpdate(query);
+                System.out.println("Cap nhat thong tin nhan vien thanh cong!");
+                mySQL.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
       
     }
      
       public void delete(String m) {
-         mySQL.connect();
-        String query= "DELETE FROM nhanvien WHERE MANV = '" + m +"';";
-        mySQL.executeUpdate(query);
-        System.out.println("Xoa nhan vien thanh cong!");
-        mySQL.disconnect();
+            try {
+                mySQL.connect();
+                String query= "DELETE FROM nhanvien WHERE MANV = '" + m +"';";
+                mySQL.executeUpdate(query);
+                System.out.println("Xoa nhan vien thanh cong!");
+                mySQL.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
       }
     public static void main (String[] args){
         Nhanvien_DAO nv = new Nhanvien_DAO();
