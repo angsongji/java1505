@@ -31,6 +31,7 @@ import DTO.chucnangDTO;
 import DAO.chucnangDAO;
 import DTO.TaiKhoanDTO;
 import DTO.nhacungcapDTO;
+import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
@@ -44,16 +45,10 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private String MACHUCNANG;
     private String MAQUYEN;
     private Component pageContent;
-     private StoreScreen s;
-    public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent,StoreScreen s) {
-        this.s=s;
-        this.pageContent = pageContent;
-        this.MACHUCNANG = MACHUCNANG;
-        this.MAQUYEN = MAQUYEN;
-        listHanhdong = new ArrayList<>();
-        font_title = new Font("Tahoma", Font.PLAIN, 14);
-        init();
-    }
+
+    //kích thước trang tai khoan
+    int widthTK;
+    int heightTK;
 
     public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent) {
         this.pageContent = pageContent;
@@ -62,6 +57,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         listHanhdong = new ArrayList<>();
         font_title = new Font("Tahoma", Font.PLAIN, 14);
         init();
+
+        //Lay kich thuoc của trang tai khoan 
+//        chucnangTaikhoan cntk = (chucnangTaikhoan) pageContent;
+//        widthTK = (int)cntk.JP_contentCuaNameChucnangCon.getPreferredSize().getWidth();
+//        heightTK = (int) cntk.JP_contentCuaNameChucnangCon.getPreferredSize().getHeight();
     }
 
     private void init() {
@@ -147,19 +147,68 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         chitietquyenDTO ctqDTO = new chitietquyenDTO(chitietquyen);
         switch (ctqDTO.getMACHUCNANG()) {
             case "TK": {
+                chucnangTaikhoan cntk_p = (chucnangTaikhoan) pageContent;
+                widthTK = (int) cntk_p.JP_contentCuaNameChucnangCon.getPreferredSize().getWidth();
+                heightTK = (int) cntk_p.JP_contentCuaNameChucnangCon.getPreferredSize().getHeight();
                 switch (ctqDTO.getHANHDONG()) {
                     case "Thêm":
-                        JFrame f_newTaikhoan = new JFrame();
-                        f_newTaikhoan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        f_newTaikhoan.setLocationRelativeTo(this);
-                        f_newTaikhoan.setSize(400, 600);
-                        f_newTaikhoan.add(new ThongBao(400, 600));
-//                     f_newTaikhoan.setUndecorated(true);
-                        f_newTaikhoan.setVisible(true);
+                        TaiKhoanGUI a = new TaiKhoanGUI(widthTK, heightTK);
+                        a.initPnThaoTacTK(450, 600);
+                        a.initThem();
+                        cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                        cntk_p.JP_contentCuaNameChucnangCon.add(a, BorderLayout.CENTER);
+                        cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                        cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                        cntk_p.tkGUI = a;
+                        break;
+                    case "Sửa":
+                        if (cntk_p.tkGUI.selectedTK.getMaNV() == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Xin vui lòng chọn tài khoản cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                            b.selectedTK = cntk_p.tkGUI.selectedTK;
+                            b.initPnThaoTacTK(450, 600);
+                            b.initSua();
+                            cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                            cntk_p.JP_contentCuaNameChucnangCon.add(b, BorderLayout.CENTER);
+                            cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                            cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                            cntk_p.tkGUI = b;
+                        }
+                        break;
+                    case "Xóa":
+                        if (cntk_p.tkGUI.selectedTK.getMaNV() == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Xin vui lòng chọn tài khoản cần xoá !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            int result = JOptionPane.showConfirmDialog(
+                                    null,
+                                    "Bạn có chắc chắn muốn xoá tài khoản này ?", // Nội dung thông báo
+                                    "Xác nhận xoá", // Tiêu đề
+                                    JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
+                                    JOptionPane.QUESTION_MESSAGE // Biểu tượng dấu hỏi
+                            );
+
+                            // Xử lý kết quả
+                            if (result == JOptionPane.YES_OPTION) {
+                                TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                                b.selectedTK = cntk_p.tkGUI.selectedTK;
+                                b.DeleteTK();
+                                cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                                cntk_p.JP_contentCuaNameChucnangCon.add(b, BorderLayout.CENTER);
+                                cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                                cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                                cntk_p.tkGUI = b;
+                                JOptionPane.showMessageDialog(null,
+                                    "Bạn đã xoá tài khoản thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
                         break;
                 }
                 break;
             }
+
             case "PQ": {
                 thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);
                 break;
@@ -174,7 +223,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             }
         }
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+        throw new UnsupportedOperationException(
+                "Unimplemented method 'mouseClicked'");
     }
 
     @Override
@@ -244,11 +294,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             System.out.println("Quyen sau khi sua"+pq.currentQuyen.toString());
                             qBUS.updateTENQUYEN(pq.currentQuyen);
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
-                            
                             pq.isEditingEnabled = false;
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để thấy những sửa đổi đã lưu");
-                            s.dispose();
-                             LoginUI l = new LoginUI();
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!");
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
                             if (r2_1 == JOptionPane.NO_OPTION) {

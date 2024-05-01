@@ -87,8 +87,7 @@ public class TaiKhoanDAO {
     public void delete(String maNV) {
         try {
             mySQL.connect();
-            String sql = "UPDATE taikhoan SET ";
-            sql += "TINHTRANG='2' ";
+            String sql = "DELETE FROM taikhoan";
             sql += " WHERE MANV='" + maNV + "'";
             System.out.println(sql);
             mySQL.executeUpdate(sql);
