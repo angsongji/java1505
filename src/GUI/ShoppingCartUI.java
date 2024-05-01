@@ -259,7 +259,7 @@ public class ShoppingCartUI extends JPanel {
         gbc.gridx = 6;
         gbc.gridy = 3;
         gbc.gridheight = 1; 
-        panel.add(quantityLabel, gbc);
+        // panel.add(quantityLabel, gbc);
 
         JPanel quantityValuePanel = new JPanel();
         quantityValuePanel.setLayout(null);
