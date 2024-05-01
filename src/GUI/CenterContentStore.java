@@ -66,6 +66,28 @@ public class CenterContentStore extends JPanel {
 //
 
     }
+    public void changeCenterContent(chucnangDTO cnDTO, String maquyen, int thongkeloai) {
+         SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent,thongkeloai);
+        showSearch(JP_search);
+        
+        pageContent.removeAll();
+
+        Component[] JP_childSearch = JP_search.getComponents();
+        if ((int) search.getPreferredSize().getWidth() + (int) thaotac.getPreferredSize().getWidth() <= chieurong) {
+            if (JP_childSearch.length != 0) {
+                pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) search.getPreferredSize().getHeight() - 5));
+            } else {
+                pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) thaotac.getPreferredSize().getHeight() - 15));
+            }
+        } else {
+            pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) search.getPreferredSize().getHeight() - (int) thaotac.getPreferredSize().getHeight()));
+        }
+       
+ chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, thongkeloai);
+
+                showPageContent(cnThK);
+        
+    }
 
     public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
         this.search.removeAll();
@@ -107,7 +129,7 @@ public class CenterContentStore extends JPanel {
   
                   
 
-               System.out.println("TENCHUCNANG"+cnDTO.getTENCHUCNANG());
+         
         SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent);
         showSearch(JP_search);
 
@@ -213,13 +235,9 @@ public class CenterContentStore extends JPanel {
             }
                 
             case "NULLThK":{
-                  JPanel thKe = new JPanel();
-//                thKe.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
-                ThongKeGUI thongKe = new ThongKeGUI(widthPageContent, heightPageContent);
-//                thKe.add(new JLabel("Đây là trang thống kê"));
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, thongKe);
-                showThaotac(JP_thaotac);
-                showPageContent(thongKe);
+                chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, 0);
+
+                showPageContent(cnThK);
                 break;
             }
                

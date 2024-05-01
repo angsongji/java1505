@@ -243,7 +243,8 @@ INSERT INTO `chucnang` VALUES
 ('NCC','Nhà cung cấp'),
 ('LOAI','Loại'),
 ('SIZE','Size'),
-('HD','Hoá đơn');
+('HD','Hoá đơn'),
+('NULLThK','Thống kê');
 
 
 INSERT INTO `chitietquyen` VALUES
@@ -272,12 +273,12 @@ INSERT INTO `chitietquyen` VALUES
 ('QQLK','NV','Xem'),
 ('QQLK','KH','Xem'),
 ('QQLK','PN','Export Excel'),
-('QQLK','PN','In PDF'),
 ('QQLK','PN','Sửa'),
 ('QQLK','PN','Thêm'),
 ('QQLK','PN','Xem'),
 ('QQLK','PN','Xóa'),
 ('QQLK','HD','Xem'),
+('QQLHT','NULLThK','Xem'),
 ('QQLHT','KH','Sửa'),
 ('QQLHT','KH','Xem'),
 ('QQLHT','KH','Xóa'),
@@ -289,7 +290,6 @@ INSERT INTO `chitietquyen` VALUES
 ('QQLHT','NCC','Sửa'),
 ('QQLHT','NCC','Xóa'),
 ('QQLHT','NCC','Thêm'),
-('QQLHT','NCC','Import Excel'),
 ('QQLHT','PN','Export Excel'),
 ('QQLHT','PN','Sửa'),
 ('QQLHT','PN','Thêm'),
@@ -303,7 +303,6 @@ INSERT INTO `chitietquyen` VALUES
 ('QQLHT','HD','Xóa'),
 ('QQLHT','HD','Thêm'),
 ('QQLHT','HD','Sửa'),
-('QQLHT','HD','In PDF'),
 ('QQLHT','TK','Xem'),
 ('QQLHT','TK','Sửa'),
 ('QQLHT','TK','Xóa'),

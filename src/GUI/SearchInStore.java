@@ -44,11 +44,20 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
     private String MACHUCNANG;
     private ArrayList<String> listTitle;
     private Component pageContent;
+    private int thongkeloai=0;
 
     // private String[] titleTimkiem={"Theo tên"};
     public SearchInStore(String MACHUCNANG, Component pageContent) {
         this.pageContent = pageContent;
         this.MACHUCNANG = MACHUCNANG;
+        init();
+
+    }
+
+    public SearchInStore(String MACHUCNANG, Component pageContent, int thongkeloai) {
+        this.pageContent = pageContent;
+        this.MACHUCNANG = MACHUCNANG;
+        this.thongkeloai = thongkeloai;
         init();
 
     }
@@ -78,14 +87,14 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
         }
         switch (titleInput) {
             case "Theo tên":
-            case "Theo tên hoặc MANCC":
-            case "Theo tên sản phẩm":
-            case "Theo USERNAME":
+            case "Tất cả":
+            case "Theo tên sản phẩm, theo MASP":
+            case "Theo mã nhân viên, theo USERNAME, theo mã quyền":
             case "Theo tên hoặc MAKH":
-            case "Theo tên hoặc MANV":
+            case "Theo tên nhân viên, theo MANV, theo SĐT":
             case "Theo MAPN":
-            case "Theo MAHD":
-            case "Theo tên hoặc MALOAI":
+            case "Theo MAHD, theo MAKH, theo MANV":
+            case "Theo tên loại hoặc MALOAI":
                 name = new JTextField();
 
                 wrap.add(name);
@@ -116,6 +125,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 wrap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 break;
             case "Theo loại":
+            case "Top":
                 typeShirt = new JComboBox<>(new String[]{"Tất cả", "..", "..", ".."});
                 wrap.add(typeShirt);
                 wrap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -168,13 +178,13 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
 
         listTitle = new ArrayList<>();
         switch (MACHUCNANG) {
-            
+
             case "NULLTK": {
                 String[] list = {};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
-                        case "NULLHD": {
+            case "NULLHD": {
                 String[] list = {};
                 listTitle.addAll(Arrays.asList(list));
                 break;
@@ -186,8 +196,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
             }
             //={"Theo tên","Giá thấp nhất","đến","Giá cao nhất","Theo loại",}
             case "NCC": {
-                System.out.println("Nha cung cap");
-                String[] list = {"Theo tên hoặc MANCC"};
+                String[] list = {"Tất cả"};
                 listTitle.addAll(Arrays.asList(list));
                 //submit.setName(TENCHUCNANG);
                 break;
@@ -199,12 +208,12 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
 //                break;
 //            }
             case "SP": {
-                String[] list = {"Theo tên sản phẩm", "Theo loại"};
+                String[] list = {"Theo tên sản phẩm, theo MASP", "Theo loại"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
             case "TK": {
-                String[] list = {"Theo USERNAME", "Tình trạng"};
+                String[] list = {"Theo mã nhân viên, theo USERNAME, theo mã quyền", "Tình trạng"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
@@ -220,7 +229,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
 //                break;
 //            }
             case "NV": {
-                String[] list = {"Theo tên hoặc MANV","Theo chức vụ"};
+                String[] list = {"Theo tên nhân viên, theo MANV, theo SĐT", "Theo chức vụ"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
@@ -230,20 +239,29 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 break;
             }
             case "NULLThK": {
-                String[] list = {"Ngày bắt đầu", "đến", "Ngày kết thúc", "Theo loại"};
-                listTitle.addAll(Arrays.asList(list));
+              
+                    switch (thongkeloai) {
+                        case 0:
+                            String[] list1 = {"Ngày bắt đầu", "đến", "Ngày kết thúc", "Theo loại"};
+                            listTitle.addAll(Arrays.asList(list1));
+                            break;
+                        case 1:
+                            String[] list2 = {"Ngày bắt đầu", "đến", "Ngày kết thúc", "Top"};
+                            listTitle.addAll(Arrays.asList(list2));
+                            break;
+                    }
+                
                 break;
             }
 
             case "HD": {
-                System.out.println("LA TAI SAOOOOOOO");
 
-                String[] list = {"Theo MAHD", "Ngày bắt đầu", "đến", "Ngày kết thúc"};
+                String[] list = {"Theo MAHD, theo MAKH, theo MANV", "Ngày bắt đầu", "đến", "Ngày kết thúc"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
             case "LOAI": {
-                String[] list = {"Theo tên hoặc MALOAI"};
+                String[] list = {"Theo tên loại hoặc MALOAI", "Tình trạng"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }

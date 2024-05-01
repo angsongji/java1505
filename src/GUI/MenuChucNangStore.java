@@ -202,7 +202,6 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
                 listChucnang.add(k);
             }
         }
-        listChucnang.add(new chucnangDTO("NULLThK", "Thống kê"));
         listChucnang.add(new chucnangDTO("NULLDX", "Đăng xuất"));
         return listChucnang;
     }
@@ -220,7 +219,6 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
                 listNameChucnang.add(name);
             }
         }
-        listNameChucnang.add("Thống kê");
         listNameChucnang.add("Đăng xuất");
         return listNameChucnang;
     }
