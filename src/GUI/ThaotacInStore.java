@@ -45,10 +45,21 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private String MACHUCNANG;
     private String MAQUYEN;
     private Component pageContent;
-
+ private StoreScreen s;
     //kích thước trang tai khoan
     int widthTK;
     int heightTK;
+    
+    public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent,StoreScreen s) {
+        this.s = s;
+        this.pageContent = pageContent;
+        this.MACHUCNANG = MACHUCNANG;
+        this.MAQUYEN = MAQUYEN;
+        listHanhdong = new ArrayList<>();
+        font_title = new Font("Tahoma", Font.PLAIN, 14);
+        init();
+
+    }
 
     public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent) {
         this.pageContent = pageContent;
@@ -58,10 +69,6 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         font_title = new Font("Tahoma", Font.PLAIN, 14);
         init();
 
-        //Lay kich thuoc của trang tai khoan 
-//        chucnangTaikhoan cntk = (chucnangTaikhoan) pageContent;
-//        widthTK = (int)cntk.JP_contentCuaNameChucnangCon.getPreferredSize().getWidth();
-//        heightTK = (int) cntk.JP_contentCuaNameChucnangCon.getPreferredSize().getHeight();
     }
 
     private void init() {
@@ -295,7 +302,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             qBUS.updateTENQUYEN(pq.currentQuyen);
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!");
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để xem những thay đổi vừa lưu!");
+                            s.dispose();
+                             LoginUI l = new LoginUI();
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
                             if (r2_1 == JOptionPane.NO_OPTION) {
