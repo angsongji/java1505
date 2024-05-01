@@ -47,24 +47,35 @@ public class quyenDAO {
         }catch(SQLException e){}
     }
      
-     public void delete(quyenDTO item){
+     public void delete(String maquyen){
         try{
             c.connect();
-            String query = "DELETE FROM quyen WHERE MAQUYEN = '"+item.getMAQUYEN()+"'";
+            String query = "DELETE FROM quyen WHERE MAQUYEN = '"+maquyen+"'";
             c.executeUpdate(query);
             c.disconnect();
         }catch(SQLException e){}
     }
      
-     public static void main(String[] args) {
-        ArrayList<quyenDTO> list = new ArrayList<>();
-        quyenDAO c= new quyenDAO();
-        list=c.listQuyen();
-        for(quyenDTO i : list){
-            System.out.println(i.getMAQUYEN()+" "+i.getTENQUYEN());
+        public void update(quyenDTO qNEW){
+                    try {
+            c.connect();
+
+            String query = " UPDATE quyen SET TENQUYEN='" + qNEW.getTENQUYEN() + "' WHERE MAQUYEN='" + qNEW.getMAQUYEN()+ "'";
+            c.executeUpdate(query);
+            c.disconnect();
+        } catch (SQLException e) {
         }
-        
-        quyenDTO c_new= new quyenDTO("TEST", "THEMCHUCNANG");
-        c.delete(c_new);
-    }
+        }
+//     
+//     public static void main(String[] args) {
+//        ArrayList<quyenDTO> list = new ArrayList<>();
+//        quyenDAO c= new quyenDAO();
+//        list=c.listQuyen();
+//        for(quyenDTO i : list){
+//            System.out.println(i.getMAQUYEN()+" "+i.getTENQUYEN());
+//        }
+//        
+//        quyenDTO c_new= new quyenDTO("TEST", "THEMCHUCNANG");
+//        c.delete(c_new);
+//    }
 }

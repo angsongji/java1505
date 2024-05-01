@@ -1,5 +1,6 @@
 package GUI;
 
+import BUS.TaiKhoanBUS;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,11 +24,14 @@ import java.util.ArrayList;
 import BUS.chitietquyenBUS;
 import BUS.loaiSPBUS;
 import BUS.nhacungcapBUS;
+import BUS.quyenBUS;
 import DAO.chitietquyenDAO;
 import DTO.chitietquyenDTO;
 import DTO.chucnangDTO;
 import DAO.chucnangDAO;
+import DTO.TaiKhoanDTO;
 import DTO.nhacungcapDTO;
+import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
@@ -41,6 +45,21 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private String MACHUCNANG;
     private String MAQUYEN;
     private Component pageContent;
+ private StoreScreen s;
+    //kích thước trang tai khoan
+    int widthTK;
+    int heightTK;
+    
+    public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent,StoreScreen s) {
+        this.s = s;
+        this.pageContent = pageContent;
+        this.MACHUCNANG = MACHUCNANG;
+        this.MAQUYEN = MAQUYEN;
+        listHanhdong = new ArrayList<>();
+        font_title = new Font("Tahoma", Font.PLAIN, 14);
+        init();
+
+    }
 
     public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent) {
         this.pageContent = pageContent;
@@ -49,6 +68,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         listHanhdong = new ArrayList<>();
         font_title = new Font("Tahoma", Font.PLAIN, 14);
         init();
+
     }
 
     private void init() {
@@ -111,7 +131,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private ArrayList<chitietquyenDTO> listHANHDONG(String MACHUCNANG, String MAQUYEN) {
         ArrayList<chitietquyenDTO> hanhdong = new ArrayList<>();
         if (!MACHUCNANG.contains("NULL")) {
-            System.out.println("MACHUCNANG"+MACHUCNANG);
+            System.out.println("MACHUCNANG" + MACHUCNANG);
             chitietquyenDAO ctqDAO = new chitietquyenDAO();
             String query = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "' AND MACHUCNANG='" + MACHUCNANG + "'";
 
@@ -122,6 +142,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
             }
         }
+      if(MACHUCNANG.equals("HD")) hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "In PDF"));
+      if(MACHUCNANG.equals("NCC"))  hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Import Excel"));
         return hanhdong;
     }
 
@@ -132,17 +154,70 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         chitietquyenDTO ctqDTO = new chitietquyenDTO(chitietquyen);
         switch (ctqDTO.getMACHUCNANG()) {
             case "TK": {
+                chucnangTaikhoan cntk_p = (chucnangTaikhoan) pageContent;
+                widthTK = (int) cntk_p.JP_contentCuaNameChucnangCon.getPreferredSize().getWidth();
+                heightTK = (int) cntk_p.JP_contentCuaNameChucnangCon.getPreferredSize().getHeight();
                 switch (ctqDTO.getHANHDONG()) {
                     case "Thêm":
-                        JFrame f_newTaikhoan = new JFrame();
-                        f_newTaikhoan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        f_newTaikhoan.setLocationRelativeTo(this);
-                        f_newTaikhoan.setSize(400, 600);
-                        f_newTaikhoan.add(new ThongBao(400, 600));
-//                     f_newTaikhoan.setUndecorated(true);
-                        f_newTaikhoan.setVisible(true);
+                        TaiKhoanGUI a = new TaiKhoanGUI(widthTK, heightTK);
+                        a.initPnThaoTacTK(450, 600);
+                        a.initThem();
+                        cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                        cntk_p.JP_contentCuaNameChucnangCon.add(a, BorderLayout.CENTER);
+                        cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                        cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                        cntk_p.tkGUI = a;
+                        break;
+                    case "Sửa":
+                        if (cntk_p.tkGUI.selectedTK.getMaNV() == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Xin vui lòng chọn tài khoản cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                            b.selectedTK = cntk_p.tkGUI.selectedTK;
+                            b.initPnThaoTacTK(450, 600);
+                            b.initSua();
+                            cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                            cntk_p.JP_contentCuaNameChucnangCon.add(b, BorderLayout.CENTER);
+                            cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                            cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                            cntk_p.tkGUI = b;
+                        }
+                        break;
+                    case "Xóa":
+                        if (cntk_p.tkGUI.selectedTK.getMaNV() == null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Xin vui lòng chọn tài khoản cần xoá !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            int result = JOptionPane.showConfirmDialog(
+                                    null,
+                                    "Bạn có chắc chắn muốn xoá tài khoản này ?", // Nội dung thông báo
+                                    "Xác nhận xoá", // Tiêu đề
+                                    JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
+                                    JOptionPane.QUESTION_MESSAGE // Biểu tượng dấu hỏi
+                            );
+
+                            // Xử lý kết quả
+                            if (result == JOptionPane.YES_OPTION) {
+                                TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                                b.selectedTK = cntk_p.tkGUI.selectedTK;
+                                b.DeleteTK();
+                                cntk_p.JP_contentCuaNameChucnangCon.removeAll();
+                                cntk_p.JP_contentCuaNameChucnangCon.add(b, BorderLayout.CENTER);
+                                cntk_p.JP_contentCuaNameChucnangCon.revalidate();
+                                cntk_p.JP_contentCuaNameChucnangCon.repaint();
+                                cntk_p.tkGUI = b;
+                                JOptionPane.showMessageDialog(null,
+                                    "Bạn đã xoá tài khoản thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
                         break;
                 }
+                break;
+            }
+
+            case "PQ": {
+                thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);
                 break;
             }
             case "NCC": {
@@ -155,7 +230,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             }
         }
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+        throw new UnsupportedOperationException(
+                "Unimplemented method 'mouseClicked'");
     }
 
     @Override
@@ -195,6 +271,80 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 label.setForeground(Color.BLACK);
             }
         }
+    }
+
+    public void thaotacPQ(String hanhdong, hanhdongGUI itemClicked) {
+        phanquyen pq = (phanquyen) pageContent;
+        quyenBUS qBUS = new quyenBUS();
+        chitietquyenBUS ctqBUS =new chitietquyenBUS();
+        switch (hanhdong) {
+            case "Thêm":
+                addQuyen addquyen = new addQuyen(pq);
+                break;
+            case "Sửa": {
+                switch (itemClicked.title.getText()) {
+                    case "Sửa":
+                        //JOptionPane.showMessageDialog(null, "Double Click vào ô cần sửa thông tin\nKhông thể sửa đổi MANCC!\nTên nhà cung cấp không chứa chữ số và các kí tự đặc biệt\nSố điện thoại 10 số bắt đầu là số 0\nHoàn thành sửa đổi thì ấn nút Lưu");
+                        JOptionPane.showMessageDialog(null, "Bạn đang thực hiện chỉnh sửa quyền\nẤn Lưu/Thoát khi đã hoàn tất chỉnh sửa!");
+                        itemClicked.title.setText("Lưu/Thoát");
+                        itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
+                        pq.updateTENQUYEN(pq.currentQuyen, 0);
+                        pq.isEditingEnabled = true;
+                        break;
+                    case "Lưu/Thoát":
+                        int r2 = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn lưu chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
+                        if (r2 == JOptionPane.YES_OPTION) {
+                            itemClicked.title.setText("Sửa");
+                            itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                            System.out.println("Quyen truoc khi sua"+pq.currentQuyen.toString());
+                            pq.updateTENQUYEN(pq.currentQuyen, 1);
+                            System.out.println("Quyen sau khi sua"+pq.currentQuyen.toString());
+                            qBUS.updateTENQUYEN(pq.currentQuyen);
+                            ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
+                            pq.isEditingEnabled = false;
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để xem những thay đổi vừa lưu!");
+                            s.dispose();
+                             LoginUI l = new LoginUI();
+                        } else {
+                            int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
+                            if (r2_1 == JOptionPane.NO_OPTION) {
+                                int r2_2 = JOptionPane.showConfirmDialog(null, "Những sửa đổi sẽ không được lưu sau khi bạn thoát!!\nBạn có chắc chắn thoát chỉnh sửa??", "Thoát", JOptionPane.YES_NO_OPTION);
+                                if (r2_2 == JOptionPane.YES_OPTION) {
+
+                                    itemClicked.title.setText("Sửa");
+                                    itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                                    pq.updateTENQUYEN(pq.currentQuyen, 2);
+                                    
+                                    pq.isEditingEnabled = false;
+                                }
+                            }
+                        }
+
+                        break;
+                }
+                break;
+            }
+            case "Xóa": {
+                int r2 = JOptionPane.showConfirmDialog(null, "Chỉ có thể xóa quyền này khi không tồn tại tài khoản thuộc quyền này\nBạn có chắc chắn muốn xóa quyền đang chọn?", "Xóa quyền ", JOptionPane.YES_NO_OPTION);
+                if (r2 == JOptionPane.YES_OPTION) {
+                    System.out.println(pq.currentQuyen);
+                    System.out.println(qBUS.checkCanDelete(pq.currentQuyen));
+                    if (qBUS.checkCanDelete(pq.currentQuyen)) {
+                        qBUS.delete(pq.currentQuyen.getMAQUYEN());
+                        pq.deleteJP_NameQuyen(pq.currentQuyen);
+
+                        System.out.println("tencurrent quyen sau khi xoa tren thanh lau chon: " + pq.currentQuyen.toString());
+
+                        JOptionPane.showMessageDialog(null, "Xóa quyền thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa thất bại do có tài khoản thuộc quyền này");
+                    }
+                }
+                break;
+
+            }
+        }
+
     }
 
     public void thaotacNCC(String hanhdong, hanhdongGUI itemClicked) {
@@ -346,7 +496,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
 
                 break;
             }
-             case "Xóa": {
+            case "Xóa": {
                 switch (itemClicked.title.getText()) {
                     case "Xóa":
                         JOptionPane.showMessageDialog(null, "Để chọn nhiều ô cần xóa:\nKéo chuột\nGiữ Ctrl và click vào các ô cần xóa");

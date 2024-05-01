@@ -1,5 +1,6 @@
 package GUI;
 
+import BUS.chitietquyenBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -182,7 +183,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
     }
 
     public ArrayList<chucnangDTO> lístChucnang(String MAQUYEN) {
-        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "' AND HANHDONG='Xem'";
         chitietquyenDAO ctqDAO = new chitietquyenDAO();
         ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
         ArrayList<chucnangDTO> listChucnang = new ArrayList<>();
@@ -201,13 +202,12 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
                 listChucnang.add(k);
             }
         }
-        listChucnang.add(new chucnangDTO("NULLThK", "Thống kê"));
         listChucnang.add(new chucnangDTO("NULLDX", "Đăng xuất"));
         return listChucnang;
     }
 
     public ArrayList<String> lístNameChucnang(String MAQUYEN) {
-        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'  AND HANHDONG='Xem'";
         chitietquyenDAO ctqDAO = new chitietquyenDAO();
         ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
         ArrayList<String> listNameChucnang = new ArrayList<>();
@@ -219,7 +219,6 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
                 listNameChucnang.add(name);
             }
         }
-        listNameChucnang.add("Thống kê");
         listNameChucnang.add("Đăng xuất");
         return listNameChucnang;
     }
@@ -278,8 +277,15 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         chucnangDTO cnSelelect = new chucnangDTO(itemChucnang.getName());
         switch (cnSelelect.getMACHUCNANG()) {
             case "TK":
-           case "HD":
+          
                 SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+                break;
+             case "HD":
+                 chitietquyenBUS ctqBUS = new chitietquyenBUS();
+               if(ctqBUS.search(new chitietquyenDTO(MAQUYEN,"HD","Thêm")))
+                   SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+               else
+                   SS_main.centerContent.changeCenterContent(cnSelelect, MAQUYEN);
                 break;
             default:{
                  SS_main.centerContent.changeCenterContent(cnSelelect, MAQUYEN);

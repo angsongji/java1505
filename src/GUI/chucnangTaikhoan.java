@@ -27,10 +27,11 @@ import javax.swing.JScrollPane;
  * @author hp
  */
 public class chucnangTaikhoan extends JPanel implements MouseListener{
+    TaiKhoanGUI tkGUI;
     private int ccao, crong;
     private  JPanel JP_listNameChucnangConCuaTaikhoan;
     private ArrayList<chucnangDTO> listChucnangCon;
-    private JPanel JP_contentCuaNameChucnangCon;
+    public JPanel JP_contentCuaNameChucnangCon;
     private CenterContentStore centerContent;
     public chucnangTaikhoan(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) {
         this.centerContent=centerContent;
@@ -97,10 +98,10 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
                 break;
             case "TK":
 //                TrangTaiKhoan tk = new TrangTaiKhoan(widthPageContent,600);
-                TaiKhoanGUI tkGUI = new TaiKhoanGUI(crong-20,heightJP_content-20);
-                JScrollPane tk_scrollPane = new JScrollPane(tkGUI);
-                tk_scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-                JP_contentCuaNameChucnangCon.add(tk_scrollPane);
+                 tkGUI = new TaiKhoanGUI(crong-20,heightJP_content-20);
+//                JScrollPane tk_scrollPane = new JScrollPane(tkGUI);
+//                tk_scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                JP_contentCuaNameChucnangCon.add(tkGUI);
                 break;
         }
         

@@ -66,15 +66,41 @@ public class CenterContentStore extends JPanel {
 //
 
     }
+    public void changeCenterContent(chucnangDTO cnDTO, String maquyen, int thongkeloai) {
+         SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent,thongkeloai);
+        showSearch(JP_search);
+        
+        pageContent.removeAll();
+
+        Component[] JP_childSearch = JP_search.getComponents();
+        if ((int) search.getPreferredSize().getWidth() + (int) thaotac.getPreferredSize().getWidth() <= chieurong) {
+            if (JP_childSearch.length != 0) {
+                pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) search.getPreferredSize().getHeight() - 5));
+            } else {
+                pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) thaotac.getPreferredSize().getHeight() - 15));
+            }
+        } else {
+            pageContent.setPreferredSize(new Dimension(chieurong, chieucao - (int) search.getPreferredSize().getHeight() - (int) thaotac.getPreferredSize().getHeight()));
+        }
+       
+ chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, thongkeloai);
+
+                showPageContent(cnThK);
+        
+    }
 
     public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
- System.out.println(cnDTO.getMACHUCNANG());
- if(cnDTO.getMACHUCNANG().equals("KH")){
-     this.search.removeAll();
+        this.search.removeAll();
      this.search.revalidate();
         this.search.repaint();
+         this.thaotac.removeAll();
+     this.thaotac.revalidate();
+        this.thaotac.repaint();
+ if(cnDTO.getMACHUCNANG().equals("KH")){
+     
      this.pageContent.removeAll();
       this.pageContent.setLayout(new BorderLayout(0, 0));
+      
       view_quan_li_khach_hang qlkh = new view_quan_li_khach_hang(chieurong, chieucao);
         this.pageContent.add(qlkh, BorderLayout.CENTER);
 
@@ -84,16 +110,17 @@ public class CenterContentStore extends JPanel {
      return;
  }
   if(cnDTO.getMACHUCNANG().equals("PN")){
-     this.search.removeAll();
-     this.search.revalidate();
-        this.search.repaint();
+     
      this.pageContent.removeAll();
       this.pageContent.setLayout(new BorderLayout(0, 0));
+      
       JPanel pn = new JPanel();
                 pn.setPreferredSize(new Dimension(chieurong, chieurong));
                 pn.add(new JLabel("Đây là trang phiếu nhập"));
         this.pageContent.add(pn, BorderLayout.CENTER);
 
+        
+        
         this.pageContent.revalidate();
         this.pageContent.repaint();
 
@@ -102,8 +129,8 @@ public class CenterContentStore extends JPanel {
   
                   
 
-               
-        SearchInStore JP_search = new SearchInStore(cnDTO.getTENCHUCNANG(), pageContent);
+         
+        SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent);
         showSearch(JP_search);
 
         pageContent.removeAll();
@@ -189,8 +216,8 @@ public class CenterContentStore extends JPanel {
             }
                
             case "PQ":{
-                phanquyen pq = new phanquyen(widthPageContent, heightPageContent);
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pq);
+                phanquyen pq = new phanquyen(widthPageContent, heightPageContent,SS_main.quyenUser);
+                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pq,SS_main);
                 showThaotac(JP_thaotac);
                 showPageContent(pq);
                 break;
@@ -208,12 +235,9 @@ public class CenterContentStore extends JPanel {
             }
                 
             case "NULLThK":{
-                 JPanel thKe = new JPanel();
-                thKe.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
-                thKe.add(new JLabel("Đây là trang thống kê"));
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, thKe);
-                showThaotac(JP_thaotac);
-                showPageContent(thKe);
+                chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, 0);
+
+                showPageContent(cnThK);
                 break;
             }
                

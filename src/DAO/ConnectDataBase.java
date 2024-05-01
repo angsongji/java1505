@@ -5,6 +5,14 @@
  */
 package DAO;
 
+
+/**
+ *
+ * @author hp
+ */
+import com.mysql.cj.jdbc.Driver;
+
+
 import java.sql.*;
 
 public class ConnectDataBase {
@@ -35,7 +43,7 @@ public class ConnectDataBase {
    public void connect() throws SQLException {
       try {
          Class.forName(driver);
-         conn = DriverManager.getConnection(url + dbName, userName, password);
+         conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
       } catch (ClassNotFoundException e) {
          throw new SQLException("Driver not found");
       }

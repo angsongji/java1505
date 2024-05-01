@@ -131,27 +131,27 @@ public class SanPhamDAO {
     public static void main(String[] args) {
         SanPhamDAO sp = new SanPhamDAO();
         ArrayList<SanPhamDTO> d = new ArrayList<>();
-//        d = sp.list();
-//        for (int i = 0; i < d.size(); i++) {
-//            SanPhamDTO sanPham = d.get(i);
-//            System.out.println("Mã sản phẩm: " + sanPham.getMaSP());
-//            System.out.println("Mã loại: " + sanPham.getMaLoai());
-//            System.out.println("Tên sản phẩm: " + sanPham.getTenSP());
-//            System.out.println("Giá: " + sanPham.getPrice());
-//            System.out.println("Trang thai: "+ sanPham.getTrangThai());
-//            String[] tenHinh = sanPham.getTenHinh();
-//            System.out.println("Danh sách hình ảnh:");
-//            for (String ten : tenHinh) {
-//                System.out.println(ten);
-//            }
-//            System.out.println("---------------------");
-//        }
-//        System.out.println(d.size());
+        d = sp.list();
+        for (int i = 0; i < d.size(); i++) {
+            SanPhamDTO sanPham = d.get(i);
+            System.out.println("Mã sản phẩm: " + sanPham.getMaSP());
+            System.out.println("Mã loại: " + sanPham.getMaLoai());
+            System.out.println("Tên sản phẩm: " + sanPham.getTenSP());
+            System.out.println("Giá: " + sanPham.getPrice());
+            System.out.println("Trang thai: "+ sanPham.getTrangThai());
+            String[] tenHinh = sanPham.getTenHinh();
+            System.out.println("Danh sách hình ảnh:");
+            for (String ten : tenHinh) {
+                System.out.println(ten);
+            }
+            System.out.println("---------------------");
+        }
+        System.out.println(d.size());
 
-        String t[] = {"b.jpg", "p.jpg", "o.jpg"};
-        SanPhamDTO m = new SanPhamDTO("maSP2", "maloai01", "name01", 12450, t, 1);
-//        sp.add(m);
-//        sp.set(m);
-            sp.delete("maSP2");
+//        String t[] = {"b.jpg", "p.jpg", "o.jpg"};
+//        SanPhamDTO m = new SanPhamDTO("maSP2", "maloai01", "name01", 12450, t, 1);
+////        sp.add(m);
+////        sp.set(m);
+//            sp.delete("maSP2");
     }
 }

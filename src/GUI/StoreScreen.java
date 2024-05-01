@@ -1,5 +1,6 @@
 package GUI;
 
+import DTO.quyenDTO;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -25,6 +26,8 @@ public class StoreScreen extends JFrame{
     private MenuChucNangStore menu;
     protected CenterContentStore centerContent;
     private String MAQUYEN = "QQLHT";
+
+    public quyenDTO quyenUser=new quyenDTO("QQLHT","Quyền quản lí hệ thống");
     public StoreScreen(){
         chieurong=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         chieucao=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-40;

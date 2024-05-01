@@ -15,7 +15,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
     SanPhamBUS spBUS = new SanPhamBUS();
     ArrayList<SanPhamDTO> dsSP;
 
-    private JPanel[] product;
+    JPanel[] product;
     private int chieurong, chieucao;//Oanh them
     private Color backGroundColor;
 
@@ -34,8 +34,8 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         setBackground(backGroundColor);
         setOpaque(true);
 
+        product = new JPanel[dsSP.size()];
         for (int i = 0; i < dsSP.size(); i++) {
-            product = new JPanel[dsSP.size()];
             //san pham con ban moi hien thi
             if (dsSP.get(i).getTrangThai() == 1) {
                 product[i] = new JPanel();
@@ -43,8 +43,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
                 product[i].setLayout(new BoxLayout(product[i], BoxLayout.Y_AXIS));
                 product[i].setAlignmentY(TOP_ALIGNMENT);
 
-                ImageIcon icon = new ImageIcon("./src/images/"+ dsSP.get(i).tenHinh[0]);
-                System.out.println("./src/images/"+ dsSP.get(i).tenHinh[0]);
+                ImageIcon icon = new ImageIcon((String) "./src/images/" + dsSP.get(i).tenHinh[0]);
                 Image scaledImage = icon.getImage().getScaledInstance(174, 210, Image.SCALE_SMOOTH);
                 ImageIcon resizedIcon = new ImageIcon(scaledImage);
                 JLabel label = new JLabel(resizedIcon, JLabel.CENTER);
@@ -79,18 +78,37 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        view_chi_tiet_san_pham m = new view_chi_tiet_san_pham();
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Lấy ra JPanel được click
+        JPanel pn = (JPanel) e.getSource();
+
+        // Tìm vị trí của JPanel trong mảng product
+        int index = -1;
+        for (int i = 0; i < dsSP.size(); i++) {
+            if (pn == product[i]) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            // Hiển thị chi tiết sản phẩm
+//            view_chi_tiet_san_pham t = new view_chi_tiet_san_pham(500, 500);
+//            JFrame f = new JFrame();
+//            f.add(t);
+//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            f.setSize(1000, 600);
+//            f.setVisible(true);
+//            f.setLocationRelativeTo(null);
+
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
