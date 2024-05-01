@@ -288,7 +288,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         JOptionPane.showMessageDialog(null, "Bạn đang thực hiện chỉnh sửa quyền\nẤn Lưu/Thoát khi đã hoàn tất chỉnh sửa!");
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
+                       
                         pq.updateTENQUYEN(pq.currentQuyen, 0);
+                         
                         pq.isEditingEnabled = true;
                         break;
                     case "Lưu/Thoát":
@@ -296,9 +298,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         if (r2 == JOptionPane.YES_OPTION) {
                             itemClicked.title.setText("Sửa");
                             itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
-                            System.out.println("Quyen truoc khi sua"+pq.currentQuyen.toString());
+                            
                             pq.updateTENQUYEN(pq.currentQuyen, 1);
-                            System.out.println("Quyen sau khi sua"+pq.currentQuyen.toString());
+                            
                             qBUS.updateTENQUYEN(pq.currentQuyen);
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
