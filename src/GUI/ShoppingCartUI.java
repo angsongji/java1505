@@ -10,7 +10,7 @@ package GUI;
  */
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import DTO.chucnangDTO;
 import BUS.SanPhamBUS;
 import DTO.SanPhamDTO;
 
@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import DTO.model_qlkh;
 
 public class ShoppingCartUI extends JPanel {
     private JPanel cartPanel, headerPanel, endPanel;
@@ -29,13 +30,18 @@ public class ShoppingCartUI extends JPanel {
     private ArrayList<SanPhamDTO> dsSP2 = new ArrayList<SanPhamDTO>();
     private double totalPrice = 0.0; // Tổng tiền
     private JLabel totalPriceLabel, titleLabel;
-    private int chieurong, chieucao;
+    private int ccao, crong;
     //int sl=1;
 
+
+
     public ShoppingCartUI() {
+        // this.crong = crong;
+        // this.heightJP_content = heightJP_content;
+
 //        setTitle("Giỏ hàng");
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(chieurong, chieucao));
+        setPreferredSize(new Dimension(1300, 700));
         setBackground(new Color(255, 255, 255));
         setLayout(null); // Sử dụng null layout để có thể đặt vị trí và kích thước bằng tọa độ tuyệt đối
 
@@ -103,6 +109,17 @@ public class ShoppingCartUI extends JPanel {
         applyDiscountButton.setFont(new Font("Arial", Font.PLAIN, 16));
         applyDiscountButton.setFocusPainted(false);
         endPanel.add(applyDiscountButton);
+
+        JLabel CustomerCodeLabel = new JLabel("Mã khách hàng:");
+        CustomerCodeLabel.setBounds(800, 510, 150, 30);
+        CustomerCodeLabel.setForeground(new Color(10, 61, 98));
+        CustomerCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        endPanel.add(CustomerCodeLabel);
+
+        JTextField CustomerCodeField = new JTextField();
+        CustomerCodeField.setBounds(800, 540, 200, 30);
+        CustomerCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
+        endPanel.add(CustomerCodeField);
 
         applyDiscountButton.addActionListener(new ActionListener() {
             @Override
