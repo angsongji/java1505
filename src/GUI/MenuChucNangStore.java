@@ -183,7 +183,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
     }
 
     public ArrayList<chucnangDTO> lístChucnang(String MAQUYEN) {
-        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "' AND HANHDONG='Xem'";
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
         chitietquyenDAO ctqDAO = new chitietquyenDAO();
         ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
         ArrayList<chucnangDTO> listChucnang = new ArrayList<>();
@@ -208,7 +208,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
     }
 
     public ArrayList<String> lístNameChucnang(String MAQUYEN) {
-        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "' AND HANHDONG='Xem'";
+        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'";
         chitietquyenDAO ctqDAO = new chitietquyenDAO();
         ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
         ArrayList<String> listNameChucnang = new ArrayList<>();

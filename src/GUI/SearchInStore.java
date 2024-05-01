@@ -33,9 +33,9 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
     private JTextField cheapestPrice;
     private JTextField highestPrice;
     private JComboBox<String> typeShirt;
-     private JComboBox<String> sortPoint;
+    private JComboBox<String> sortPoint;
     private JComboBox<String> typeChucvu;
-     private JComboBox<String> typeTrangthai;
+    private JComboBox<String> typeTrangthai;
     private JSpinner startDate;
     private JSpinner endDate;
     private JButton reset;
@@ -95,7 +95,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 wrap.add(cheapestPrice);
                 break;
             case "Giá cao nhất":
-            
+
                 highestPrice = new JTextField();
                 wrap.add(highestPrice);
                 break;
@@ -189,7 +189,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 System.out.println("Nha cung cap");
                 String[] list = {"Theo tên hoặc MANCC"};
                 listTitle.addAll(Arrays.asList(list));
-               //submit.setName(TENCHUCNANG);
+                //submit.setName(TENCHUCNANG);
                 break;
             }
 
@@ -213,6 +213,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
+
 //            case "Giỏ hàng": {
 //                String[] list = {};
 //                listTitle.addAll(Arrays.asList(list));
@@ -233,8 +234,10 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
+
             case "HD": {
                 System.out.println("LA TAI SAOOOOOOO");
+
                 String[] list = {"Theo MAHD", "Ngày bắt đầu", "đến", "Ngày kết thúc"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
@@ -252,7 +255,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
 
         }
         if (!listTitle.isEmpty()) {
-             System.out.println("heheheheheheheh");
+            System.out.println("heheheheheheheh");
 //            setPreferredSize(new Dimension(chieurong, 117));
 
             JPanel jp_title = new JPanel();
@@ -272,7 +275,7 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
             x.setOpaque(true);
 //            x.setPreferredSize(new Dimension(chieurong, 80));
             for (String titleTimkiem1 : listTitle) {
-               
+
                 JPanel child_x = itemInput(titleTimkiem1);
 
                 x.add(child_x);
@@ -316,6 +319,13 @@ public class SearchInStore extends JPanel implements MouseListener { //implement
 //        } catch (Exception ex) {
 //
 //        }
+        JButton btn = (JButton) e.getSource();
+        if (btn == submit) {
+//            TaiKhoanGUI tk = new TaiKhoanGUI((int)pageContent.getPreferredSize().getWidth(),(int)pageContent.getPreferredSize().getHeight());
+            TaiKhoanGUI tk = new TaiKhoanGUI(500, 500);
+            tk.SearchTK(name.getText(), typeTrangthai.getSelectedIndex());
+        }
+
     }
 
     @Override
