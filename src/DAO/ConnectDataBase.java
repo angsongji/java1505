@@ -16,22 +16,21 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.*;
 
 public class ConnectDataBase {
-   private Connection conn;
-   private String url;
-   private String dbName;
-   private String driver;
-   private String userName; 
-   private String password;
+    private Connection conn;
+    private String url;
+    private String dbName;
+    private String driver;
+    private String userName; 
+    private String password;
 
-   public ConnectDataBase() throws SQLException
-   {
-      //driver = new org.gjt.mm.mysql.Driver();
-       url = "jdbc:mysql://localhost:3306/";
-       dbName = "qlba";
-       driver = "com.mysql.cj.jdbc.Driver";
-       userName = "root";//username tuy may moi nguoi khac nhau
-       password = "Oanh2004!";//password tuy may moi nguoi khac nhau
-   }
+    // Phương thức khởi tạo có tên giống với tên lớp
+    public ConnectDataBase() throws SQLException {
+        url = "jdbc:mysql://localhost:3306/";
+        dbName = "qlba";
+        driver = "com.mysql.cj.jdbc.Driver";
+        userName = "root";
+        password = "";
+    }
    public ConnectDataBase(String url, String dbName, String driver, String userName, String password) {
       this.url = url;
       this.dbName = dbName;
@@ -40,24 +39,24 @@ public class ConnectDataBase {
       this.password = password;
    }
 
-   public void connect() throws SQLException {
-      try {
-         Class.forName(driver);
-         conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
-      } catch (ClassNotFoundException e) {
-         throw new SQLException("Driver not found");
-      }
-      
-   }
+   public void connect() {
+    try {
+        Class.forName(driver);
+        conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
+    } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+    }
+}
 
-   public void disconnect() throws SQLException {
-      if (conn != null) {
-          try{
-         conn.close();
-         conn = null;
-         }catch (SQLException E){}
-      }
-   }
+public void disconnect() {
+    if (conn != null) {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
    public ResultSet executeQuery(String sql){//executeQuery() được sử dụng để thực thi các câu lệnh SELECT trả về dữ liệu trong ResultSet
        ResultSet rs = null;
        try {
@@ -66,6 +65,9 @@ public class ConnectDataBase {
             
         } catch (SQLException ex) {
             System.out.println("Thêm thất bại");
+            System.out.println(ex);
+            System.out.println(sql);    
+
         }
        return rs;
    }

@@ -380,6 +380,7 @@ public class ShoppingCartUI extends JPanel {
                 if (checkBox.isSelected()) {
                     quantityValueLabel.setBackground(new Color(245,245,245));
                     panel.setBackground(new Color(96, 163, 188));
+                    checkBox.setBackground(new Color(96, 163, 188));
                     increaseButton.setEnabled(false);
                     decreaseButton.setEnabled(false);
                     deleteOrderButton.setEnabled(false);
@@ -391,6 +392,7 @@ public class ShoppingCartUI extends JPanel {
                     dsSP2.add(sp);
                 } else {
                     panel.setBackground(new Color(255, 255, 255)); // Khôi phục màu nền mặc định
+                    checkBox.setBackground(new Color(255, 255, 255));
                     quantityValueLabel.setBackground(new Color(255, 255, 255));
                     increaseButton.setEnabled(true);
                     decreaseButton.setEnabled(true);

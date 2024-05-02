@@ -26,11 +26,12 @@ import javax.swing.JScrollPane;
  * @author hp
  */
 public class chucnangHoadon extends JPanel implements MouseListener{
-    private int ccao, crong;
+    private int ccao;
     private  JPanel JP_listNameChucnangConCuaHoadon;
     private ArrayList<chucnangDTO> listChucnangCon;
     private JPanel JP_contentCuaNameChucnangCon;
     private CenterContentStore centerContent;
+    private int crong, heightJP_content;
     public chucnangHoadon(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) {
         this.centerContent=centerContent;
         ccao = (int)centerContent.pageContent.getPreferredSize().getHeight();
@@ -39,6 +40,14 @@ public class chucnangHoadon extends JPanel implements MouseListener{
         
         init(cnDTO,maquyen);
     }
+    public int getCrong() {
+        return crong;
+    }
+
+    public int getHeightJPContent() {
+        return heightJP_content;
+    }
+
     
      private void init(chucnangDTO cnDTO,String maquyen) {
          chitietquyenBUS ctqBUS = new chitietquyenBUS();
@@ -58,6 +67,7 @@ public class chucnangHoadon extends JPanel implements MouseListener{
                  title_taikhoan = new JLabel("Lịch sử hóa đơn", JLabel.CENTER);
             btn_taikhoan.setPreferredSize(new Dimension((int) title_taikhoan.getPreferredSize().getWidth() + 50, (int) title_taikhoan.getPreferredSize().getHeight() + 20));
             btn_taikhoan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    
             
 if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
                 title_taikhoan.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
@@ -94,6 +104,7 @@ if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
         JP_contentCuaNameChucnangCon.setBackground(Color.WHITE);
         JP_contentCuaNameChucnangCon.setOpaque(true);
         int heightJP_content=ccao - (int)JP_listNameChucnangConCuaHoadon.getPreferredSize().getHeight();
+        
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLHD":
                 ShoppingCartUI p = new ShoppingCartUI();
@@ -111,6 +122,7 @@ if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
         add(JP_listNameChucnangConCuaHoadon);
         add(JP_contentCuaNameChucnangCon);
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {

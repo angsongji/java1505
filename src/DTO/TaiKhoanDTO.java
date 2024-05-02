@@ -65,7 +65,5 @@ public class TaiKhoanDTO {
         this.state = state;
     }
 
-    
-    
-    
+
 }
