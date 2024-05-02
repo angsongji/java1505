@@ -2,16 +2,22 @@ package GUI;
 
 
 import javax.swing.*;
+
+import DAO.TaiKhoanDAO;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import DTO.TaiKhoanDTO;
 public class LoginUI {
     private JFrame frame;
     private JPanel mainPanel;
     private JPanel storePanel;
     private JPanel loginPanel;
+    private TaiKhoanDAO checkLogin;
 
     public LoginUI() {
         frame = new JFrame("Đăng nhập");
@@ -150,12 +156,20 @@ public class LoginUI {
         loginButton.setFocusPainted(false);
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginPanel.add(loginButton);
+
+        
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                //Lay duoc doi tuong TaikhoanDTO sau do khoi tao StoreScreen voi tham so la TaikhoanDTO do
-                StoreScreen s = new StoreScreen();
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (checkLogin.checkLogin(username, password)) {
+                    JOptionPane.showMessageDialog(frame, "Login Successful!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
+                }
             }
         });
 
