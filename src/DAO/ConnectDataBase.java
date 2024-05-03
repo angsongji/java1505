@@ -76,7 +76,7 @@ public class ConnectDataBase {
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
         } catch (SQLException ex) {
-            System.out.println("Thực hiện thất bại");
+            System.out.println("Thực hiện thất bại" + ex.getMessage());
         }
    }
 

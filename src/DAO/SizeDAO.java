@@ -23,6 +23,25 @@ public class SizeDAO {
         } catch (SQLException e) {
         }
     }
+     public ArrayList<SizeDTO> listSizeRemoveTrangthai0() {
+        ArrayList<SizeDTO> list = new ArrayList<>();
+
+        try {
+            c.connect();
+            String query = "SELECT * FROM size";
+            ResultSet result = c.executeQuery(query);
+            while (result.next()) {
+             if(result.getInt("TRANGTHAI")==1)
+                    list.add(new SizeDTO(result.getString("MASIZE"), result.getString("TENSIZE")));
+               
+            }
+
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+
+        return list;
+    }
     
      public ArrayList<SizeDTO> listSize() {
         ArrayList<SizeDTO> list = new ArrayList<>();
@@ -32,9 +51,9 @@ public class SizeDAO {
             String query = "SELECT * FROM size";
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
-              
+             
                     list.add(new SizeDTO(result.getString("MASIZE"), result.getString("TENSIZE")));
-                
+               
             }
 
             c.disconnect();
@@ -43,6 +62,35 @@ public class SizeDAO {
 
         return list;
     }
+    public void add(SizeDTO item) {
+        try {
+            c.connect();
+            System.out.println("Them size");
+            String query = "INSERT INTO size(MASIZE,TENSIZE) VALUES ('" + item.getMASIZE()+ "','" + item.getTENSIZE() + "');";
+            c.executeUpdate(query);
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+    }
      
+    public void update(SizeDTO item) {
+        try {
+            c.connect();
+
+            String query = " UPDATE size SET TENSIZE='" + item.getTENSIZE()+  " WHERE MANCC='" + item.getMASIZE()+ "'";
+            c.executeUpdate(query);
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+    }
+     public void delete(String m) {
+        try {
+            c.connect();
+            String query = "UPDATE size SET TRANGTHAI = 0 WHERE MASIZE = '" + m + "'";
+            c.executeUpdate(query);
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+    }
      
 }

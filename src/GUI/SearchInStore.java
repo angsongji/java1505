@@ -61,7 +61,7 @@ public class SearchInStore extends JPanel implements MouseListener {
 
     // private String[] titleTimkiem={"Theo tên"};
     public SearchInStore(String MACHUCNANG, Component pageContent) {
-        this.pageContent =(JPanel) pageContent;
+        this.pageContent = (JPanel) pageContent;
         this.MACHUCNANG = MACHUCNANG;
         listComponentTimkiem = new ArrayList<>();
         init();
@@ -69,7 +69,7 @@ public class SearchInStore extends JPanel implements MouseListener {
     }
 
     public SearchInStore(String MACHUCNANG, Component pageContent, int thongkeloai) {
-        this.pageContent =(JPanel) pageContent;
+        this.pageContent = (JPanel) pageContent;
         this.MACHUCNANG = MACHUCNANG;
         this.thongkeloai = thongkeloai;
         listComponentTimkiem = new ArrayList<>();
@@ -111,7 +111,7 @@ public class SearchInStore extends JPanel implements MouseListener {
             case "Theo MAHD, theo MAKH, theo MANV":
             case "Theo tên loại hoặc MALOAI":
                 name = new JTextField();
-                
+
                 listComponentTimkiem.add(name);
                 wrap.add(name);
                 break;
@@ -164,15 +164,28 @@ public class SearchInStore extends JPanel implements MouseListener {
                 wrap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 break;
             case "Theo loại": {
+                Vector loai = new Vector();
                 loaiSPBUS loaiBUS = new loaiSPBUS();
                 ArrayList<loaiSP> listLoai = loaiBUS.getList();
-                Vector loai = new Vector();
+
                 loai.add("Tât cả");
 
                 for (loaiSP q : listLoai) {
-                    if(loaiBUS.checkTINHTRANG(q.getMALOAI()))
-                        loai.add(q.getTENLOAI());
+                    switch (MACHUCNANG) {
+                        case "SP": {
+                            if (loaiBUS.checkTINHTRANG(q.getMALOAI())) {
+                                loai.add(q.getTENLOAI());
+                            }
+                            break;
+                        }
+                        case "NULLThK": {
+                            loai.add(q.getTENLOAI());
+                        }
+
+                    }
+
                 }
+
                 typeShirt = new JComboBox<>(loai);
                 listComponentTimkiem.add(typeShirt);
                 wrap.add(typeShirt);
@@ -381,51 +394,51 @@ public class SearchInStore extends JPanel implements MouseListener {
         }
 
     }
-    
-    public void searchOfChucnang(ArrayList<String> data_filter){
+
+    public void searchOfChucnang(ArrayList<String> data_filter) {
         Component[] components = pageContent.getComponents();
-        switch(MACHUCNANG){
-            case "NCC":{
+        switch (MACHUCNANG) {
+            case "NCC": {
                 nhacungcapBUS nccBUS = new nhacungcapBUS();
-                nhacungcapGUI nccGUI = (nhacungcapGUI)components[0];
-               
-                
-               nccGUI.addDataInTable(nccBUS.search(data_filter));
+                nhacungcapGUI nccGUI = (nhacungcapGUI) components[0];
+
+                nccGUI.addDataInTable(nccBUS.search(data_filter));
                 nccGUI.repaint();
                 nccGUI.validate();
-              
-                 break;
+
+                break;
             }
-              case "LOAI":{
+            case "LOAI": {
                 loaiSPBUS loaiBUS = new loaiSPBUS();
-                loaiSPGUI loaiGUI = (loaiSPGUI)components[0];
-                  System.out.println("Du lieu tim kiem"+data_filter.toString());
-                
-               loaiGUI.addDataInTable(loaiBUS.search(data_filter));
+                loaiSPGUI loaiGUI = (loaiSPGUI) components[0];
+                System.out.println("Du lieu tim kiem" + data_filter.toString());
+
+                loaiGUI.addDataInTable(loaiBUS.search(data_filter));
                 loaiGUI.repaint();
                 loaiGUI.validate();
-              
-                 break;
-            }  
-               
+
+                break;
+            }
+
         }
     }
-    public void resetOfChucnang(){
-         ArrayList<String> data_filter = new ArrayList<>();
-        switch(MACHUCNANG){
-            case "NCC":{
-               
+
+    public void resetOfChucnang() {
+        ArrayList<String> data_filter = new ArrayList<>();
+        switch (MACHUCNANG) {
+            case "NCC": {
+
                 data_filter.add("");
-               
+
                 break;
             }
-             case "LOAI":{
+            case "LOAI": {
                 data_filter.add("");
-                 data_filter.add("Tất cả");
+                data_filter.add("Tất cả");
                 break;
             }
         }
-         searchOfChucnang(data_filter);
+        searchOfChucnang(data_filter);
     }
 
     @Override
@@ -478,7 +491,7 @@ public class SearchInStore extends JPanel implements MouseListener {
             }
             resetOfChucnang();
         }
-        
+
     }
 
     @Override

@@ -4,57 +4,54 @@
  */
 package GUI;
 
-import BUS.loaiSPBUS;
-import DTO.loaiSP;
+
+import BUS.SizeBUS;
+import DTO.SizeDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 /**
  *
  * @author hp
  */
-public class addLoaiSPGUI extends JFrame implements MouseListener{
-
-    private class addLoaiSP extends JPanel {
-
-        public JLabel error;
+public class addSizeGUI extends JFrame implements MouseListener{
+     private class addSize extends JPanel {
+         public JLabel error;
         public JTextField getData;
-        private String title = "Tên";
+        private String title = "Tên size";
         private Font font_data = new Font("Tahoma", Font.PLAIN, 14);
         protected JPanel btn_exit;
         protected JPanel btn_submit;
         
-        public addLoaiSP(int chieurong, int chieucao) {
+         public addSize(int chieurong, int chieucao) {
             
             getData = new JTextField();
             error = new JLabel();
             init(chieurong, chieucao);
         }
-
-        private void init(int chieurong, int chieucao) {
+         
+         private void init(int chieurong, int chieucao) {
 
             setLayout(new FlowLayout(3, 0, 0));
             setPreferredSize(new Dimension(chieurong+20, chieucao));
             JPanel titleGUI_wrap = new JPanel(new BorderLayout());
             titleGUI_wrap.setPreferredSize(new Dimension(chieurong, 40));
-            JLabel titleGUI = new JLabel("Thêm loại sản phẩm".toUpperCase(), JLabel.CENTER);
+            JLabel titleGUI = new JLabel("Thêm size".toUpperCase(), JLabel.CENTER);
             titleGUI.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
             titleGUI_wrap.add(titleGUI, BorderLayout.CENTER);
             add(titleGUI_wrap);
-
             
-                JPanel item = new JPanel(new FlowLayout(3, 10, 0));
+            JPanel item = new JPanel(new FlowLayout(3, 10, 0));
                 item.setPreferredSize(new Dimension(chieurong, 100));
                 JLabel lb_title = new JLabel(title);
                 lb_title.setPreferredSize(new Dimension(chieurong, 30));
@@ -74,9 +71,8 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
                 item.add(error);
 
                 add(item);
-            
-
-            JPanel btn_wrap = new JPanel(new FlowLayout(1));
+               
+             JPanel btn_wrap = new JPanel(new FlowLayout(1));
 
             btn_exit = new JPanel();
             cssBtn(btn_exit, "Hủy", "btn_exit");
@@ -89,8 +85,8 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             add(btn_wrap);
         }
-
-        private void cssBtn(JPanel b, String text, String name) {
+         
+         private void cssBtn(JPanel b, String text, String name) {
             JLabel t = new JLabel(text, JLabel.CENTER);
             t.setForeground(Color.WHITE);
             b.setName(name);
@@ -99,28 +95,29 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
             b.setPreferredSize(new Dimension(100, (int) b.getPreferredSize().getHeight()));
             b.setOpaque(true);
         }
-    }
-    private int chieurong, chieucao;
-    private addLoaiSP addLoai;
+     }
+     
+     private int chieurong, chieucao;
+    private addSize addSize;
     private boolean flag_ten;
-    private loaiSPGUI loaiGUI;
-    public addLoaiSPGUI(loaiSPGUI loaiGUI) {
-        this.loaiGUI=loaiGUI;
+    private SizeGUI sizeGUI;
+    public addSizeGUI(SizeGUI sizeGUI) {
+        this.sizeGUI=sizeGUI;
         chieurong = chieucao = 300;
         flag_ten  = false;
         init();
     }
-
+    
     private void init() {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setSize(chieurong, chieucao);
         setBackground(Color.WHITE);
-        addLoai = new addLoaiSP(getWidth(), getHeight());
-        addLoai.btn_exit.addMouseListener(this);
-        addLoai.btn_submit.addMouseListener(this);
-        add(addLoai, BorderLayout.CENTER);
+        addSize = new addSize(getWidth(), getHeight());
+        addSize.btn_exit.addMouseListener(this);
+        addSize.btn_submit.addMouseListener(this);
+        add(addSize, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(null);
      
@@ -142,25 +139,26 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
 
                     break;
                 case "btn_submit":
-                    String ten = addLoai.getData.getText();
-                    loaiSPBUS loaiBUS = new loaiSPBUS();
+                    String ten = addSize.getData.getText();
+                    SizeBUS sizeBUS = new SizeBUS();
                     if (ten.equals("")) {
-                        addLoai.error.setText("Không được để trống");
-                    } else if (!loaiBUS.checkTENLOAI(ten)) {
-                        addLoai.error.setText("Tên chỉ chứa chữ cái");
+                        addSize.error.setText("Không được để trống");
+                    } else if (!sizeBUS.checkTENSIZE(ten)) {
+                        addSize.error.setText("Tên không chứa kí tự đặc biệt");
                     } else {
                         flag_ten = true;
-                        addLoai.error.setText("");
+                        addSize.error.setText("");
                     }
                    
 
                     if (flag_ten) {
-                        int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Thêm loại sản phẩm ", JOptionPane.YES_NO_OPTION);
+                        int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Thêm size", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
-                            loaiSP loaiDTO = new loaiSP(ten);
-
-                            loaiBUS.add(loaiDTO);
-                            loaiGUI.addLineDataInTable(loaiDTO);
+                            SizeDTO sizeDTO = new SizeDTO(ten);
+                            
+                            
+                            sizeBUS.add(sizeDTO);
+                            sizeGUI.addLineDataInTable(sizeDTO);
                             JOptionPane.showMessageDialog(null, "Thêm loại sản phẩm mới thành công!");
                             dispose();
 
@@ -208,6 +206,4 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
             System.out.println(ex.getMessage());
         }
     }
-    
-//
 }

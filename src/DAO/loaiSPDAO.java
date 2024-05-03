@@ -24,7 +24,7 @@ public class loaiSPDAO {
         }
     }
     
-     public ArrayList<loaiSP> listLoaiSP() {
+    public ArrayList<loaiSP> listLoaiSPRemoveTrangthai2() {
         ArrayList<loaiSP> list = new ArrayList<>();
 
         try {
@@ -35,6 +35,26 @@ public class loaiSPDAO {
                 if (result.getInt("TINHTRANG") != 2) {
                     list.add(new loaiSP(result.getString("MALOAI"), result.getString("TENLOAI"), result.getInt("TINHTRANG")));
                 }
+            }
+
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+
+        return list;
+    }
+    
+     public ArrayList<loaiSP> listLoaiSP() {
+        ArrayList<loaiSP> list = new ArrayList<>();
+
+        try {
+            c.connect();
+            String query = "SELECT * FROM loai";
+            ResultSet result = c.executeQuery(query);
+            while (result.next()) {
+                
+                    list.add(new loaiSP(result.getString("MALOAI"), result.getString("TENLOAI"), result.getInt("TINHTRANG")));
+                
             }
 
             c.disconnect();

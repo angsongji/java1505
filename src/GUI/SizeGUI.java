@@ -7,6 +7,7 @@ package GUI;
 import BUS.SizeBUS;
 import BUS.nhacungcapBUS;
 import DTO.SizeDTO;
+import DTO.loaiSP;
 import DTO.nhacungcapDTO;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -88,10 +90,19 @@ public class SizeGUI extends JPanel {
         table.setModel(tableModel);
         tableModel.fireTableDataChanged();
     }
+       
+       public void addLineDataInTable(SizeDTO n) {
+        Vector data = new Vector();
+        data.add(n.getMASIZE());
+        data.add(n.getTENSIZE());
+        tableModel.addRow(data);
+        tableModel.fireTableDataChanged();
+
+    }
 
      private void cssHeaderTable(JTableHeader header) {
-        header.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-        header.setForeground(Cacthuoctinh_phuongthuc_chung.sky_blue);
+        header.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
+        header.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         header.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
@@ -105,6 +116,33 @@ public class SizeGUI extends JPanel {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Căn giữa dữ liệu trong các ô
         table.setDefaultRenderer(Object.class, centerRenderer);
     }  
+    
+    
+    public ArrayList<String> getSelectedListSize() {
+        ArrayList<String> MASIZEselected = new ArrayList<>();
+        int[] quantity_rowSelected = table.getSelectedRows();
+        for (int row : quantity_rowSelected) {
+            MASIZEselected.add((String) table.getValueAt(row, 0));
+        }
+        return MASIZEselected;
+    }
+     public ArrayList<SizeDTO> getListSize() {
+        ArrayList<SizeDTO> list = new ArrayList<>();
+        TableModel model = table.getModel();
+
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String masize = (String) model.getValueAt(i, 0);
+            String tensize = (String) model.getValueAt(i, 1);
+
+
+          
+            
+            list.add(new SizeDTO(masize,tensize));
+        }
+        return list;
+    }
+    
+    
      public static void main(String[] args) {
         JFrame f =new JFrame();
         f.setLocationRelativeTo(null);

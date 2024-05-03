@@ -23,6 +23,26 @@ public class nhacungcapDAO {
         } catch (SQLException e) {
         }
     }
+    
+     public ArrayList<nhacungcapDTO> listNhacungcapRemoveTrangthai0() {
+        ArrayList<nhacungcapDTO> list = new ArrayList<>();
+
+        try {
+            c.connect();
+            String query = "SELECT * FROM nhacungcap";
+            ResultSet result = c.executeQuery(query);
+            while (result.next()) {
+                 if(result.getInt("TRANGTHAI")==1)
+                    list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getInt("SDT")));
+                
+            }
+
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+
+        return list;
+    }
 
     public ArrayList<nhacungcapDTO> listNhacungcap() {
         ArrayList<nhacungcapDTO> list = new ArrayList<>();
@@ -32,9 +52,9 @@ public class nhacungcapDAO {
             String query = "SELECT * FROM nhacungcap";
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
-                if (result.getInt("TRANGTHAI") == 1) {
+               
                     list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getInt("SDT")));
-                }
+                
             }
 
             c.disconnect();
