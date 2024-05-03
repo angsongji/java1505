@@ -78,29 +78,16 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Lấy ra JPanel được click
-        JPanel pn = (JPanel) e.getSource();
-
-        // Tìm vị trí của JPanel trong mảng product
-        int index = -1;
-        for (int i = 0; i < dsSP.size(); i++) {
-            if (pn == product[i]) {
-                index = i;
-                break;
-            }
+    
+        for (int i = 0; i < dsSP.size(); i++){
+        if (e.getSource() == product[i]){
+            product[i].setBackground(Color.red);
+            frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
         }
+    }
+       
 
-        if (index != -1) {
-            // Hiển thị chi tiết sản phẩm
-//            view_chi_tiet_san_pham t = new view_chi_tiet_san_pham(500, 500);
-//            JFrame f = new JFrame();
-//            f.add(t);
-//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            f.setSize(1000, 600);
-//            f.setVisible(true);
-//            f.setLocationRelativeTo(null);
-
-        }
+       
     }
 
     @Override
@@ -124,4 +111,5 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         Border lineBorder = null;
         pn1.setBorder(lineBorder);
     }
+   
 }

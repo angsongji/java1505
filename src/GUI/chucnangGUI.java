@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 /**
  *
@@ -32,6 +33,7 @@ public class chucnangGUI extends JPanel{
         setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         setOpaque(true);
         setLayout(new BorderLayout(10,0));
+        
         
         nameIcon.setPreferredSize(new Dimension(50,30));
         add( nameIcon,BorderLayout.WEST);

@@ -12,7 +12,7 @@ public class SanPhamDTO {
     public SanPhamDTO() {
     }
 
-
+ 
     public SanPhamDTO(String maSP, String maLoai, String tenSP, double price, String[] tenHinh, int trangThai) {
         this.maSP = maSP;
         this.maLoai = maLoai;
