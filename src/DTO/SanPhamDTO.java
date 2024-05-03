@@ -3,12 +3,11 @@ package DTO;
 import java.awt.*;
 import javax.swing.*;
 
-
 public class SanPhamDTO {
     private String maSP, maLoai,tenSP;
     private double price;
     public String [] tenHinh;
-    private int TrangThai;
+    private int trangThai;
 
     public SanPhamDTO() {
     }
@@ -20,15 +19,15 @@ public class SanPhamDTO {
         this.tenSP = tenSP;
         this.price = price;
         this.tenHinh = tenHinh;
-        this.TrangThai = TrangThai;
+        this.trangThai = trangThai;
     }
 
     public int getTrangThai() {
-        return TrangThai;
+        return trangThai;
     }
 
     public void setTrangThai(int trangThai) {
-        this.TrangThai = TrangThai;
+        this.trangThai = trangThai;
     }
     
     public String[] getTenHinh() {
