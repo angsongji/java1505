@@ -95,7 +95,7 @@ public class chucnangThongke extends JPanel {
         LocalDate ngayHienTai = LocalDate.now();
 
         // Định dạng ngày theo định dạng dd/MM/yyyy
-        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         String ngayDinhDang = ngayHienTai.format(dinhDang);
         ArrayList<String> currentday = new ArrayList<>();
         currentday.add(ngayDinhDang);

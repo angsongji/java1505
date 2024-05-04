@@ -136,7 +136,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-    //long chi tiet san pham day nha Phuong
+    ////long chi tiet san pham day nha Phuong
 //        for (int i = 0; i < dsSP.size(); i++){
 //        if (e.getSource() == product[i]){
 //            product[i].setBackground(Color.red);
@@ -153,7 +153,6 @@ public class SanPhamGUI extends JPanel implements MouseListener {
             for (int i = 0; i < dsSP.size(); i++) {
                 if (pn == product[i]) {
                     selectedSP = dsSP.get(i);
-//                    setTT();
                     Border lineBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 4); // Đường viền ngoài
                     pn.setBorder(lineBorder);
                     clear(i);

@@ -121,6 +121,7 @@ DefaultTableModel df;
         } catch (SQLException ex) {
             Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("danh sach thong ke "+ds.size());
         for (ThongKeDTO row : ds) {
             //gọi lại hàm format cho cách hiện thị cho các số có giá trị quá lớn hoặc nhở
             String donGia = FormatDouble.format(row.getDonGia());

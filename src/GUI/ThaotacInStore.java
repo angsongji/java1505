@@ -543,6 +543,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
 
                         int r1 = JOptionPane.showConfirmDialog(null, "Kiểm tra chắc chắn:\nTên loại không chứa số và các kí tự đặc biệt\nNếu có dữ liệu để trống hoặc nhập sai kiểu dữ liệu, tất cả dữ liệu sẽ không được lưu thay đổi\nBạn có chắc chắn lưu?", "Sửa loại sản phẩm ", JOptionPane.YES_NO_OPTION);
                         if (r1 == JOptionPane.YES_OPTION) {
+                             
                             ArrayList<loaiSP> listLoaiNew = loaiGUI.getListLoai();
                             if (loaiBUS.checkNewListLoai(listLoaiNew)) {
                                 loaiGUI.addDataInTable(loaiBUS.getList());

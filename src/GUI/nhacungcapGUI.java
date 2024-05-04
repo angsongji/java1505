@@ -160,7 +160,9 @@ public class nhacungcapGUI extends JPanel {
                 sdt = Integer.parseInt(sdtStr);
             } catch (NumberFormatException ex) {
             }
+            
             nhacungcapDTO nccDTO = new nhacungcapDTO(mancc, tenncc, sdt);
+            System.out.println("new ncc"+mancc+" "+tenncc+" "+sdt);
             list.add(nccDTO);
         }
         return list;

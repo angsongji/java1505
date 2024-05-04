@@ -21,6 +21,8 @@ import java.awt.Cursor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
@@ -173,7 +175,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 loaiSPBUS loaiBUS = new loaiSPBUS();
                 ArrayList<loaiSP> listLoai = loaiBUS.getList();
 
-                loai.add("Tât cả");
+                loai.add("Tất cả");
 
                 for (loaiSP q : listLoai) {
                     switch (MACHUCNANG) {
@@ -191,7 +193,6 @@ public class SearchInStore extends JPanel implements MouseListener {
 
                 }
 
-
                 typeShirt = new JComboBox<>(loai);
                 listComponentTimkiem.add(typeShirt);
                 wrap.add(typeShirt);
@@ -203,7 +204,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 ArrayList<SanPhamDTO> listLoai = spBUS.getDsSP();
                 Vector top = new Vector();
                 for (int i = 1; i <= listLoai.size(); i++) {
-                    top.add(i);
+                    top.add(i + "");
                 }
 
                 typeShirt = new JComboBox<>(top);
@@ -400,79 +401,91 @@ public class SearchInStore extends JPanel implements MouseListener {
         }
 
     }
-    
-    public void searchOfChucnang(ArrayList<String> data_filter){
+
+    public void searchOfChucnang(ArrayList<String> data_filter) {
         Component[] components = pageContent.getComponents();
-        switch(MACHUCNANG){
-            case "NCC":{
+        switch (MACHUCNANG) {
+            case "NCC": {
                 nhacungcapBUS nccBUS = new nhacungcapBUS();
-                nhacungcapGUI nccGUI = (nhacungcapGUI)components[0];
-               
-                
-               nccGUI.addDataInTable(nccBUS.search(data_filter));
+                nhacungcapGUI nccGUI = (nhacungcapGUI) components[0];
+
+                nccGUI.addDataInTable(nccBUS.search(data_filter));
                 nccGUI.repaint();
                 nccGUI.validate();
-              
-                 break;
+
+                break;
             }
-              case "LOAI":{
+            case "LOAI": {
                 loaiSPBUS loaiBUS = new loaiSPBUS();
-                loaiSPGUI loaiGUI = (loaiSPGUI)components[0];
-                  System.out.println("Du lieu tim kiem"+data_filter.toString());
-                
-               loaiGUI.addDataInTable(loaiBUS.search(data_filter));
+                loaiSPGUI loaiGUI = (loaiSPGUI) components[0];
+                System.out.println("Du lieu tim kiem" + data_filter.toString());
+
+                loaiGUI.addDataInTable(loaiBUS.search(data_filter));
                 loaiGUI.repaint();
                 loaiGUI.validate();
-              
-                 break;
-            }  
-              case "NULLThK":
-                 
-                   chucnangThongke tkGUI = (chucnangThongke)components[0];
-                   JPanel jp_content=tkGUI.JP_contentCuaLoaiThongke;
-                    Component[] jp_con = jp_content.getComponents();
-                    ThongKeGUI thongke = (ThongKeGUI)jp_con[0];
-                  switch (thongkeloai) {
-                      case 0:
-                           System.out.println("tim kiem tl"+data_filter.toString());
-                           thongke.ShowdoanhThu(data_filter);
-                          break;
-                     case 1:
-                          System.out.println("tim kiem top"+data_filter.toString());
-                          thongke.ShowbanChay(data_filter);
-                          break;
-                  }
-                  
-                   
-              
-                    
-                    
-                    
-                   
-                    thongke.repaint();
-                    thongke.validate();
-                  break;
-        }
-    }
-    public void resetOfChucnang(){
-         ArrayList<String> data_filter = new ArrayList<>();
-        switch(MACHUCNANG){
-            case "NCC":{
-               
-                data_filter.add("");
-               
+
                 break;
             }
-             case "LOAI":{
-                data_filter.add("");
-                 data_filter.add("Tất cả");
+            case "NULLThK":
+
+                chucnangThongke tkGUI = (chucnangThongke) components[0];
+                JPanel jp_content = tkGUI.JP_contentCuaLoaiThongke;
+                Component[] jp_con = jp_content.getComponents();
+                ThongKeGUI thongke = (ThongKeGUI) jp_con[0];
+                switch (thongkeloai) {
+                    case 0:
+
+                        thongke.ShowdoanhThu(data_filter);
+                        break;
+                    case 1:
+
+                        thongke.ShowbanChay(data_filter);
+                        break;
+                }
+
+                thongke.repaint();
+                thongke.validate();
                 break;
-            }
         }
-         searchOfChucnang(data_filter);
     }
 
-  
+    public void resetOfChucnang() {
+        ArrayList<String> data_filter = new ArrayList<>();
+        switch (MACHUCNANG) {
+            case "NCC": {
+
+                data_filter.add("");
+
+                break;
+            }
+            case "LOAI": {
+                data_filter.add("");
+                data_filter.add("Tất cả");
+                break;
+            }
+            case "NULLThK": {
+                LocalDate ngayHienTai = LocalDate.now();
+
+                // Định dạng ngày theo định dạng dd/MM/yyyy
+                DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String ngayDinhDang = ngayHienTai.format(dinhDang);
+                data_filter.add(ngayDinhDang);
+                data_filter.add(ngayDinhDang);
+                switch (thongkeloai) {
+                    case 0:
+                        data_filter.add("Tất cả");
+
+                        break;
+                    case 1:
+
+                        data_filter.add("1");
+                        break;
+                }
+                break;
+            }
+        }
+        searchOfChucnang(data_filter);
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -496,7 +509,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                     JSpinner date = (JSpinner) c;
                     Date selectedDate = (Date) date.getValue();
                     // Định dạng ngày tháng năm thành chuỗi
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                     String dateString = dateFormat.format(selectedDate);
                     // In ra giá trị đã chọn dưới dạng chuỗi
                     data_filter.add(dateString);
@@ -517,13 +530,13 @@ public class SearchInStore extends JPanel implements MouseListener {
 
                     date.setModel(new SpinnerDateModel());
 
-                    JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(date, "dd/MM/yyyy");
+                    JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(date, "yyyy/MM/dd");
                     date.setEditor(dateEditor);
                 }
             }
             resetOfChucnang();
         }
-        
+
     }
 
     @Override

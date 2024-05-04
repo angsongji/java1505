@@ -68,7 +68,7 @@ public class SizeDAO {
     public void add(SizeDTO item) {
         try {
             c.connect();
-            System.out.println("Them size");
+            
             String query = "INSERT INTO size(MASIZE,TENSIZE) VALUES ('" + item.getMASIZE() + "','" + item.getTENSIZE() + "');";
             c.executeUpdate(query);
             c.disconnect();
@@ -80,7 +80,7 @@ public class SizeDAO {
         try {
             c.connect();
 
-            String query = " UPDATE size SET TENSIZE='" + item.getTENSIZE() + " WHERE MANCC='" + item.getMASIZE() + "'";
+            String query = " UPDATE size SET TENSIZE='" + item.getTENSIZE() + "' WHERE MASIZE='" + item.getMASIZE() + "'";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {
