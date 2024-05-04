@@ -1,6 +1,13 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\ngotr\\OneDrive\\Desktop\\mysql-connector-j-8.3.0.jar"
+        "c:\\Users\\ngotr\\OneDrive\\Desktop\\mysql-connector-j-8.3.0.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\commons-codec-1.11.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\commons-collections4-4.2.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\commons-compress-1.18.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\poi-4.0.1.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\poi-ooxml-4.0.1.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\poi-ooxml-schemas-4.0.1.jar",
+        "c:\\Users\\ngotr\\Documents\\Zalo Received Files\\thuvienpoi\\xmlbeans-3.0.2.jar"
     ]
 }
