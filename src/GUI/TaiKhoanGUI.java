@@ -48,6 +48,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
     TaiKhoanBUS tkBUS = new TaiKhoanBUS();
     ArrayList<TaiKhoanDTO> dstk = new ArrayList<TaiKhoanDTO>();
     TaiKhoanDTO selectedTK = new TaiKhoanDTO();
+    int choiceSua = 0;
 
     JPanel pnHead;
     JPanel pnContentParent;
@@ -112,7 +113,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             pnContent[i].setBorder(borderBottom);
             pnContent[i].setBackground(Color.decode("#FFFFFF"));
             pnContent[i].setOpaque(true);
-            
+
             JLabel[] lblContent = new JLabel[thuocTinh.length];
             String[] value;
 
@@ -208,7 +209,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
     public void initPnThaoTacTK(int width, int height) {
         JPanel pnThaoTacTK = new JPanel();
         pnThaoTacTK.setLayout(new BorderLayout());
-        pnThaoTacTK.setPreferredSize(new Dimension(width,height));
+        pnThaoTacTK.setPreferredSize(new Dimension(width, height));
 
         pnHeaderThaoTac = new JPanel();
         pnHeaderThaoTac.setLayout(new BorderLayout());
@@ -226,10 +227,6 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         pnHeaderThaoTac.add(exit, BorderLayout.EAST);
         pnThaoTacTK.add(pnHeaderThaoTac, BorderLayout.NORTH);
 
-        pnChucNangThaoTac = new JPanel();
-        pnChucNangThaoTac.setLayout(new FlowLayout(1, 20, 20));
-        pnChucNangThaoTac.setPreferredSize(new Dimension(width, 50));
-
         pnContentThaoTac = new JPanel();
         pnContentThaoTac.setLayout(new FlowLayout());
         pnContentThaoTac.setPreferredSize(new Dimension(width, height));
@@ -242,6 +239,10 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         txtUsername.setBorder(new EmptyBorder(0, 5, 0, 5));
         txtUsername.setPreferredSize(new Dimension(150, 20));
         initContentThaoTac();
+        
+        pnChucNangThaoTac = new JPanel();
+        pnChucNangThaoTac.setLayout(new FlowLayout(1, 20, 20));
+        pnChucNangThaoTac.setPreferredSize(new Dimension(width, 50));
         pnContentThaoTac.add(pnChucNangThaoTac);
 
         //Chuc nang
@@ -265,8 +266,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             cbxMaNV.addItem(nv.listnv.get(i).getManv());
         }
         cbxMaNV.setSelectedIndex(0);
-        
-         // ----------Tạo ScrollPane cho combobox cbxMaNV -------//
+
+        // ----------Tạo ScrollPane cho combobox cbxMaNV -------//
         cbxMaNV.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -296,8 +297,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             cbxMaQuyen.addItem(quyen.getList().get(i).getMAQUYEN());
         }
         cbxMaQuyen.setSelectedIndex(0);
-        
-         // ----------Tạo ScrollPane cho combobox cbxMaQuyen -------//
+
+        // ----------Tạo ScrollPane cho combobox cbxMaQuyen -------//
         cbxMaQuyen.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -326,8 +327,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         pwfMK.setBorder(new EmptyBorder(0, 5, 0, 5));
 
         // Tạo JLabel để chuyển đổi hiển thị mật khẩu
-        ImageIcon eyeClosedIcon = new ImageIcon("D:/thanh phuong/images/eye-off-icon.png");
-        ImageIcon eyeOpenIcon = new ImageIcon("D:/thanh phuong/images/eye-icon.png");
+        ImageIcon eyeClosedIcon = new ImageIcon("./src/images/eye-off-icon.png");
+        ImageIcon eyeOpenIcon = new ImageIcon("./src/images/eye-icon.png");
 
         Image closedImage = eyeClosedIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         Image openImage = eyeOpenIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -430,6 +431,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
     }
 
     public void initSua() {
+        choiceSua = 1;
         JLabel title = new JLabel("Cập nhật tài khoản", JLabel.CENTER);
         title.setFont(font_tieude);
         title.setBorder(new EmptyBorder(0, 20, 0, 0));
@@ -534,6 +536,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 refresh();
                 this.revalidate(); // Cập nhật lại giao diện
                 this.repaint(); // Vẽ lại giao diện
+                JOptionPane.showMessageDialog(null,
+                            "Bạn đã thêm tài khoản thành công !", "Thông báo", JOptionPane.DEFAULT_OPTION);
             }
         }
     }
@@ -568,6 +572,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
 
             }
         }
+        JOptionPane.showMessageDialog(null,
+                            "Bạn đã lưu tài khoản thành công !", "Thông báo", JOptionPane.DEFAULT_OPTION);
     }
 
     public void DeleteTK() {
@@ -640,9 +646,13 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             for (int i = 0; i < dstk.size(); i++) {
                 if (pn == pnContent[i]) {
                     selectedTK = dstk.get(i);
-                    setTT();
                     pn.setBackground(hover);
                     pn.setOpaque(true);
+                    if (choiceSua == 1) {
+
+                        setTT();
+                    }
+
                     clear(i);
                 }
             }
@@ -652,6 +662,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 //exit
                 this.remove(pnThaoTacTK_main);
                 clear(-1);
+                selectedTK = new TaiKhoanDTO();
                 this.revalidate(); // Cập nhật lại container
                 this.repaint();
             }
@@ -691,8 +702,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
     public static void main(String[] args) {
         TaiKhoanGUI t = new TaiKhoanGUI(1000, 500);
         t.initPnThaoTacTK(400, 500);
-//        t.initThem();
-        t.initSua();
+        t.initThem();
+//        t.initSua();
 //        t.SearchTK("", 2);
         JFrame f = new JFrame();
         f.add(t);
