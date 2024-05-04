@@ -78,13 +78,13 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    
-        for (int i = 0; i < dsSP.size(); i++){
-        if (e.getSource() == product[i]){
-            product[i].setBackground(Color.red);
-            frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
-        }
-    }
+    //long chi tiet san pham
+//        for (int i = 0; i < dsSP.size(); i++){
+//        if (e.getSource() == product[i]){
+//            product[i].setBackground(Color.red);
+//            frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
+//        }
+//    }
        
 
        
