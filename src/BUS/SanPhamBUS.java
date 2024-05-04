@@ -37,6 +37,7 @@ public class SanPhamBUS {
                 dsSP.set(i, sp);
                 SanPhamDAO spDAO = new SanPhamDAO();
                 spDAO.set(sp);
+                break;
             }
         }
     }

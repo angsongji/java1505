@@ -33,10 +33,10 @@ public class loaiSPBUS {
     }
 
     public ArrayList<loaiSP> getListFull() {
-         loaiSPDAO n = new loaiSPDAO();
+        loaiSPDAO n = new loaiSPDAO();
         return n.listLoaiSP();
     }
-    
+
     public boolean checkTENLOAI(String t) {
         //tên nhà cung cấp không chứa số và các kí tự đặc biệt
         String regex = "^[\\p{L} ]+$";
@@ -45,9 +45,11 @@ public class loaiSPBUS {
 
     private String createMALOAI() {
         int max = 0;
-         ArrayList<loaiSP> listFull = getListFull();
+
+        ArrayList<loaiSP> listFull = getListFull();
         for (int i = 0; i < listFull.size(); i++) {
             String MALOAIlast = listFull.get(i).getMALOAI();
+
             String so = MALOAIlast.replaceAll("[^0-9]", "");
             int stt = Integer.parseInt(so) + 1;
             if (stt > max) {
@@ -87,6 +89,7 @@ public class loaiSPBUS {
     }
 
     public boolean checkNewListLoai(ArrayList<loaiSP> newList) {
+
         boolean flag = true;
         for (int i = 0; i < list.size(); i++) {
             if (!list.get(i).equals(newList.get(i))) {
@@ -104,10 +107,12 @@ public class loaiSPBUS {
         }
         return flag;
     }
-    public boolean checkTINHTRANG(String MALOAI){
+
+    public boolean checkTINHTRANG(String MALOAI) {
         for (loaiSP j : list) {
-            if(j.getMALOAI().equals(MALOAI))
-                return (j.getTINHTRANG()==1);
+            if (j.getMALOAI().equals(MALOAI)) {
+                return (j.getTINHTRANG() == 1);
+            }
         }
         return true;
     }
@@ -116,7 +121,7 @@ public class loaiSPBUS {
         ArrayList<loaiSP> re = new ArrayList<>();
 
         for (loaiSP j : list) {
-            
+
             boolean checkMALOAI = j.getMALOAI().toLowerCase().contains(data_filter.get(0).toLowerCase());
             boolean checkTENLOAI = j.getTENLOAI().toLowerCase().contains(data_filter.get(0).toLowerCase());
             int status = (data_filter.get(1).equals("Đang bán")) ? 1 : 0;
@@ -128,14 +133,14 @@ public class loaiSPBUS {
                 }
             } else {
                 if (!data_filter.get(1).equals("Tất cả")) {
-                     cond = checkMALOAI || checkTENLOAI && checkStatus;
+                    cond = checkMALOAI || checkTENLOAI && checkStatus;
                 } else {
-                     cond = checkMALOAI || checkTENLOAI;
+                    cond = checkMALOAI || checkTENLOAI;
                 }
             }
             if (cond) {
                 re.add(j);
-               
+
             }
         }
         for (loaiSP i : re) {
@@ -144,11 +149,14 @@ public class loaiSPBUS {
 
         return re;
     }
-    public loaiSP getloaiSP(String maloai){
+
+    public loaiSP getloaiSP(String maloai) {
         for (loaiSP s : list) {
-            if(s.getMALOAI().equals(maloai))
+            if (s.getMALOAI().equals(maloai)) {
                 return s;
+            }
         }
         return null;
     }
+
 }

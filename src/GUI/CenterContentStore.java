@@ -25,7 +25,7 @@ import javax.swing.JPanel;
  */
 public class CenterContentStore extends JPanel {
 
-    private StoreScreen SS_main;
+    StoreScreen SS_main;
     private int chieurong, chieucao;
     public JPanel search;
     public JPanel thaotac;

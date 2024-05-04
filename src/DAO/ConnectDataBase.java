@@ -23,6 +23,7 @@ public class ConnectDataBase {
     private String userName; 
     private String password;
 
+
     // Phương thức khởi tạo có tên giống với tên lớp
     public ConnectDataBase() throws SQLException {
         url = "jdbc:mysql://localhost:3306/";
@@ -31,6 +32,7 @@ public class ConnectDataBase {
         userName = "root";
         password = "Oanh2004!";
     }
+
    public ConnectDataBase(String url, String dbName, String driver, String userName, String password) {
       this.url = url;
       this.dbName = dbName;
@@ -39,14 +41,16 @@ public class ConnectDataBase {
       this.password = password;
    }
 
-   public void connect() {
-    try {
-        Class.forName(driver);
-        conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
-    }
-}
+   public void connect() throws SQLException {
+      try {
+         Class.forName(driver);
+         conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
+      } catch (ClassNotFoundException e) {
+         throw new SQLException("Driver not found");
+      }
+      
+   }
+
 
 public void disconnect() {
     if (conn != null) {

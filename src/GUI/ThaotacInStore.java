@@ -51,6 +51,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
     private String MAQUYEN;
     private Component pageContent;
  private StoreScreen s;
+
     //kích thước trang tai khoan
     int widthTK;
     int heightTK;
@@ -65,7 +66,6 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         init();
 
     }
-
     public ThaotacInStore(String MACHUCNANG, String MAQUYEN, Component pageContent) {
         this.pageContent = pageContent;
         this.MACHUCNANG = MACHUCNANG;
@@ -147,8 +147,12 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
             }
         }
-      if(MACHUCNANG.equals("HD")) hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "In PDF"));
-      if(MACHUCNANG.equals("NCC"))  hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Import Excel"));
+        if (MACHUCNANG.equals("HD")) {
+            hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "In PDF"));
+        }
+        if (MACHUCNANG.equals("NCC")) {
+            hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Import Excel"));
+        }
         return hanhdong;
     }
 
@@ -213,7 +217,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                                 cntk_p.JP_contentCuaNameChucnangCon.repaint();
                                 cntk_p.tkGUI = b;
                                 JOptionPane.showMessageDialog(null,
-                                    "Bạn đã xoá tài khoản thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                                        "Bạn đã xoá tài khoản thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
                             }
                         }
                         break;
@@ -240,11 +244,12 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 case "NV": {
                 thaotacNV(ctqDTO.getHANHDONG(), itemClicked);
                 break;
+                }
+            case "SP": {
+                thaotacSP(ctqDTO.getHANHDONG(), itemClicked);
+                break;
             }
         }
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException(
-                "Unimplemented method 'mouseClicked'");
     }
 
     @Override
@@ -286,10 +291,59 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         }
     }
 
+    public void thaotacSP(String hanhdong, hanhdongGUI itemClicked) {
+        SanPhamGUI spGUI = (SanPhamGUI) pageContent;
+        SanPhamBUS spBUS = new SanPhamBUS();
+        switch (hanhdong) {
+            case "Thêm": {
+                ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 600);
+                sp.initThem();
+                break;
+            }
+            case "Sửa": {
+                if (spGUI.selectedSP.getMaSP() == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Xin vui lòng chọn sản phẩm cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 700);
+                    sp.initSua();
+                    sp.setTT();
+                }
+                break;
+            }
+            case "Xóa": {
+                if (spGUI.selectedSP.getMaSP() == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Xin vui lòng chọn sản phẩm cần xoá !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    int result = JOptionPane.showConfirmDialog(
+                            null,
+                            "Bạn có chắc chắn muốn xoá sản phẩm này ?", // Nội dung thông báo
+                            "Xác nhận xoá", // Tiêu đề
+                            JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
+                            JOptionPane.QUESTION_MESSAGE // Biểu tượng dấu hỏi
+                    );
+
+                    // Xử lý kết quả
+                    if (result == JOptionPane.YES_OPTION) {
+                        spGUI.DeleteSP();
+                        JOptionPane.showMessageDialog(null,
+                                "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    } else {
+                        spGUI.selectedSP = new SanPhamDTO();
+                        spGUI.clear(-1);
+                    }
+                }
+                break;
+            }
+
+        }
+    }
+
     public void thaotacPQ(String hanhdong, hanhdongGUI itemClicked) {
         phanquyen pq = (phanquyen) pageContent;
         quyenBUS qBUS = new quyenBUS();
-        chitietquyenBUS ctqBUS =new chitietquyenBUS();
+        chitietquyenBUS ctqBUS = new chitietquyenBUS();
         switch (hanhdong) {
             case "Thêm":
                 addQuyen addquyen = new addQuyen(pq);
@@ -311,15 +365,19 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         if (r2 == JOptionPane.YES_OPTION) {
                             itemClicked.title.setText("Sửa");
                             itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+
                             
                             pq.updateTENQUYEN(pq.currentQuyen, 1);
                             
+
                             qBUS.updateTENQUYEN(pq.currentQuyen);
-                            ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(),pq.currentQuyen.getMAQUYEN());
+                            ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
+
                             JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để xem những thay đổi vừa lưu!");
                             s.dispose();
                              LoginUI l = new LoginUI();
+
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
                             if (r2_1 == JOptionPane.NO_OPTION) {
@@ -329,7 +387,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                                     itemClicked.title.setText("Sửa");
                                     itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
                                     pq.updateTENQUYEN(pq.currentQuyen, 2);
-                                    
+
                                     pq.isEditingEnabled = false;
                                 }
                             }
@@ -573,6 +631,7 @@ public void thaotacNV(String hanhdong, hanhdongGUI itemClicked) {
 }
 
 public void thaotacSIZE(String hanhdong, hanhdongGUI itemClicked) {
+    
     SizeGUI sizeGUI = (SizeGUI) pageContent;
         SizeBUS sizeBUS = new SizeBUS();
         switch (hanhdong) {

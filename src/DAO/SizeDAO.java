@@ -4,7 +4,6 @@
  */
 package DAO;
 
-
 import DTO.SizeDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,8 @@ import java.util.ArrayList;
  * @author hp
  */
 public class SizeDAO {
-     private ConnectDataBase c;
+
+    private ConnectDataBase c;
 
     public SizeDAO() {
         try {
@@ -23,7 +23,8 @@ public class SizeDAO {
         } catch (SQLException e) {
         }
     }
-     public ArrayList<SizeDTO> listSizeRemoveTrangthai0() {
+
+    public ArrayList<SizeDTO> listSizeRemoveTrangthai0() {
         ArrayList<SizeDTO> list = new ArrayList<>();
 
         try {
@@ -31,9 +32,10 @@ public class SizeDAO {
             String query = "SELECT * FROM size";
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
-             if(result.getInt("TRANGTHAI")==1)
+                if (result.getInt("TRANGTHAI") == 1) {
                     list.add(new SizeDTO(result.getString("MASIZE"), result.getString("TENSIZE")));
-               
+                }
+
             }
 
             c.disconnect();
@@ -42,8 +44,8 @@ public class SizeDAO {
 
         return list;
     }
-    
-     public ArrayList<SizeDTO> listSize() {
+
+    public ArrayList<SizeDTO> listSize() {
         ArrayList<SizeDTO> list = new ArrayList<>();
 
         try {
@@ -51,9 +53,9 @@ public class SizeDAO {
             String query = "SELECT * FROM size";
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
-             
-                    list.add(new SizeDTO(result.getString("MASIZE"), result.getString("TENSIZE")));
-               
+
+                list.add(new SizeDTO(result.getString("MASIZE"), result.getString("TENSIZE")));
+
             }
 
             c.disconnect();
@@ -62,28 +64,30 @@ public class SizeDAO {
 
         return list;
     }
+
     public void add(SizeDTO item) {
         try {
             c.connect();
             System.out.println("Them size");
-            String query = "INSERT INTO size(MASIZE,TENSIZE) VALUES ('" + item.getMASIZE()+ "','" + item.getTENSIZE() + "');";
+            String query = "INSERT INTO size(MASIZE,TENSIZE) VALUES ('" + item.getMASIZE() + "','" + item.getTENSIZE() + "');";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {
         }
     }
-     
+
     public void update(SizeDTO item) {
         try {
             c.connect();
 
-            String query = " UPDATE size SET TENSIZE='" + item.getTENSIZE()+  " WHERE MANCC='" + item.getMASIZE()+ "'";
+            String query = " UPDATE size SET TENSIZE='" + item.getTENSIZE() + " WHERE MANCC='" + item.getMASIZE() + "'";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {
         }
     }
-     public void delete(String m) {
+
+    public void delete(String m) {
         try {
             c.connect();
             String query = "UPDATE size SET TRANGTHAI = 0 WHERE MASIZE = '" + m + "'";
@@ -92,5 +96,5 @@ public class SizeDAO {
         } catch (SQLException e) {
         }
     }
-     
+
 }

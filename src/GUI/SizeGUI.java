@@ -90,6 +90,7 @@ public class SizeGUI extends JPanel {
         table.setModel(tableModel);
         tableModel.fireTableDataChanged();
     }
+
        
        public void addLineDataInTable(SizeDTO n) {
         Vector data = new Vector();
@@ -103,6 +104,7 @@ public class SizeGUI extends JPanel {
      private void cssHeaderTable(JTableHeader header) {
         header.setBackground(Cacthuoctinh_phuongthuc_chung.second_gray);
         header.setForeground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+
         header.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
@@ -116,6 +118,7 @@ public class SizeGUI extends JPanel {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Căn giữa dữ liệu trong các ô
         table.setDefaultRenderer(Object.class, centerRenderer);
     }  
+
     
     
     public ArrayList<String> getSelectedListSize() {
@@ -142,7 +145,7 @@ public class SizeGUI extends JPanel {
         return list;
     }
     
-    
+
      public static void main(String[] args) {
         JFrame f =new JFrame();
         f.setLocationRelativeTo(null);
