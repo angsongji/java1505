@@ -224,6 +224,23 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
                 break;
             }
+//            case "HD":{
+//               
+//                chucnangHoadon hdGUI = (chucnangHoadon) pageContent;
+//                
+//                JPanel jp_content = hdGUI.JP_contentCuaNameChucnangCon;
+//                Component[] jp_con = jp_content.getComponents();
+//                TrangLichsuHD lshd = (TrangLichsuHD) jp_con[0];
+//                switch (ctqDTO.getHANHDONG()) {
+//                    case "Sửa":
+//                        lshd.removeAll();
+//                        lshd.add(new JLabel("Sua"));
+//                        lshd.repaint();
+//                        lshd.validate();
+//                        break;
+//                }
+//                break;
+//            }
             
             case "PQ": {
                 thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);

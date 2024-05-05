@@ -29,7 +29,7 @@ public class chucnangHoadon extends JPanel implements MouseListener{
     private int ccao;
     private  JPanel JP_listNameChucnangConCuaHoadon;
     private ArrayList<chucnangDTO> listChucnangCon;
-    private JPanel JP_contentCuaNameChucnangCon;
+    public JPanel JP_contentCuaNameChucnangCon;
     private CenterContentStore centerContent;
     private int crong, heightJP_content;
     public chucnangHoadon(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) {
