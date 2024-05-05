@@ -102,7 +102,11 @@ public class TaiKhoanDAO {
 
     public boolean checkLogin(String username, String password) {
 
-        mySQL.connect();
+        try {
+            mySQL.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String sql = "SELECT * FROM taikhoan WHERE username = '" + username + "' AND password = '" + password+"'";
 
         ResultSet statement = mySQL.executeQuery(sql);

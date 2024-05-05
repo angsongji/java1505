@@ -5,6 +5,9 @@ public class Nhanvien_DTO {
         private String manv, tennv, chucvu, diachi, email;
     private int sdt;
 
+    public Nhanvien_DTO() {
+    }
+    
     public Nhanvien_DTO(String manv, String tennv, String chucvu, int sdt, String diachi, String email) {
         this.manv = manv;
         this.tennv = tennv;

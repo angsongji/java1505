@@ -102,7 +102,7 @@ public class addLoaiSPGUI extends JFrame implements MouseListener{
     }
     private int chieurong, chieucao;
     private addLoaiSP addLoai;
-    private boolean flag_ten, flag_sdt;
+    private boolean flag_ten;
     private loaiSPGUI loaiGUI;
     public addLoaiSPGUI(loaiSPGUI loaiGUI) {
         this.loaiGUI=loaiGUI;

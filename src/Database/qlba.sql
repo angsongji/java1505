@@ -212,7 +212,8 @@ CREATE TABLE `sanpham` (
 
 CREATE TABLE `size` (
   `MASIZE` varchar(10) NOT NULL,
-  `TENSIZE` varchar(50) NOT NULL
+  `TENSIZE` varchar(50) NOT NULL,
+  `TRANGTHAI` tinyint default 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -231,8 +232,10 @@ CREATE TABLE `taikhoan` (
    PRIMARY KEY (USERNAME)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 INSERT INTO `chitiethoadon` VALUES ('HD001','SP4','SIZE5',4,340000),('HD002','SP7','SIZE5',1,270000);
 INSERT INTO `chitietphieunhap` VALUES ('PN001','SP9',1,4000000,4000000,'SIZE2'),('PN002','SP1',6,8500000,51000000,'SIZE5'),('PN003','SP2',2,6400000,12800000,'SIZE5'),('PN004','SP2',2,6400000,12800000,'SIZE5'),('PN005','SP3',3,2500000,7500000,'SIZE5'),('PN006','SP4',3,200000,600000,'SIZE5'),('PN006','SP5',3,2000000,6000000,'SIZE1'),('PN006','SP5',3,2000000,6000000,'SIZE2'),('PN006','SP5',3,2000000,6000000,'SIZE3'),('PN006','SP6',5,1500000,7500000,'SIZE5'),('PN006','SP7',9,170000,1530000,'SIZE5');
+
 INSERT INTO `quyen` VALUES ('QNV','Quyền nhân viên'),('QQLBH','Quyền quản lí bán hàng'),('QQLHT','Quyền quản lí hệ thống'),('QQLK','Quyền quản lí kho');
 
 INSERT INTO `chucnang` VALUES 
@@ -336,7 +339,7 @@ INSERT INTO `nhacungcap`(MANCC,TENNCC,SDT) VALUES ('NCC1','MLB',901123444),('NCC
 INSERT INTO `nhanvien` VALUES ('AD001','Thanh Sang','Quản lí ứng dụng',0907665456,'273 An Dương Vương Quận 5 TPHCM','ngthanhsangsgu@gmail.com'),('NV001','Thanh Phương','Nhân viên bán hàng',0909332432,'18 Nguyễn Tri Phương Quận 8 TPHCM','thanhphuong22@gmail.com'),('NV002','Nhật Long','Nhân viên bán hàng',0908332112,'23/1 Lê Hồng Phong TPHCM','ntLong@gmail.com'),('NV003','Oanh Le','Nhân viên bán hàng',0907665512,'Quận 2 TPHCM','Oanhle204@gmail.com'),('QL001','Phương Uyên','Quản lí kho',0338653321,'Quận 3 TPHCM','phuongUyen11@gmail.com'),('QL002','Trí Anh','Quản lí bán hàng',0901132445,'Quận 5 TPHCM','triANH@gmail.com');
 INSERT INTO `phieunhap` VALUES ('PN001','NV001','2024-06-05',4000000,'NCC1'),('PN002','NV002','2024-06-05',51000000,'NCC2'),('PN003','NV003','2024-04-03',12800000,'NCC3'),('PN004','NV003','2024-01-25',12800000,'NCC3'),('PN005','QL001','2024-02-11',7500000,'NCC4'),('PN006','QL001','2024-05-12',27630000,'NCC5');
 INSERT INTO `sanpham` VALUES ('SP1','LOAI1',10860500,'Supreme Áo Flannel lót bông',1),('SP2','LOAI1',7400000,'OFF-WHITE Áo Flannel ',0),('SP3','LOAI1',2500000,'LEVIS Áo Flannel tươi mát',1),('SP4','LOAI2',340000,'Áo hoodie nữ gấu trúc Panda',1),('SP5','LOAI3',2500000,'Áo khoác nữ',1),('SP6','LOAI4',1800000,'Áo len nữ mỏng dáng ôm',1),('SP7','LOAI4',270000,'Áo len dệt kim nhung cao cấp nữ',0),('SP8','LOAI6',4790000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài Basic Multi Mega Logo',1),('SP9','LOAI6',4490000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài phom suông thời trang',1),('SP10','LOAI6',5490000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài Cube Monogram',0);
-INSERT INTO `size` VALUES ('SIZE1','S'),('SIZE2','M'),('SIZE3','L'),('SIZE4','XL'),('SIZE5','onesize');
+INSERT INTO `size` VALUES ('SIZE1','S',1),('SIZE2','M',1),('SIZE3','L',1),('SIZE4','XL',1),('SIZE5','onesize',1);
 INSERT INTO `taikhoan` VALUES ('NV001','NV001','Phuong@','2023-09-14',1,'QNV'),('AD001','AD001','SangHard!','2023-02-13',1,'QQLHT'),('NV002','NV002','anhLong1111','2023-11-20',0,'QNV'),('NV003','NV003','Oanh2004!','2023-10-22',1,'QNV'),('QL001','QL001','PhuongUyen!','2023-09-01',1,'QQLK'),('QL002','QL002','TriAnhhh','2023-06-22',1,'QQLBH');
 --
 -- Indexes for dumped tables

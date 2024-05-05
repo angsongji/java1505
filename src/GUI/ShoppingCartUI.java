@@ -30,6 +30,7 @@ public class ShoppingCartUI extends JPanel {
     private ArrayList<SanPhamDTO> dsSP2 = new ArrayList<SanPhamDTO>();
     private double totalPrice = 0.0; // Tổng tiền
     private JLabel totalPriceLabel, titleLabel;
+
     //int sl=1;
 
 
@@ -98,18 +99,23 @@ public class ShoppingCartUI extends JPanel {
 
         // Mã giảm giá
         JLabel discountCodeLabel = new JLabel("Mã giảm giá:");
+
         discountCodeLabel.setBounds(50 ,20, 150, 30);
+
         discountCodeLabel.setForeground(new Color(10, 61, 98));
         discountCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(discountCodeLabel);
 
         JTextField discountCodeField = new JTextField();
+
         discountCodeField.setBounds(200, 20, 200, 30);
+
         discountCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(discountCodeField);
 
         JButton applyDiscountButton = new JButton("Áp dụng");
         applyDiscountButton.setBounds(430, 20, 100, 30);
+
         applyDiscountButton.setForeground(new Color(96, 163, 188));
         applyDiscountButton.setBackground(new Color(10, 61, 98));
         applyDiscountButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -139,7 +145,9 @@ public class ShoppingCartUI extends JPanel {
 
         // Tổng tiền
         totalPriceLabel = new JLabel("Tổng tiền:" + totalPrice);
+
         totalPriceLabel.setBounds(50, 110, 500, 50);
+
         totalPriceLabel.setForeground(new Color(10, 61, 98));
         totalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(totalPriceLabel);
@@ -348,7 +356,6 @@ public class ShoppingCartUI extends JPanel {
         // gbc.gridx = 2;
         // gbc.gridy = 0;
         panel.add(quantityValuePanel, gbc); 
-
         JButton deleteOrderButton = new JButton("Xoá đơn hàng");
         deleteOrderButton.setBackground(new Color(10, 61, 98));
         deleteOrderButton.setForeground(new Color(255, 255, 255));
