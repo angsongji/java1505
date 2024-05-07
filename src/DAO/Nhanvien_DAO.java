@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Nhanvien_DAO {
-        public ConnectDataBase mySQL; 
+    public ConnectDataBase mySQL; 
     public Nhanvien_DAO() {
         mySQL = new ConnectDataBase();
     }
@@ -68,15 +68,15 @@ public class Nhanvien_DAO {
     }
     
     public boolean add(Nhanvien_DTO item) {
-    boolean success = false;
-    mySQL.connect();
-    String query= "INSERT INTO nhanvien VALUES ('" + item.getManv() +"','"+ item.getTennv() +"','" +item.getChucvu() +"','" +item.getSdt() + "','" +item.getDiachi() +"','" +item.getEmail()+"');";
-    boolean result = mySQL.executeUpdate(query);
-    if(result) {
-        System.out.println("Thêm nhân viên thành công!");
-        success = true;
-    } else {
-        System.out.println("Thêm nhân viên thất bại!");
+       boolean success = false;
+       mySQL.connect();
+       String query= "INSERT INTO nhanvien VALUES ('" + item.getManv() +"','"+ item.getTennv() +"','" +item.getChucvu() +"','" +item.getSdt() + "','" +item.getDiachi() +"','" +item.getEmail()+"');";
+       boolean result = mySQL.executeUpdate(query);
+       if(result) {
+           System.out.println("Thêm nhân viên thành công!");
+               success = true;
+        } else {
+           System.out.println("Thêm nhân viên thất bại!");
     }
     mySQL.disconnect();
     return success;
@@ -84,16 +84,16 @@ public class Nhanvien_DAO {
 
   
     public boolean update(Nhanvien_DTO item) {
-    boolean success = false;
-    mySQL.connect();
-    String query= "UPDATE nhanvien set TENNV = '" + item.getTennv()+"', CHUCVU='"+ item.getChucvu()+ "', SDT='" + item.getSdt() + "', DIACHI='" + item.getDiachi()+ "', EMAIL='" + item.getEmail() + "' WHERE MANV='" + item.getManv() + "'";
-    boolean result = mySQL.executeUpdate(query);
-    if(result) {
-        System.out.println("Cập nhật thông tin nhân viên thành công!");
-        success = true;
-    } else {
-        System.out.println("Cập nhật thông tin nhân viên thất bại!");
-    }
+       boolean success = false;
+       mySQL.connect();
+       String query= "UPDATE nhanvien set TENNV = '" + item.getTennv()+"', CHUCVU='"+ item.getChucvu()+ "', SDT='" + item.getSdt() + "', DIACHI='" + item.getDiachi()+ "', EMAIL='" + item.getEmail() + "' WHERE MANV='" + item.getManv() + "'";
+       boolean result = mySQL.executeUpdate(query);
+       if(result) {
+          System.out.println("Cập nhật thông tin nhân viên thành công!");
+          success = true;
+        } else {
+          System.out.println("Cập nhật thông tin nhân viên thất bại!");
+         }
     mySQL.disconnect();
     return success;
 }
@@ -103,8 +103,7 @@ public class Nhanvien_DAO {
     mySQL.connect();
     String query= "DELETE FROM hoadon WHERE MAHD = '" + m +"';";
     boolean result = mySQL.executeUpdate(query);
-    if(result) {
-        
+    if(result) {      
         System.out.println("Xóa nhân viên thành công!");
         success = true;
     } else {
@@ -115,14 +114,14 @@ public class Nhanvien_DAO {
 }
 
 
-    public static void main (String[] args){
-        Nhanvien_DAO nv = new Nhanvien_DAO();
+//    public static void main (String[] args){
+//        Nhanvien_DAO nv = new Nhanvien_DAO();
 //        Nhanvien_DTO n1 = new Nhanvien_DTO("NV005","haha","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com");
 //        nv.add(n1);
-        Nhanvien_DTO n2 = new Nhanvien_DTO("NV005","UYEN","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com");
-        nv.update(n2);
+//        Nhanvien_DTO n2 = new Nhanvien_DTO("NV005","UYEN","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com");
+//        nv.update(n2);
 //        nv.delete("NV006");
-        ArrayList<Nhanvien_DTO> list = nv.list();
+//        ArrayList<Nhanvien_DTO> list = nv.list();
         
     }
 }
