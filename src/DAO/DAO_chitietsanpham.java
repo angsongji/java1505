@@ -27,6 +27,9 @@ public class DAO_chitietsanpham {
             }
 	}
 
+	 public DAO_chitietsanpham() {
+            c = new ConnectDataBase();
+        }
 	public ArrayList<String> select_size(SanPhamDTO h){
 		ArrayList<String> k = new ArrayList<String>();
 		try {
