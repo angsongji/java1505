@@ -175,6 +175,7 @@ public class CenterContentStore extends JPanel {
             }
             case "LOAI": {
                 loaiSPGUI lGUI = new loaiSPGUI(widthPageContent, heightPageContent);
+                System.out.println("TAII SAOAOO");
                 ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, lGUI);
                 showThaotac(JP_thaotac);
                 showPageContent(lGUI);
