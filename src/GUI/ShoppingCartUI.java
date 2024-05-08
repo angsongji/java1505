@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 import DTO.chucnangDTO;
 import BUS.SanPhamBUS;
 import DTO.SanPhamDTO;
+import DTO.chitietsanpham_DTO;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -30,18 +31,18 @@ public class ShoppingCartUI extends JPanel {
     private ArrayList<SanPhamDTO> dsSP2 = new ArrayList<SanPhamDTO>();
     private double totalPrice = 0.0; // Tổng tiền
     private JLabel totalPriceLabel, titleLabel;
-
     //int sl=1;
 
 
 
-    public ShoppingCartUI(int crong, int ccao) {
+    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt) {
         // this.chucnang = chucnang;
         // int crong = chucnang.getCrong();
         // int heightJP_content = chucnang.getHeightJPContent();
 
 //        setTitle("Giỏ hàng");
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dsSP = dssptt;
         setPreferredSize(new Dimension(crong, ccao));
         setBackground(new Color(255, 255, 255));
         setLayout(new BorderLayout()); // Sử dụng null layout để có thể đặt vị trí và kích thước bằng tọa độ tuyệt đối
@@ -99,23 +100,19 @@ public class ShoppingCartUI extends JPanel {
 
         // Mã giảm giá
         JLabel discountCodeLabel = new JLabel("Mã giảm giá:");
-
         discountCodeLabel.setBounds(50 ,20, 150, 30);
-
         discountCodeLabel.setForeground(new Color(10, 61, 98));
         discountCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(discountCodeLabel);
 
         JTextField discountCodeField = new JTextField();
-
-        discountCodeField.setBounds(200, 20, 200, 30);
-
+        discountCodeField.setBounds(200, 20, 150, 30);
+        discountCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
         discountCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(discountCodeField);
 
         JButton applyDiscountButton = new JButton("Áp dụng");
-        applyDiscountButton.setBounds(430, 20, 100, 30);
-
+        applyDiscountButton.setBounds(400, 20, 100, 30);
         applyDiscountButton.setForeground(new Color(96, 163, 188));
         applyDiscountButton.setBackground(new Color(10, 61, 98));
         applyDiscountButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -129,7 +126,8 @@ public class ShoppingCartUI extends JPanel {
         endPanel.add(CustomerCodeLabel);
 
         JTextField CustomerCodeField = new JTextField();
-        CustomerCodeField.setBounds(1000, 20, 200, 30);
+        CustomerCodeField.setBounds(950, 20, 150, 30);
+        CustomerCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
         CustomerCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(CustomerCodeField);
 
@@ -145,16 +143,14 @@ public class ShoppingCartUI extends JPanel {
 
         // Tổng tiền
         totalPriceLabel = new JLabel("Tổng tiền:" + totalPrice);
-
         totalPriceLabel.setBounds(50, 110, 500, 50);
-
         totalPriceLabel.setForeground(new Color(10, 61, 98));
         totalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(totalPriceLabel);
 
         // Thanh toán
         JButton payButton = new JButton("Thanh toán");
-        payButton.setBounds(430, 110, 150, 50);
+        payButton.setBounds(400, 110, 150, 50);
         payButton.setForeground(new Color(96, 163, 188));
         payButton.setBackground(new Color(10, 61, 98));
         payButton.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -190,12 +186,15 @@ public class ShoppingCartUI extends JPanel {
                     String spMua = "";
                     for (SanPhamDTO sp : dsSP2) {
                         spMua += sp.getTenSP() + "\n";
+                        dssptt.remove(sp);
                     }
                     JOptionPane.showMessageDialog(null, "Bạn đã thanh toán thành công cho các đơn hàng: \n" + spMua + "Tổng tiền: " + 
                                                 new BigDecimal(totalPrice).toBigInteger().toString() + "VND");
+                    dsSP2.clear();
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn ít nhất một đơn hàng để thanh toán!");
                 }
+                refreshOrderPanel(dssptt);
 
 
             }
@@ -204,18 +203,24 @@ public class ShoppingCartUI extends JPanel {
 
 
         // Tạo và thêm các đơn hàng vào giỏ hàng
-        dsSP = spBUS.getDsSP();
-        for (int i = 0; i < dsSP.size(); i++) {
-            addOrderToCart(createOrderPanel(dsSP.get(i)));
-            revalidate();
-            repaint();
-        }
+        // dsSP = spBUS.getDsSP();
+        refreshOrderPanel(dssptt);
 
         // pack();
         // setLocationRelativeTo(null); // Hiển thị cửa sổ ở trung tâm màn hình
     }
 
+    private void refreshOrderPanel(ArrayList<SanPhamDTO> dssptt) {
+        cartPanel.removeAll();
+        for (int i = 0; i < dssptt.size(); i++) {
+            addOrderToCart(createOrderPanel(dssptt.get(i)));
+        }
+        revalidate();
+        repaint();
+    }
+
     private JPanel createOrderPanel(SanPhamDTO sp) {
+        
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(255, 255, 255));
         panel.setBorder(null);
@@ -268,11 +273,11 @@ public class ShoppingCartUI extends JPanel {
         // gbc.fill = GridBagConstraints.VERTICAL;
         panel.add(priceLabel, gbc);
 
-        sp.getTenHinh();
-        JLabel imageLabel = new JLabel("Image");
-        imageLabel.setPreferredSize(new Dimension(100, 70));
-        // ImageIcon imageIcon = new ImageIcon(new ImageIcon(sp.getTenHinh().toString()).getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH));
-        imageLabel.setIcon(new ImageIcon());
+        JLabel imageLabel = new JLabel();
+        imageLabel.setPreferredSize(new Dimension(140, 200));
+        ImageIcon imageIcon = new ImageIcon("./src/images/" + sp.getTenHinh()[0]);
+        Image image = imageIcon.getImage().getScaledInstance(140, 200, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(image));
         imageLabel.setForeground(new Color(10, 61, 98));
         imageLabel.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
         gbc.gridx = 0;
@@ -282,7 +287,7 @@ public class ShoppingCartUI extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(imageLabel, gbc);
         
-        JLabel quantityLabel = new JLabel("Số lượng: 100000", JLabel.LEFT); // Giả sử số lượng ban đầu là 1
+        JLabel quantityLabel = new JLabel("Số lượng: 100", JLabel.LEFT); // Giả sử số lượng ban đầu là 1
         quantityLabel.setForeground(new Color(10, 61, 98));
         // quantityLabel.setBackground(new Color(255, 255, 255));
         quantityLabel.setFont(new Font("Arial", Font.BOLD, 13));
@@ -356,6 +361,7 @@ public class ShoppingCartUI extends JPanel {
         // gbc.gridx = 2;
         // gbc.gridy = 0;
         panel.add(quantityValuePanel, gbc); 
+
         JButton deleteOrderButton = new JButton("Xoá đơn hàng");
         deleteOrderButton.setBackground(new Color(10, 61, 98));
         deleteOrderButton.setForeground(new Color(255, 255, 255));
@@ -372,6 +378,7 @@ public class ShoppingCartUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Xử lý logic xoá đơn hàng
                 cartPanel.remove(panel); // Xoá panel đơn hàng khi nút "Xoá đơn hàng" được nhấn
+                dsSP.remove(sp);
                 revalidate(); // Cập nhật giao diện
                 repaint();
             }

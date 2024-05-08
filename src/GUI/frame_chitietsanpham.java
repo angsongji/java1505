@@ -19,7 +19,7 @@ public class frame_chitietsanpham extends JFrame{
            view_chi_tiet_san_pham k = new view_chi_tiet_san_pham(h,this);
            this.add(k);
            
-           this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+           this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
            this.setVisible(true);
        }
        

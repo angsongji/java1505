@@ -106,12 +106,12 @@ public class LoginUI {
         passwordLabel.setFont(new Font(Cacthuoctinh_phuongthuc_chung.font_family,Font.BOLD,14));
         loginPanel.add(passwordLabel);
 
-        JTextField usernameField = new JTextField();
+        JTextField usernameField = new JTextField("AD001");
         usernameField.setBounds(55, 115, 180, 30);
         loginPanel.add(usernameField);        
 
 
-        JPasswordField passwordField = new JPasswordField();
+        JPasswordField passwordField = new JPasswordField("SangHard!");
         passwordField.setBounds(55, 215, 180, 30);
         loginPanel.add(passwordField);
 

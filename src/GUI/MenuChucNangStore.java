@@ -49,8 +49,6 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
     private int int_selectedItem;
     private String MAQUYEN;
     private JPanel JP_selected;
-   
-    
 
     public MenuChucNangStore(String maquyen,int chieurong, int chieucao, StoreScreen s) {
         SS_main = s;
@@ -63,8 +61,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
 
     }
 
-    protected void init() {
- 
+    private void init() {
         setPreferredSize(new Dimension(chieurong, 0));
         setLayout(new BorderLayout());
         setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
@@ -94,7 +91,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         logoStore.setOpaque(true);
         JP_inforNhanvien.add(logoStore);
 
-        JL_nameStaff = new JLabel(SS_main.tkUSER.getUsername());
+        JL_nameStaff = new JLabel("<html>ABCre asdá ư</html>");
         JL_nameStaff.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
         JL_nameStaff.setForeground(Cacthuoctinh_phuongthuc_chung.light_gray);
         JP_inforNhanvien.add(JL_nameStaff);
@@ -108,25 +105,15 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         } else {
             JP_includeChucnangMenu = new JPanel(new GridLayout(0, 1));
         }
-repaintCacchucnang();
+
         JP_includeChucnangMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         JP_includeChucnangMenu.setOpaque(true);
 
-        
-        JPanel south = new JPanel();
-        south.setPreferredSize(new Dimension(chieurong, 20));
-        south.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
-        south.setOpaque(true);
-        add(south, BorderLayout.SOUTH);
-
-    }
-    private void  repaintCacchucnang(){
         JScrollPane scrollPane = new JScrollPane(JP_includeChucnangMenu);
         scrollPane.setBorder(null);
 
         for (int i = 0; i < cnDTO_listByMAQUYEN.size(); i++) {
             String nameIcon = "./src/images/";
-              
             switch (cnDTO_listByMAQUYEN.get(i).getTENCHUCNANG()) {
                 case "Nhà cung cấp":
                     nameIcon += "nhacungcap_icon.png";
@@ -187,6 +174,12 @@ repaintCacchucnang();
         // Luôn hiển thị thanh cuộn dọc
         //add(scrollListChucnang);
         add(scrollPane, BorderLayout.CENTER);
+        JPanel south = new JPanel();
+        south.setPreferredSize(new Dimension(chieurong, 20));
+        south.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        south.setOpaque(true);
+        add(south, BorderLayout.SOUTH);
+
     }
 
     public ArrayList<chucnangDTO> lístChucnang(String MAQUYEN) {
