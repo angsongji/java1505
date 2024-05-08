@@ -70,7 +70,7 @@ public class addNhanvienGUI extends JFrame implements MouseListener {
                 item.add(getData[i]);
                 }
                 else{
-                    String[] positions = {"Nhân viên", "Quản lý bán hàng", "Quản lý kho"};
+                    String[] positions = {"Nhân viên", "Quản lý bán hàng", "Quản lý kho","Quản lý ứng dụng"};
                         comboBox = new JComboBox<>(positions);
                         String selectedPosition = (String) comboBox.getSelectedItem();
                         item.add(comboBox);
@@ -208,14 +208,8 @@ public class addNhanvienGUI extends JFrame implements MouseListener {
                     if (flag_ten && flag_sdt && flag_email && flag_dc && flag_cv  ) {
                         int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Thêm nhà cung cấp ", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
-                            Nhanvien_DTO nv = new Nhanvien_DTO(manv,ten, cv,  Integer.parseInt(sdt), dchi, email);
-                            Nhanvien_DTO new_nv = nvBUS.add(nv);
-                            nvGUI.addNV_gui(nvGUI,new_nv);
-                            System.out.println(new_nv.getManv());
-                                        System.out.println(new_nv.getChucvu());
-                                        System.out.println(new_nv.getSdt());
-                                        System.out.println(new_nv.getDiachi());
-                                        System.out.println(new_nv.getEmail());
+                            nvBUS.add(ten, cv,  Integer.parseInt(sdt), dchi, email);
+                            nvGUI.reloadPage();
                             JOptionPane.showMessageDialog(null, "Thêm nhân viên mới thành công!");
                             dispose();
 

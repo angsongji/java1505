@@ -28,6 +28,10 @@ public class chitietsanpham_BUS {
 		t = c.select_size(sanpham_DTO);
 		return t;
 	}
+	public void Restore_pro(chitietsanpham_DTO cp) {
+            DAO_chitietsanpham nvDAO = new DAO_chitietsanpham();
+            nvDAO.Restore_pro(cp);
+        }
 	public static void main(String[] args) {
 		SanPhamDTO m = new SanPhamDTO("SP8", null, null, 0, args, 0);
 		chitietsanpham_BUS c = new chitietsanpham_BUS(m);
