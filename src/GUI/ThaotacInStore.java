@@ -564,7 +564,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                                 }
                             } else {
                                 loaiGUI.addDataInTable(loaiBUS.getList());
-                                JOptionPane.showMessageDialog(null, "Sửa thất bại do có ô không khớp kiểu dữ liệu");
+                                JOptionPane.showMessageDialog(null, "Sửa thất bại do có ô không khớp kiểu dữ liệu\nHoặc tên loại mới trùng với tên đã có!");
                             }
 
                             itemClicked.title.setText("Sửa");
@@ -668,7 +668,7 @@ public void thaotacSIZE(String hanhdong, hanhdongGUI itemClicked) {
                                 sizeBUS.updateInSQL();
                             } else {
                                 sizeGUI.addDataInTable(sizeBUS.getList());
-                                JOptionPane.showMessageDialog(null, "Sửa thất bại do có ô không khớp kiểu dữ liệu");
+                                JOptionPane.showMessageDialog(null, "Sửa thất bại do có ô không khớp kiểu dữ liệu\nHoặc tên size thay đổi trùng với tên size đã có");
                             }
 
                             itemClicked.title.setText("Sửa");
