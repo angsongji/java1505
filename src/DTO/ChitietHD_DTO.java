@@ -2,9 +2,9 @@
 package DTO;
 
 public class ChitietHD_DTO {
-    private String  maSP, tenSP, maSize ;
+    private String  maSP, tenSP, maSize;
     private int sl;
-        private double gia, tt;
+    private double gia, tt;
     public ChitietHD_DTO() {
     }
 
