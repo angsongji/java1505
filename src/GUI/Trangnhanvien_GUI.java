@@ -1,4 +1,5 @@
 package GUI;
+
 import BUS.Nhanvien_BUS;
 import DAO.ConnectDataBase;
 import DTO.Nhanvien_DTO;
@@ -48,6 +49,7 @@ public class Trangnhanvien_GUI extends JPanel {
                         titlePanel.setBackground(Color.decode("#60A3BC"));
                         titlePanel.setPreferredSize(new Dimension((chieurong), 50));
 
+//                        title.setForeground(Color.red);
                         for (String col : columnNames) {
                             if( col == columnNames[4] || col == columnNames[5] ){
                             JLabel l = new JLabel(col,JLabel.CENTER);
@@ -105,6 +107,7 @@ this.add(Pa);
                         titlePanel.setBackground(Color.decode("#60A3BC"));
                         titlePanel.setPreferredSize(new Dimension((chieurong), 50));
 
+//                        title.setForeground(Color.red);
                         for (String col : columnNames) {
                             if( col == columnNames[4] || col == columnNames[5] ){
                             JLabel l = new JLabel(col,JLabel.CENTER);
