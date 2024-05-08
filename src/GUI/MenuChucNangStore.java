@@ -63,8 +63,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
 
     }
 
-    protected void init() {
- 
+    private void init() {
         setPreferredSize(new Dimension(chieurong, 0));
         setLayout(new BorderLayout());
         setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
@@ -95,6 +94,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         JP_inforNhanvien.add(logoStore);
 
         JL_nameStaff = new JLabel(SS_main.tkUSER.getUsername());
+        JL_nameStaff = new JLabel("<html>ABCre asdá ư</html>");
         JL_nameStaff.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
         JL_nameStaff.setForeground(Cacthuoctinh_phuongthuc_chung.light_gray);
         JP_inforNhanvien.add(JL_nameStaff);
@@ -109,6 +109,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
             JP_includeChucnangMenu = new JPanel(new GridLayout(0, 1));
         }
 repaintCacchucnang();
+
         JP_includeChucnangMenu.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
         JP_includeChucnangMenu.setOpaque(true);
 
@@ -187,6 +188,12 @@ repaintCacchucnang();
         // Luôn hiển thị thanh cuộn dọc
         //add(scrollListChucnang);
         add(scrollPane, BorderLayout.CENTER);
+        JPanel south = new JPanel();
+        south.setPreferredSize(new Dimension(chieurong, 20));
+        south.setBackground(Cacthuoctinh_phuongthuc_chung.darkness_blue);
+        south.setOpaque(true);
+        add(south, BorderLayout.SOUTH);
+
     }
 
     public ArrayList<chucnangDTO> lístChucnang(String MAQUYEN) {

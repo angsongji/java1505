@@ -29,7 +29,7 @@ public class chucnangHoadon extends JPanel implements MouseListener{
     private int ccao;
     private  JPanel JP_listNameChucnangConCuaHoadon;
     private ArrayList<chucnangDTO> listChucnangCon;
-    public JPanel JP_contentCuaNameChucnangCon;
+    private JPanel JP_contentCuaNameChucnangCon;
     private CenterContentStore centerContent;
     private int crong, heightJP_content;
     public chucnangHoadon(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) {
@@ -107,7 +107,7 @@ if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
         
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLHD":
-                ShoppingCartUI p = new ShoppingCartUI(crong, heightJP_content);
+                ShoppingCartUI p = new ShoppingCartUI(crong, heightJP_content, view_chi_tiet_san_pham.dssptt);
                 // p.setPreferredSize(new Dimension(crong,heightJP_content));
                 JP_contentCuaNameChucnangCon.add(p);
                 break;

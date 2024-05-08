@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 import DTO.chucnangDTO;
 import BUS.SanPhamBUS;
 import DTO.SanPhamDTO;
+import DTO.chitietsanpham_DTO;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -34,13 +35,14 @@ public class ShoppingCartUI extends JPanel {
 
 
 
-    public ShoppingCartUI(int crong, int ccao) {
+    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt) {
         // this.chucnang = chucnang;
         // int crong = chucnang.getCrong();
         // int heightJP_content = chucnang.getHeightJPContent();
 
 //        setTitle("Giỏ hàng");
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dsSP = dssptt;
         setPreferredSize(new Dimension(crong, ccao));
         setBackground(new Color(255, 255, 255));
         setLayout(new BorderLayout()); // Sử dụng null layout để có thể đặt vị trí và kích thước bằng tọa độ tuyệt đối
@@ -184,12 +186,15 @@ public class ShoppingCartUI extends JPanel {
                     String spMua = "";
                     for (SanPhamDTO sp : dsSP2) {
                         spMua += sp.getTenSP() + "\n";
+                        dssptt.remove(sp);
                     }
                     JOptionPane.showMessageDialog(null, "Bạn đã thanh toán thành công cho các đơn hàng: \n" + spMua + "Tổng tiền: " + 
                                                 new BigDecimal(totalPrice).toBigInteger().toString() + "VND");
+                    dsSP2.clear();
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn ít nhất một đơn hàng để thanh toán!");
                 }
+                refreshOrderPanel(dssptt);
 
 
             }
@@ -204,12 +209,24 @@ public class ShoppingCartUI extends JPanel {
             revalidate();
             repaint();
         }
+        // dsSP = spBUS.getDsSP();
+        refreshOrderPanel(dssptt);
 
         // pack();
         // setLocationRelativeTo(null); // Hiển thị cửa sổ ở trung tâm màn hình
     }
 
+    private void refreshOrderPanel(ArrayList<SanPhamDTO> dssptt) {
+        cartPanel.removeAll();
+        for (int i = 0; i < dssptt.size(); i++) {
+            addOrderToCart(createOrderPanel(dssptt.get(i)));
+        }
+        revalidate();
+        repaint();
+    }
+
     private JPanel createOrderPanel(SanPhamDTO sp) {
+        
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(255, 255, 255));
         panel.setBorder(null);
@@ -262,11 +279,11 @@ public class ShoppingCartUI extends JPanel {
         // gbc.fill = GridBagConstraints.VERTICAL;
         panel.add(priceLabel, gbc);
 
-        sp.getTenHinh();
-        JLabel imageLabel = new JLabel("Image");
-        imageLabel.setPreferredSize(new Dimension(100, 70));
-        // ImageIcon imageIcon = new ImageIcon(new ImageIcon(sp.getTenHinh().toString()).getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH));
-        imageLabel.setIcon(new ImageIcon());
+        JLabel imageLabel = new JLabel();
+        imageLabel.setPreferredSize(new Dimension(140, 200));
+        ImageIcon imageIcon = new ImageIcon("./src/images/" + sp.getTenHinh()[0]);
+        Image image = imageIcon.getImage().getScaledInstance(140, 200, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(image));
         imageLabel.setForeground(new Color(10, 61, 98));
         imageLabel.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
         gbc.gridx = 0;
@@ -276,7 +293,7 @@ public class ShoppingCartUI extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(imageLabel, gbc);
         
-        JLabel quantityLabel = new JLabel("Số lượng: 100000", JLabel.LEFT); // Giả sử số lượng ban đầu là 1
+        JLabel quantityLabel = new JLabel("Số lượng: 100", JLabel.LEFT); // Giả sử số lượng ban đầu là 1
         quantityLabel.setForeground(new Color(10, 61, 98));
         // quantityLabel.setBackground(new Color(255, 255, 255));
         quantityLabel.setFont(new Font("Arial", Font.BOLD, 13));
@@ -367,6 +384,7 @@ public class ShoppingCartUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Xử lý logic xoá đơn hàng
                 cartPanel.remove(panel); // Xoá panel đơn hàng khi nút "Xoá đơn hàng" được nhấn
+                dsSP.remove(sp);
                 revalidate(); // Cập nhật giao diện
                 repaint();
             }
