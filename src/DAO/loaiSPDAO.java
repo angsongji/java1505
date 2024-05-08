@@ -4,6 +4,8 @@
  */
 package DAO;
 
+import BUS.SanPhamBUS;
+import DTO.SanPhamDTO;
 import DTO.loaiSP;
 import DTO.nhacungcapDTO;
 import java.sql.ResultSet;
@@ -87,7 +89,20 @@ public class loaiSPDAO {
        public void delete(String m) {
         try {
             c.connect();
-            String query = "UPDATE loai SET TINHTRANG = 2 WHERE MALOAI = '" + m + "'";
+            SanPhamBUS spBUS = new SanPhamBUS();
+            ArrayList<SanPhamDTO> listSP =spBUS.getDsSP();
+            boolean flag = true;
+            System.out.println("m: "+m);
+            for(SanPhamDTO i : listSP){
+                System.out.println("Duyet i: "+i.getMaLoai());
+                if(i.getMaLoai().equals(m))
+                    flag=false;
+            }
+            String query="";
+            if(!flag)
+                query = "UPDATE loai SET TINHTRANG = 2 WHERE MALOAI = '" + m + "'";
+            else
+                query = "DELETE FROM loai WHERE MALOAI = '"+m+"'";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {
