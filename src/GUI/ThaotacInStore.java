@@ -224,6 +224,23 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 }
                 break;
             }
+//            case "HD":{
+//               
+//                chucnangHoadon hdGUI = (chucnangHoadon) pageContent;
+//                
+//                JPanel jp_content = hdGUI.JP_contentCuaNameChucnangCon;
+//                Component[] jp_con = jp_content.getComponents();
+//                TrangLichsuHD lshd = (TrangLichsuHD) jp_con[0];
+//                switch (ctqDTO.getHANHDONG()) {
+//                    case "Sửa":
+//                        lshd.removeAll();
+//                        lshd.add(new JLabel("Sua"));
+//                        lshd.repaint();
+//                        lshd.validate();
+//                        break;
+//                }
+//                break;
+//            }
             
             case "PQ": {
                 thaotacPQ(ctqDTO.getHANHDONG(), itemClicked);
@@ -374,9 +391,19 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
 
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để xem những thay đổi vừa lưu!");
-                            s.dispose();
-                             LoginUI l = new LoginUI();
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\n");
+                            
+                            if(pq.currentQuyen.getMAQUYEN().equals(MAQUYEN)){
+                                 MenuChucNangStore menu = s.menu;
+                            menu.removeAll();
+menu.init();
+                          menu.revalidate();
+                         menu.repaint();
+                            }
+                            
+                           
+                            
+                          
 
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
