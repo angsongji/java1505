@@ -16,12 +16,12 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.*;
 
 public class ConnectDataBase {
-    private static Connection conn;
-    private static String url;
-    private static String dbName;
-    private static String driver;
-    private static String userName; 
-    private static String password;
+    private Connection conn;
+    private String url;
+    private String dbName;
+    private String driver;
+    private String userName; 
+    private String password;
 
 
     // Phương thức khởi tạo có tên giống với tên lớp
@@ -41,7 +41,7 @@ public class ConnectDataBase {
       this.password = password;
    }
 
-   public static void connect() throws SQLException {
+   public void connect() throws SQLException {
       try {
          Class.forName(driver);
          conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);

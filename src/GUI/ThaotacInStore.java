@@ -374,16 +374,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
 
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\n");
-                            
-                            if(pq.currentQuyen.getMAQUYEN().equals(MAQUYEN)){
-                                 MenuChucNangStore menu = s.menu;
-                            menu.removeAll();
-menu.init();
-                          menu.revalidate();
-                         menu.repaint();
-                            }
-                            
+                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!\nĐăng nhập lại để xem những thay đổi vừa lưu!");
+                            s.dispose();
+                             LoginUI l = new LoginUI();
 
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);

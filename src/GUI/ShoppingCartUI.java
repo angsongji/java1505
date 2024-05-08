@@ -203,12 +203,6 @@ public class ShoppingCartUI extends JPanel {
 
 
         // Tạo và thêm các đơn hàng vào giỏ hàng
-        dsSP = spBUS.getDsSP();
-        for (int i = 0; i < dsSP.size(); i++) {
-            addOrderToCart(createOrderPanel(dsSP.get(i)));
-            revalidate();
-            repaint();
-        }
         // dsSP = spBUS.getDsSP();
         refreshOrderPanel(dssptt);
 

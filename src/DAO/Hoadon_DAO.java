@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Hoadon_DAO {
-    private static ConnectDataBase mySQL;
+    private  ConnectDataBase mySQL  ;
     public Hoadon_DAO(){
         try {
             mySQL = new ConnectDataBase();
@@ -21,9 +21,9 @@ public class Hoadon_DAO {
         }
    }
     
-    public static ArrayList<Hoadon_DTO> list()
+    public ArrayList<Hoadon_DTO> listchucnang()
     {
-        ArrayList<Hoadon_DTO> dshd = new ArrayList<Hoadon_DTO>();
+        ArrayList<Hoadon_DTO> dshd = new ArrayList<>();
         try {
             mySQL.connect();
             String sql = "SELECT * FROM hoadon WHERE 1";
@@ -37,11 +37,12 @@ public class Hoadon_DAO {
                     int giamgia = rs.getInt("TIENGIAMGIA");
                     int tongtien = rs.getInt("TONGTIEN");
                     
-                    Hoadon_DTO hd = new Hoadon_DTO(maHD, ngayHD, maKH, maNV,giamgia, tongtien, ChitietHD_DAO.list(maHD));
+                    Hoadon_DTO hd = new Hoadon_DTO(maHD, ngayHD, maKH, maNV,giamgia, tongtien);
                     dshd.add(hd);
                 }
             }
-            mySQL.disconnect();
+             System.out.println("Lay danh sach chuc nang thanh cong");
+             mySQL.disconnect();
         } catch (SQLException ex) {
             System.out.println("Lay danh sach chuc nang that bai");
         }
@@ -49,7 +50,7 @@ public class Hoadon_DAO {
         return dshd;
     }
     
-     public static void add(Hoadon_DTO item){
+     public void add(Hoadon_DTO item){
         try {
             mySQL.connect();
             String query= "INSERT INTO hoadon VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  +item.getGiamgia() +"','"+item.getTongTien()+");";

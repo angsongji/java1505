@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChitietHD_DAO {
-    public static ConnectDataBase mySQL; 
+    public ConnectDataBase mySQL; 
     
     public ChitietHD_DAO() {
         try {
@@ -19,7 +19,7 @@ public class ChitietHD_DAO {
         }
     }
     
-    public static ArrayList<ChitietHD_DTO> list(String maHD)
+    public ArrayList<ChitietHD_DTO> list(String maHD)
     {
         ArrayList<ChitietHD_DTO> dscthd = new ArrayList<>();
         try {
@@ -40,7 +40,7 @@ public class ChitietHD_DAO {
                     double tt = rs.getDouble("THANHTIEN"); // Corrected column name
                     System.out.println(tt);
                               
-                    ChitietHD_DTO cthd = new ChitietHD_DTO(masp,tensp, size, sl, gia, tt);
+                    ChitietHD_DTO cthd = new ChitietHD_DTO(masp, tensp, size, sl, gia, tt);
                     dscthd.add(cthd);
             }
             System.out.println("Lay danh sach chuc nang thanh cong");
