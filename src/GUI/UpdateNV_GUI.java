@@ -34,7 +34,7 @@ public class UpdateNV_GUI extends JFrame implements MouseListener {
         private Font font_data = new Font("Tahoma", Font.PLAIN, 14);
         protected JPanel btn_exit;
         protected JPanel btn_submit;
-        private JLabel chucvu;
+        private JComboBox<String> comboBox;
         public setNhanvien(int chieurong, int chieucao, Nhanvien_DTO nv) {
             getData = new JTextField[title.length-1];
             error = new JLabel[title.length];
@@ -67,13 +67,15 @@ public class UpdateNV_GUI extends JFrame implements MouseListener {
                 item.add(lb_title);
                 if (i<= 3){
                 getData[i].setPreferredSize(new Dimension(chieurong -10, 30));
+                
                 item.add(getData[i]);
                 }
                 else{
-                    chucvu = new JLabel (nv.getChucvu(),JLabel.LEFT);
-                    chucvu.setPreferredSize(new Dimension(chieurong, 30));
-                    chucvu.setFont(font_data);
-                    item.add(chucvu);
+                    String[] positions = {"Nhân viên", "Quản lý bán hàng", "Quản lý kho"};
+                        comboBox = new JComboBox<>(positions);
+                        comboBox.setSelectedItem(nv.getChucvu());
+                        String selectedPosition = (String) comboBox.getSelectedItem();
+                        item.add(comboBox);
                 }
                 error[i] = new JLabel("");
                 error[i].setFont(new Font("Tahoma", Font.ITALIC, 14) {
@@ -157,7 +159,7 @@ public class UpdateNV_GUI extends JFrame implements MouseListener {
                     String sdt = setNV.getData[1].getText();
                     String dchi = setNV.getData[2].getText();
                     String email = setNV.getData[3].getText();
-                    String cv = setNV.chucvu.getText();
+                    String cv = ((String) setNV.comboBox.getSelectedItem());
                 
                     
                     Nhanvien_BUS nvBUS = new Nhanvien_BUS();
@@ -200,14 +202,20 @@ public class UpdateNV_GUI extends JFrame implements MouseListener {
                         System.out.println(email);
                         }                    }
                  
+                    if (cv != null) {
+                        flag_cv = true;
+                       if (flag_cv == true){
+                        setNV.error[1].setText("");
+                        System.out.println(cv);
+                        }                     }
                     
-                    if (flag_ten && flag_sdt && flag_email && flag_dc ) {
+                    if (flag_ten && flag_sdt && flag_email && flag_dc && flag_cv  ) {
                         int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Sửa thông tin nhân viên ", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
                             System.out.println(setNV.id);
                             Nhanvien_DTO new_nv = new Nhanvien_DTO(setNV.id,ten, cv,  Integer.parseInt(sdt), dchi, email);
-                            nvBUS.update(new_nv);
-                            nvGUI.reloadPagecontrol();                            
+                            Nhanvien_DTO n = nvBUS.update(new_nv);
+                            nvGUI.addNV_gui(nvGUI,n);
                             JOptionPane.showMessageDialog(null, "Sửa thông tin nhân viên thành công!");
                             dispose();
 
@@ -257,11 +265,11 @@ public class UpdateNV_GUI extends JFrame implements MouseListener {
         }
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        Nhanvien_DTO nv = new Nhanvien_DTO("NV005","haha","Nhân viên",987666789 ,"329gyfejkdbsih","6383uyejn@gmail.com");
-//        Trangnhanvien_GUI nvGUI = new Trangnhanvien_GUI(1200,700);
-//        UpdateNV_GUI k = new UpdateNV_GUI(nvGUI,nv);
-//    }
+    public static void main(String[] args) throws SQLException {
+        Nhanvien_DTO nv = new Nhanvien_DTO("NV005","haha","Nhân viên",987666789 ,"329gyfejkdbsih","6383uyejn@gmail.com");
+        Trangnhanvien_GUI nvGUI = new Trangnhanvien_GUI(1200,700);
+        UpdateNV_GUI k = new UpdateNV_GUI(nvGUI,nv);
+    }
 }
 
 

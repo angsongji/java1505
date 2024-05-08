@@ -1,7 +1,10 @@
 package GUI;
 
 import BUS.SanPhamBUS;
+import BUS.chitietsanpham_BUS;
 import DTO.SanPhamDTO;
+import DTO.chitietsanpham_DTO;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +29,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         this.chieucao = chieucao;
         backGroundColor = backG_thisJPanel;
         dsSP = spBUS.getDsSP();
+
         init();
 
     }
@@ -136,29 +140,29 @@ public class SanPhamGUI extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-    ////long chi tiet san pham day nha Phuong
-//        for (int i = 0; i < dsSP.size(); i++){
-//        if (e.getSource() == product[i]){
-//            product[i].setBackground(Color.red);
-//            frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
-//        }
-//    }
+    //long chi tiet san pham day nha Phuong
+       for (int i = 0; i < dsSP.size(); i++){
+       if (e.getSource() == product[i]){
+           product[i].setBackground(Color.red);
+           frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
+       }
+   }
        
 
        
 
-        if (e.getSource().getClass() == JPanel.class) {
-            // Xử lý các dòng tài khoản
-            JPanel pn = (JPanel) e.getSource();
-            for (int i = 0; i < dsSP.size(); i++) {
-                if (pn == product[i]) {
-                    selectedSP = dsSP.get(i);
-                    Border lineBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 4); // Đường viền ngoài
-                    pn.setBorder(lineBorder);
-                    clear(i);
-                }
-            }
-        }
+        // if (e.getSource().getClass() == JPanel.class) {
+        //     // Xử lý các dòng tài khoản
+        //     JPanel pn = (JPanel) e.getSource();
+        //     for (int i = 0; i < dsSP.size(); i++) {
+        //         if (pn == product[i]) {
+        //             selectedSP = dsSP.get(i);
+        //             Border lineBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 4); // Đường viền ngoài
+        //             pn.setBorder(lineBorder);
+        //             clear(i);
+        //         }
+        //     }
+        // }
 
     }
 
@@ -168,7 +172,13 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-    }
+    //     for (int i = 0; i < dsSP.size(); i++){
+    //         if (e.getSource() == product[i]){
+    //             product[i].setBackground(Color.white);
+    //             frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
+    //         }
+    // }
+}
 
     @Override
     public void mouseEntered(MouseEvent e) {
