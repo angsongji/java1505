@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Study/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
+=======
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/addLoaiSPGUI.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/addSizeGUI.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/Main/Main.java</file>
+>>>>>>> addthaotac
             <file>file:/C:/Study/DOAN_JAVA/src/GUI/StoreScreen.java</file>
         </group>
     </open-files>

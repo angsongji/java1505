@@ -96,13 +96,24 @@ public class loaiSPBUS {
                 if (newList.get(i).getTENLOAI().equals("")) {
                     continue;
                 }
-                if (checkTENLOAI(newList.get(i).getTENLOAI())) {
-                    list.get(i).setTENLOAI(newList.get(i).getTENLOAI());
-                    list.get(i).setTINHTRANG(newList.get(i).getTINHTRANG());
-                } else {
-                    flag = false;
-                    break;
+                if (!list.get(i).getTENLOAI().equals(newList.get(i).getTENLOAI())) {
+                    if (checkTENLOAI(newList.get(i).getTENLOAI())) {
+                        for (loaiSP s : list) {
+                            if (s.getTENLOAI().equals(newList.get(i).getTENLOAI())) {
+                                flag = false;
+                                break;
+                            }
+                        }
+
+                    } else {
+                        flag = false;
+                        break;
+                    }
                 }
+                if(flag){
+                        list.get(i).setTENLOAI(newList.get(i).getTENLOAI());
+                    list.get(i).setTINHTRANG(newList.get(i).getTINHTRANG());
+                   }
             }
         }
         return flag;

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class ChitietHD_DAO {
     public ConnectDataBase mySQL; 
-    public ChitietHD_DAO() {
+    public ChitietHD_DAO() throws SQLException {
         mySQL = new ConnectDataBase();
     }
     
@@ -85,7 +85,11 @@ public class ChitietHD_DAO {
     
     public boolean delete(String m) {
     boolean success = false;
-    mySQL.connect();
+        try {
+            mySQL.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     String query= "DELETE FROM chitiethoadon WHERE SOHD = '" + m +"';";
     boolean result = mySQL.executeUpdate(query);
     if(result) {

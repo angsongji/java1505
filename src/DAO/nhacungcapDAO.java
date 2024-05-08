@@ -88,7 +88,27 @@ public class nhacungcapDAO {
     public void delete(String m) {
         try {
             c.connect();
-            String query = "UPDATE nhacungcap SET TRANGTHAI = 0 WHERE MANCC = '" + m + "'";
+            //lay ra cac danh phieu nhap, kiem tra neu MANCC da duoc su dung thi thay doi trang thai, neu chua su dung thi xoa trong database luon
+             ArrayList<String> list = new ArrayList<>();
+            String queryPN = "SELECT * FROM phieunhap";
+            ResultSet result = c.executeQuery(queryPN);
+            while (result.next()) {
+               
+                    list.add(result.getString("MANCC"));
+                
+            }
+            boolean flag = true;
+            for(String i : list){
+                if(i.equals(m))
+                    flag=false;
+            }
+            //end 
+            String query="";
+            if(!flag)
+                query = "UPDATE nhacungcap SET TRANGTHAI = 0 WHERE MANCC = '" + m + "'";
+            else
+                query = "DELETE FROM nhacungcap WHERE MANCC = '"+m+"'";
+           
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {

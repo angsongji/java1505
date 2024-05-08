@@ -102,14 +102,25 @@ public class SizeBUS {
                 if (newList.get(i).getTENSIZE().equals("")) {
                     continue;
                 }
+                    
                 if (checkTENSIZE(newList.get(i).getTENSIZE())) {
-                    listSize.get(i).setTENSIZE(newList.get(i).getTENSIZE());
+                    for(SizeDTO s : listSize){
+                        if(s.getTENSIZE().equals(newList.get(i).getTENSIZE())){
+                            flag = false;
+                    break;
+                        }
+                    }
+                   if(flag)
+                         listSize.get(i).setTENSIZE(newList.get(i).getTENSIZE());
+                    
+                   
                 } else {
                     flag = false;
                     break;
                 }
             }
         }
+        
         return flag;
     }
 }

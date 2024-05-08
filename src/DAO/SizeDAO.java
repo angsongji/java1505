@@ -4,7 +4,10 @@
  */
 package DAO;
 
+import BUS.SanPhamBUS;
+import BUS.chitietsanpham_BUS;
 import DTO.SizeDTO;
+import DTO.chitietsanpham_DTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,7 +93,24 @@ public class SizeDAO {
     public void delete(String m) {
         try {
             c.connect();
-            String query = "UPDATE size SET TRANGTHAI = 0 WHERE MASIZE = '" + m + "'";
+            chitietsanpham_BUS ctspBUS = new chitietsanpham_BUS();
+            ArrayList<chitietsanpham_DTO> listCTSP =ctspBUS.getList();
+            boolean flag = true;
+  
+            for(chitietsanpham_DTO i : listCTSP){
+                System.out.println("MASIZE "+i.getMASIZE());
+                if(i.getMASIZE().equals(m)){
+                     flag=false;
+                     break;
+                }
+                   
+            }
+            String query="";
+            if(!flag)
+                query = "UPDATE size SET TRANGTHAI = 0 WHERE MASIZE = '" + m + "'";
+            else
+                query = "DELETE FROM size WHERE MASIZE = '"+m+"'";
+            System.out.println("Cau query " +query);
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {

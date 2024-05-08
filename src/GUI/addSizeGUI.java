@@ -132,9 +132,9 @@ public class addSizeGUI extends JFrame implements MouseListener{
                 case "btn_exit":
                     int r1 = JOptionPane.showConfirmDialog(null, "Những thông tin sẽ không được lưu sau khi thoát!\nBạn có muốn tiếp tục?", "Thoát", JOptionPane.YES_NO_OPTION);
                     if (r1 == JOptionPane.YES_OPTION) {
-                        dispose();
+                       
                     } else {
-                        // Thực hiện hành động khi người dùng chọn No hoặc đóng cửa sổ
+                      dispose();
                     }
 
                     break;
@@ -155,15 +155,25 @@ public class addSizeGUI extends JFrame implements MouseListener{
                         int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Thêm size", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
                             SizeDTO sizeDTO = new SizeDTO(ten);
-                            
-                            
-                            sizeBUS.add(sizeDTO);
+                            boolean flag = true;
+                            for(SizeDTO s: sizeBUS.getList()){
+                                if(s.getTENSIZE().equals(sizeDTO.getTENSIZE())){
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if(flag){
+                                sizeBUS.add(sizeDTO);
                             sizeGUI.addLineDataInTable(sizeDTO);
                             JOptionPane.showMessageDialog(null, "Thêm loại sản phẩm mới thành công!");
                             dispose();
+                            }else
+                                JOptionPane.showMessageDialog(null, "Thêm loại sản phẩm mới thất bại do tên bị trùng với tên đã có!");
+                            
+                            
 
                         } else {
-                            // Thực hiện hành động khi người dùng chọn No hoặc đóng cửa sổ
+                            
                         }
 
                     }
