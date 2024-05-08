@@ -92,9 +92,9 @@ public class loaiSPDAO {
             SanPhamBUS spBUS = new SanPhamBUS();
             ArrayList<SanPhamDTO> listSP =spBUS.getDsSP();
             boolean flag = true;
-            System.out.println("m: "+m);
+  
             for(SanPhamDTO i : listSP){
-                System.out.println("Duyet i: "+i.getMaLoai());
+                
                 if(i.getMaLoai().equals(m))
                     flag=false;
             }

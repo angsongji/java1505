@@ -26,6 +26,31 @@ public class DAO_chitietsanpham {
                 Logger.getLogger(DAO_chitietsanpham.class.getName()).log(Level.SEVERE, null, ex);
             }
 	}
+        public DAO_chitietsanpham() {
+        try {
+            c = new ConnectDataBase();
+        } catch (SQLException e) {
+        }
+    }
+        public ArrayList<chitietsanpham_DTO> listCTSP() {
+        ArrayList<chitietsanpham_DTO> list = new ArrayList<>();
+
+        try {
+            c.connect();
+            String query = "SELECT * FROM chitietsanpham";
+            ResultSet result = c.executeQuery(query);
+            while (result.next()) {
+               
+                    list.add(new chitietsanpham_DTO(result.getString("MASP"), result.getString("MASIZE"), result.getInt("SOLUONG")));
+                
+            }
+
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+
+        return list;
+    }
 
 	public ArrayList<String> select_size(SanPhamDTO h){
 		ArrayList<String> k = new ArrayList<String>();
