@@ -140,11 +140,23 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File[] selectedFiles = fileChooser.getSelectedFiles();
 
+                    int checkHinhTrung = 0; //biến xem khi sửa ảnh,tên ảnh có bị trùng/không trùng(1/0)
                     for (File selectedFile : selectedFiles) {
-                        imageName.add(selectedFile.getName());
-                        imageNameLabel.setText("Selected Image: " + imageName); // Hiển thị tên tệp
+                        for (int i = 0; i < imageName.size(); i++) {
+                            if (selectedFile.getName().equals(imageName.get(i))) {
+                                checkHinhTrung = 1;
+                                break;
+                            }
+                        }
+                        if (checkHinhTrung == 1) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Tên hình không được trùng !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            imageName.add(selectedFile.getName());
+                            imageNameLabel.setText("Selected Image: " + imageName); // Hiển thị tên tệp
 
-                        addImage(selectedFile); // Thêm hình ảnh vào pnDsAnh
+                            addImage(selectedFile); // Thêm hình ảnh vào pnDsAnh
+                        }
                     }
                 }
             }
@@ -433,9 +445,9 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     // Đổ dữ liệu sản phẩm đã chọn
     public void setTT() {
         loaiSPBUS loaiBUS = new loaiSPBUS();
-        String tenLoai ="";
-        for(int i=0; i<loaiBUS.getList().size(); i++){
-            if(loaiBUS.getList().get(i).getMALOAI().equals(spGUI.selectedSP.getMaLoai())){
+        String tenLoai = "";
+        for (int i = 0; i < loaiBUS.getList().size(); i++) {
+            if (loaiBUS.getList().get(i).getMALOAI().equals(spGUI.selectedSP.getMaLoai())) {
                 tenLoai = loaiBUS.getList().get(i).getTENLOAI();
             }
         }

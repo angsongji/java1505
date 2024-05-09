@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2024 at 10:29 AM
+-- Generation Time: May 09, 2024 at 05:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -33,8 +33,24 @@ CREATE TABLE `chitiethoadon` (
   `MASIZE` varchar(10) NOT NULL,
   `SOLUONG` int(11) NOT NULL,
   `DONGIA` double NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitiethoadon`
+--
+
+INSERT INTO `chitiethoadon` (`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) VALUES
+('HD1', 'SP3', 'SIZE1', 2, 152000),
+('HD1', 'SP4', 'SIZE5', 4, 189000),
+('HD2', 'SP7', 'SIZE5', 1, 75000),
+('HD3', 'SP1', 'SIZE2', 3, 139000),
+('HD3', 'SP2', 'SIZE3', 2, 202000),
+('HD3', 'SP4', 'SIZE2', 3, 189000),
+('HD3', 'SP5', 'SIZE3', 2, 89000),
+('HD4', 'SP10', 'SIZE1', 2, 129900),
+('HD4', 'SP9', 'SIZE4', 2, 156000),
+('HD5', 'SP2', 'SIZE4', 2, 202000),
+('HD5', 'SP6', 'SIZE2', 2, 169000);
 
 -- --------------------------------------------------------
 
@@ -51,6 +67,23 @@ CREATE TABLE `chitietphieunhap` (
   `MASIZE` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietphieunhap`
+--
+
+INSERT INTO `chitietphieunhap` (`MAPN`, `MASP`, `SOLUONG`, `GIANHAP`, `THANHTIEN`, `MASIZE`) VALUES
+('PN001', 'SP9', 1, 4000000, 4000000, 'SIZE2'),
+('PN002', 'SP1', 6, 8500000, 51000000, 'SIZE5'),
+('PN003', 'SP2', 2, 6400000, 12800000, 'SIZE5'),
+('PN004', 'SP2', 2, 6400000, 12800000, 'SIZE5'),
+('PN005', 'SP3', 3, 2500000, 7500000, 'SIZE5'),
+('PN006', 'SP4', 3, 200000, 600000, 'SIZE5'),
+('PN006', 'SP5', 3, 2000000, 6000000, 'SIZE1'),
+('PN006', 'SP5', 3, 2000000, 6000000, 'SIZE2'),
+('PN006', 'SP5', 3, 2000000, 6000000, 'SIZE3'),
+('PN006', 'SP6', 5, 1500000, 7500000, 'SIZE5'),
+('PN006', 'SP7', 9, 170000, 1530000, 'SIZE5');
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +95,83 @@ CREATE TABLE `chitietquyen` (
   `MACHUCNANG` varchar(10) NOT NULL,
   `HANHDONG` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitietquyen`
+--
+
+INSERT INTO `chitietquyen` (`MAQUYEN`, `MACHUCNANG`, `HANHDONG`) VALUES
+('QNV', 'HD', 'Thêm'),
+('QNV', 'HD', 'Xem'),
+('QNV', 'KH', 'Sửa'),
+('QNV', 'KH', 'Thêm'),
+('QNV', 'KH', 'Xem'),
+('QNV', 'SP', 'Xem'),
+('QQLBH', 'HD', 'Sửa'),
+('QQLBH', 'HD', 'Thêm'),
+('QQLBH', 'HD', 'Xem'),
+('QQLBH', 'HD', 'Xóa'),
+('QQLBH', 'KH', 'Sửa'),
+('QQLBH', 'KH', 'Thêm'),
+('QQLBH', 'KH', 'Xem'),
+('QQLBH', 'KH', 'Xóa'),
+('QQLBH', 'NV', 'Sửa'),
+('QQLBH', 'NV', 'Thêm'),
+('QQLBH', 'NV', 'Xem'),
+('QQLBH', 'NV', 'Xóa'),
+('QQLBH', 'SP', 'Xem'),
+('QQLHT', 'HD', 'Sửa'),
+('QQLHT', 'HD', 'Thêm'),
+('QQLHT', 'HD', 'Xem'),
+('QQLHT', 'HD', 'Xóa'),
+('QQLHT', 'KH', 'Sửa'),
+('QQLHT', 'KH', 'Thêm'),
+('QQLHT', 'KH', 'Xem'),
+('QQLHT', 'KH', 'Xóa'),
+('QQLHT', 'LOAI', 'Sửa'),
+('QQLHT', 'LOAI', 'Thêm'),
+('QQLHT', 'LOAI', 'Xem'),
+('QQLHT', 'LOAI', 'Xóa'),
+('QQLHT', 'NCC', 'Sửa'),
+('QQLHT', 'NCC', 'Thêm'),
+('QQLHT', 'NCC', 'Xem'),
+('QQLHT', 'NCC', 'Xóa'),
+('QQLHT', 'NULLThK', 'Xem'),
+('QQLHT', 'NV', 'Sửa'),
+('QQLHT', 'NV', 'Thêm'),
+('QQLHT', 'NV', 'Xem'),
+('QQLHT', 'NV', 'Xóa'),
+('QQLHT', 'PN', 'Sửa'),
+('QQLHT', 'PN', 'Thêm'),
+('QQLHT', 'PN', 'Xem'),
+('QQLHT', 'PN', 'Xóa'),
+('QQLHT', 'PQ', 'Sửa'),
+('QQLHT', 'PQ', 'Thêm'),
+('QQLHT', 'PQ', 'Xem'),
+('QQLHT', 'PQ', 'Xóa'),
+('QQLHT', 'SIZE', 'Sửa'),
+('QQLHT', 'SIZE', 'Thêm'),
+('QQLHT', 'SIZE', 'Xem'),
+('QQLHT', 'SIZE', 'Xóa'),
+('QQLHT', 'SP', 'Sửa'),
+('QQLHT', 'SP', 'Thêm'),
+('QQLHT', 'SP', 'Xem'),
+('QQLHT', 'SP', 'Xóa'),
+('QQLHT', 'TK', 'Sửa'),
+('QQLHT', 'TK', 'Thêm'),
+('QQLHT', 'TK', 'Xem'),
+('QQLHT', 'TK', 'Xóa'),
+('QQLK', 'HD', 'Xem'),
+('QQLK', 'KH', 'Xem'),
+('QQLK', 'NV', 'Xem'),
+('QQLK', 'PN', 'Export Excel'),
+('QQLK', 'PN', 'Sửa'),
+('QQLK', 'PN', 'Thêm'),
+('QQLK', 'PN', 'Xem'),
+('QQLK', 'PN', 'Xóa'),
+('QQLK', 'SP', 'Sửa'),
+('QQLK', 'SP', 'Xem'),
+('QQLK', 'SP', 'Xóa');
 
 -- --------------------------------------------------------
 
@@ -75,6 +185,30 @@ CREATE TABLE `chitietsanpham` (
   `SOLUONG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietsanpham`
+--
+
+INSERT INTO `chitietsanpham` (`MASP`, `MASIZE`, `SOLUONG`) VALUES
+('SP1', 'SIZE5', 6),
+('SP10', 'SIZE2', 3),
+('SP10', 'SIZE3', 4),
+('SP2', 'SIZE5', 4),
+('SP3', 'SIZE5', 3),
+('SP4', 'SIZE5', 10),
+('SP5', 'SIZE1', 5),
+('SP5', 'SIZE2', 7),
+('SP5', 'SIZE3', 3),
+('SP6', 'SIZE5', 5),
+('SP7', 'SIZE5', 9),
+('SP8', 'SIZE1', 4),
+('SP8', 'SIZE2', 7),
+('SP8', 'SIZE3', 6),
+('SP8', 'SIZE4', 3),
+('SP9', 'SIZE1', 2),
+('SP9', 'SIZE2', 7),
+('SP9', 'SIZE3', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -86,6 +220,23 @@ CREATE TABLE `chucnang` (
   `TENCHUCNANG` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chucnang`
+--
+
+INSERT INTO `chucnang` (`MACHUCNANG`, `TENCHUCNANG`) VALUES
+('HD', 'Hoá đơn'),
+('KH', 'Khách hàng'),
+('LOAI', 'Loại'),
+('NCC', 'Nhà cung cấp'),
+('NULLThK', 'Thống kê'),
+('NV', 'Nhân viên'),
+('PN', 'Phiếu nhập'),
+('PQ', 'Phân quyền'),
+('SIZE', 'Size'),
+('SP', 'Sản phẩm'),
+('TK', 'Tài khoản');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +247,26 @@ CREATE TABLE `hinh` (
   `TENHINH` varchar(50) NOT NULL,
   `MASP` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hinh`
+--
+
+INSERT INTO `hinh` (`TENHINH`, `MASP`) VALUES
+('ao_hoodie_mau_hot.jpg', 'SP5'),
+('ao_hoodie_phoi.jpg', 'SP4'),
+('ao_hoodie_zip.jpg', 'SP6'),
+('ao_ni_dai_tay.jpg', 'SP7'),
+('ao_ni_nam_dai_tay.jpg', 'SP8'),
+('asm_oxford_ke_soc_1.jpg', 'SP3'),
+('asm_oxford_ke_soc_2.jpg', 'SP3'),
+('asm_soc_1.jpg', 'SP2'),
+('asm_soc_2.jpg', 'SP2'),
+('asm_tay_dai.jpg', 'SP1'),
+('didika_ao_len_1.jpg', 'SP10'),
+('didita_ao_len_2.jpg', 'SP10'),
+('lovita_ao_khoac_1.jpg', 'SP9'),
+('lovita_ao_khoac_2.jpg', 'SP9');
 
 -- --------------------------------------------------------
 
@@ -109,8 +280,20 @@ CREATE TABLE `hoadon` (
   `MAKH` int(11) NOT NULL,
   `MANV` varchar(10) NOT NULL,
   `TONGTIEN` double NOT NULL,
-  `TIENGIAMGIA` double DEFAULT NULL
+  `TIENGIAMGIA` double DEFAULT NULL,
+  `THOIGIAN` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hoadon`
+--
+
+INSERT INTO `hoadon` (`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`, `TIENGIAMGIA`, `THOIGIAN`) VALUES
+('HD1', '2023-08-13', 3, 'NV3', 960000, 100000, '00:00:00'),
+('HD2', '2023-07-22', 6, 'NV3', 75000, 0, '10:30:20'),
+('HD3', '2024-05-09', 2, 'NV1', 1566000, 0, '15:20:10'),
+('HD4', '2024-05-09', 1, 'NV2', 571800, 0, '09:00:01'),
+('HD5', '2024-05-09', 4, 'NV1', 742000, 0, '08:35:20');
 
 -- --------------------------------------------------------
 
@@ -119,11 +302,23 @@ CREATE TABLE `hoadon` (
 --
 
 CREATE TABLE `khachhang` (
-  `MAKH` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `MAKH` int(11) NOT NULL,
   `TENKH` varchar(50) NOT NULL,
   `SDT` varchar(11) NOT NULL,
   `DIEMTICHLUY` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `khachhang`
+--
+
+INSERT INTO `khachhang` (`MAKH`, `TENKH`, `SDT`, `DIEMTICHLUY`) VALUES
+(1, 'Tuấn Khùng', '0908112345', 230),
+(2, 'Quỳnh Quỳnh', '0909112443', 200),
+(3, 'Trịnh Trần Phương Tuấn', '0907545661', 150),
+(4, 'Hà Lê', '0909887123', 220),
+(5, 'Hương Võ', '0909700813', 280),
+(6, 'Yến Hoàng', '0907661234', 180);
 
 -- --------------------------------------------------------
 
@@ -137,6 +332,18 @@ CREATE TABLE `loai` (
   `TINHTRANG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `loai`
+--
+
+INSERT INTO `loai` (`MALOAI`, `TENLOAI`, `TINHTRANG`) VALUES
+('LOAI1', 'Áo flannel', 1),
+('LOAI2', 'Áo Hoodie', 1),
+('LOAI3', 'Áo Khoác', 1),
+('LOAI4', 'Áo Len', 0),
+('LOAI5', 'Áo Nỉ', 1),
+('LOAI6', 'Áo sơmi', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -147,8 +354,19 @@ CREATE TABLE `nhacungcap` (
   `MANCC` varchar(10) NOT NULL,
   `TENNCC` varchar(30) NOT NULL,
   `SDT` int(10) NOT NULL,
-  `TRANGTHAI` tinyint default 1
+  `TRANGTHAI` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nhacungcap`
+--
+
+INSERT INTO `nhacungcap` (`MANCC`, `TENNCC`, `SDT`, `TRANGTHAI`) VALUES
+('NCC1', 'MLB', 901123444, 1),
+('NCC2', 'Supreme', 907345556, 1),
+('NCC3', 'OFF-WHITE ', 909557689, 1),
+('NCC4', 'LEVIS', 907112580, 1),
+('NCC5', 'Sakura', 901558739, 1);
 
 -- --------------------------------------------------------
 
@@ -160,10 +378,22 @@ CREATE TABLE `nhanvien` (
   `MANV` varchar(10) NOT NULL,
   `TENNV` varchar(50) NOT NULL,
   `CHUCVU` varchar(50) NOT NULL,
-  `SDT` int NOT NULL,
+  `SDT` int(11) NOT NULL,
   `DIACHI` varchar(255) NOT NULL,
-  `EMAIL`  varchar(255) NOT NULL
+  `EMAIL` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`MANV`, `TENNV`, `CHUCVU`, `SDT`, `DIACHI`, `EMAIL`) VALUES
+('AD1', 'Thanh Sang', 'Quản lí ứng dụng', 907665456, '273 An Dương Vương Quận 5 TPHCM', 'ngthanhsangsgu@gmail.com'),
+('NV1', 'Thanh Phương', 'Nhân viên bán hàng', 909332432, '18 Nguyễn Tri Phương Quận 8 TPHCM', 'thanhphuong22@gmail.com'),
+('NV2', 'Nhật Long', 'Nhân viên bán hàng', 908332112, '23/1 Lê Hồng Phong TPHCM', 'ntLong@gmail.com'),
+('NV3', 'Oanh Le', 'Nhân viên bán hàng', 907665512, 'Quận 2 TPHCM', 'Oanhle204@gmail.com'),
+('QL1', 'Phương Uyên', 'Quản lí kho', 338653321, 'Quận 3 TPHCM', 'phuongUyen11@gmail.com'),
+('QL2', 'Trí Anh', 'Quản lí bán hàng', 901132445, 'Quận 5 TPHCM', 'triANH@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -176,8 +406,21 @@ CREATE TABLE `phieunhap` (
   `MANV` varchar(10) NOT NULL,
   `NGAYNHAP` date NOT NULL,
   `TONGTIEN` double NOT NULL,
-  `MANCC` varchar(10) NOT NULL
+  `MANCC` varchar(10) NOT NULL,
+  `DEM` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`MAPN`, `MANV`, `NGAYNHAP`, `TONGTIEN`, `MANCC`, `DEM`) VALUES
+('PN001', 'NV001', '2024-06-05', 4000000, 'NCC1', 1),
+('PN002', 'NV002', '2024-06-05', 51000000, 'NCC2', 2),
+('PN003', 'NV003', '2024-04-03', 12800000, 'NCC3', 3),
+('PN004', 'NV003', '2024-01-25', 12800000, 'NCC3', 4),
+('PN005', 'QL001', '2024-02-11', 7500000, 'NCC4', 5),
+('PN006', 'QL001', '2024-05-12', 27630000, 'NCC5', 6);
 
 -- --------------------------------------------------------
 
@@ -190,6 +433,16 @@ CREATE TABLE `quyen` (
   `TENQUYEN` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `quyen`
+--
+
+INSERT INTO `quyen` (`MAQUYEN`, `TENQUYEN`) VALUES
+('QNV', 'Quyền nhân viên'),
+('QQLBH', 'Quyền quản lí bán hàng'),
+('QQLHT', 'Quyền quản lí hệ thống'),
+('QQLK', 'Quyền quản lí kho');
+
 -- --------------------------------------------------------
 
 --
@@ -201,8 +454,24 @@ CREATE TABLE `sanpham` (
   `MALOAI` varchar(10) NOT NULL,
   `PRICE` double NOT NULL,
   `TENSP` varchar(50) NOT NULL,
-  `TRANGTHAI` tinyint NOT NULL
+  `TRANGTHAI` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sanpham`
+--
+
+INSERT INTO `sanpham` (`MASP`, `MALOAI`, `PRICE`, `TENSP`, `TRANGTHAI`) VALUES
+('SP1', 'LOAI6', 139000, 'Áo sơ mi dài tay Odin Club', 1),
+('SP10', 'LOAI4', 129900, 'DIDIKA Áo Len Tay Dài Cổ Tròn Dáng Rộng', 1),
+('SP2', 'LOAI6', 202000, 'Áo sơ mi sọc Boizclub Premium', 1),
+('SP3', 'LOAI6', 152000, 'Áo Sơ Mi Oxford Kẻ Sọc', 1),
+('SP4', 'LOAI2', 189000, 'Áo Khoác Hoodie Phối Zip INTERBREAK', 1),
+('SP5', 'LOAI2', 89000, 'ÁO KHOÁC HOODIE MẪU HOT TREND ESTIAL', 1),
+('SP6', 'LOAI2', 169000, 'Áo Hoodie Zip', 1),
+('SP7', 'LOAI5', 75000, 'ÁO NỈ DÀI TAY NAM NỮ', 1),
+('SP8', 'LOAI5', 78600, 'Áo Nỉ Nam Dài Tay', 1),
+('SP9', 'LOAI3', 156000, 'Lovito Áo khoác dài tay có nút trơn', 1);
 
 -- --------------------------------------------------------
 
@@ -213,8 +482,19 @@ CREATE TABLE `sanpham` (
 CREATE TABLE `size` (
   `MASIZE` varchar(10) NOT NULL,
   `TENSIZE` varchar(50) NOT NULL,
-  `TRANGTHAI` tinyint default 1
+  `TRANGTHAI` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `size`
+--
+
+INSERT INTO `size` (`MASIZE`, `TENSIZE`, `TRANGTHAI`) VALUES
+('SIZE1', 'S', 1),
+('SIZE2', 'M', 1),
+('SIZE3', 'L', 1),
+('SIZE4', 'XL', 1),
+('SIZE5', 'onesize', 1);
 
 -- --------------------------------------------------------
 
@@ -228,119 +508,21 @@ CREATE TABLE `taikhoan` (
   `PASSWORD` varchar(50) NOT NULL,
   `NGAYTAOTK` date NOT NULL,
   `TINHTRANG` int(11) NOT NULL,
-  `MAQUYEN` varchar(10) NOT NULL,
-   PRIMARY KEY (USERNAME)
+  `MAQUYEN` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `taikhoan`
+--
 
-INSERT INTO `chitiethoadon` VALUES ('HD001','SP4','SIZE5',4,340000),('HD002','SP7','SIZE5',1,270000);
-INSERT INTO `chitietphieunhap` VALUES ('PN001','SP9',1,4000000,4000000,'SIZE2'),('PN002','SP1',6,8500000,51000000,'SIZE5'),('PN003','SP2',2,6400000,12800000,'SIZE5'),('PN004','SP2',2,6400000,12800000,'SIZE5'),('PN005','SP3',3,2500000,7500000,'SIZE5'),('PN006','SP4',3,200000,600000,'SIZE5'),('PN006','SP5',3,2000000,6000000,'SIZE1'),('PN006','SP5',3,2000000,6000000,'SIZE2'),('PN006','SP5',3,2000000,6000000,'SIZE3'),('PN006','SP6',5,1500000,7500000,'SIZE5'),('PN006','SP7',9,170000,1530000,'SIZE5');
+INSERT INTO `taikhoan` (`MANV`, `USERNAME`, `PASSWORD`, `NGAYTAOTK`, `TINHTRANG`, `MAQUYEN`) VALUES
+('AD1', 'AD001', 'SangHard!', '2023-02-13', 1, 'QQLHT'),
+('NV1', 'NV001', 'Phuong@', '2023-09-14', 1, 'QNV'),
+('NV2', 'NV002', 'anhLong1111', '2023-11-20', 0, 'QNV'),
+('NV3', 'NV003', 'Oanh2004!', '2023-10-22', 1, 'QNV'),
+('QL1', 'QL001', 'PhuongUyen!', '2023-09-01', 1, 'QQLK'),
+('QL2', 'QL002', 'TriAnhhh', '2023-06-22', 1, 'QQLBH');
 
-INSERT INTO `quyen` VALUES ('QNV','Quyền nhân viên'),('QQLBH','Quyền quản lí bán hàng'),('QQLHT','Quyền quản lí hệ thống'),('QQLK','Quyền quản lí kho');
-
-INSERT INTO `chucnang` VALUES 
-('SP','Sản phẩm'),
-('NV','Nhân viên'),
-('KH','Khách hàng'),
-('PN','Phiếu nhập'),
-('TK','Tài khoản'),
-('PQ','Phân quyền'),
-('NCC','Nhà cung cấp'),
-('LOAI','Loại'),
-('SIZE','Size'),
-('HD','Hoá đơn'),
-('NULLThK','Thống kê');
-
-
-INSERT INTO `chitietquyen` VALUES
-('QNV','KH','Sửa'),
-('QNV','KH','Xem'),
-('QNV','KH','Thêm'),
-('QNV','SP','Xem'),
-('QNV','HD','Xem'),
-('QNV','HD','Thêm'),
-('QQLBH','SP','Xem'),
-('QQLBH','NV','Xem'),
-('QQLBH','NV','Thêm'),
-('QQLBH','NV','Xóa'),
-('QQLBH','NV','Sửa'),
-('QQLBH','KH','Xóa'),
-('QQLBH','KH','Sửa'),
-('QQLBH','KH','Xem'),
-('QQLBH','KH','Thêm'),
-('QQLBH','HD','Xem'),
-('QQLBH','HD','Xóa'),
-('QQLBH','HD','Thêm'),
-('QQLBH','HD','Sửa'),
-('QQLK','SP','Xem'),
-('QQLK','SP','Sửa'),
-('QQLK','SP','Xóa'),
-('QQLK','NV','Xem'),
-('QQLK','KH','Xem'),
-('QQLK','PN','Export Excel'),
-('QQLK','PN','Sửa'),
-('QQLK','PN','Thêm'),
-('QQLK','PN','Xem'),
-('QQLK','PN','Xóa'),
-('QQLK','HD','Xem'),
-('QQLHT','NULLThK','Xem'),
-('QQLHT','KH','Sửa'),
-('QQLHT','KH','Xem'),
-('QQLHT','KH','Xóa'),
-('QQLHT','KH','Thêm'),
-('QQLHT','SP','Xem'),
-('QQLHT','SP','Sửa'),
-('QQLHT','SP','Xóa'),
-('QQLHT','NCC','Xem'),
-('QQLHT','NCC','Sửa'),
-('QQLHT','NCC','Xóa'),
-('QQLHT','NCC','Thêm'),
-('QQLHT','PN','Export Excel'),
-('QQLHT','PN','Sửa'),
-('QQLHT','PN','Thêm'),
-('QQLHT','PN','Xem'),
-('QQLHT','PN','Xóa'),
-('QQLHT','NV','Xem'),
-('QQLHT','NV','Thêm'),
-('QQLHT','NV','Xóa'),
-('QQLHT','NV','Sửa'),
-('QQLHT','HD','Xem'),
-('QQLHT','HD','Xóa'),
-('QQLHT','HD','Thêm'),
-('QQLHT','HD','Sửa'),
-('QQLHT','TK','Xem'),
-('QQLHT','TK','Sửa'),
-('QQLHT','TK','Xóa'),
-('QQLHT','TK','Thêm'),
-('QQLHT','PQ','Xem'),
-('QQLHT','PQ','Thêm'),
-('QQLHT','PQ','Xóa'),
-('QQLHT','PQ','Sửa'),
-('QQLHT','LOAI','Xem'),
-('QQLHT','LOAI','Sửa'),
-('QQLHT','LOAI','Xóa'),
-('QQLHT','LOAI','Thêm'),
-('QQLHT','SIZE','Xem'),
-('QQLHT','SIZE','Sửa'),
-('QQLHT','SIZE','Xóa'),
-('QQLHT','SIZE','Thêm');
-
-INSERT INTO `chitietsanpham` VALUES ('SP1','SIZE5',6),('SP2','SIZE5',4),('SP3','SIZE5',3),('SP4','SIZE5',10),('SP5','SIZE1',5),('SP5','SIZE2',7),('SP5','SIZE3',3),('SP6','SIZE5',5),('SP7','SIZE5',9),('SP8','SIZE1',4),('SP8','SIZE2',7),('SP8','SIZE3',6),('SP8','SIZE4',3),('SP9','SIZE1',2),('SP9','SIZE2',7),('SP9','SIZE3',4),('SP10','SIZE2',3),('SP10','SIZE3',4);
-
-INSERT INTO `hinh` VALUES ('AF001_1.jpg','SP1'),('AF001_2.jpg','SP1'),('AF002_1.jpg','SP2'),('AF002_2.jpg','SP2'),('AF003_1.jpg','SP3'),('AF003_2.jpg','SP3'), ('AH001.jpg','SP4'),('AK001.jpg','SP5'),('AL001.jpg','SP6'),('AL002.jpg','SP7'),('ASM001_1.jpg','SP8'),('ASM001_2.jpg','SP8'),('ASM002_1.jpg','SP9'),('ASM002_2.jpg','SP9'),('ASM003_1.jpg','SP10'),('ASM003_2.jpg','SP10');
-
-INSERT INTO `hoadon` VALUES ('HD001','2023-08-13','3','NV003',1260000,100000),('HD002','2023-07-22','6','NV003',270000,0);
-
-INSERT INTO `khachhang` VALUES (1,'Tuấn Khùng','908112345',230),(2,'Quỳnh Quỳnh','909112443',200),(3,'Trịnh Trần Phương Tuấn','907545661',150),(4,'Hà Lê','909887123',220),(5,'Hương Võ','909700813',280),(6,'Yến Hoàng','907661234',180);
-
-
-INSERT INTO `loai` VALUES ('LOAI1','Áo flannel',1),('LOAI2','Áo Hoodie',1),('LOAI3','Áo Khoác',1),('LOAI4','Áo Len',0),('LOAI5','Áo Nỉ',1),('LOAI6','Áo sơmi',1);
-INSERT INTO `nhacungcap`(MANCC,TENNCC,SDT) VALUES ('NCC1','MLB',901123444),('NCC2','Supreme',907345556),('NCC3','OFF-WHITE ',909557689),('NCC4','LEVIS',907112580),('NCC5','Sakura',901558739);
-INSERT INTO `nhanvien` VALUES ('AD001','Thanh Sang','Quản lí ứng dụng',0907665456,'273 An Dương Vương Quận 5 TPHCM','ngthanhsangsgu@gmail.com'),('NV001','Thanh Phương','Nhân viên bán hàng',0909332432,'18 Nguyễn Tri Phương Quận 8 TPHCM','thanhphuong22@gmail.com'),('NV002','Nhật Long','Nhân viên bán hàng',0908332112,'23/1 Lê Hồng Phong TPHCM','ntLong@gmail.com'),('NV003','Oanh Le','Nhân viên bán hàng',0907665512,'Quận 2 TPHCM','Oanhle204@gmail.com'),('QL001','Phương Uyên','Quản lí kho',0338653321,'Quận 3 TPHCM','phuongUyen11@gmail.com'),('QL002','Trí Anh','Quản lí bán hàng',0901132445,'Quận 5 TPHCM','triANH@gmail.com');
-INSERT INTO `phieunhap` VALUES ('PN001','NV001','2024-06-05',4000000,'NCC1'),('PN002','NV002','2024-06-05',51000000,'NCC2'),('PN003','NV003','2024-04-03',12800000,'NCC3'),('PN004','NV003','2024-01-25',12800000,'NCC3'),('PN005','QL001','2024-02-11',7500000,'NCC4'),('PN006','QL001','2024-05-12',27630000,'NCC5');
-INSERT INTO `sanpham` VALUES ('SP1','LOAI1',10860500,'Supreme Áo Flannel lót bông',1),('SP2','LOAI1',7400000,'OFF-WHITE Áo Flannel ',0),('SP3','LOAI1',2500000,'LEVIS Áo Flannel tươi mát',1),('SP4','LOAI2',340000,'Áo hoodie nữ gấu trúc Panda',1),('SP5','LOAI3',2500000,'Áo khoác nữ',1),('SP6','LOAI4',1800000,'Áo len nữ mỏng dáng ôm',1),('SP7','LOAI4',270000,'Áo len dệt kim nhung cao cấp nữ',0),('SP8','LOAI6',4790000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài Basic Multi Mega Logo',1),('SP9','LOAI6',4490000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài phom suông thời trang',1),('SP10','LOAI6',5490000,'MLB - Áo sơ mi denim unisex cổ bẻ tay dài Cube Monogram',0);
-INSERT INTO `size` VALUES ('SIZE1','S',1),('SIZE2','M',1),('SIZE3','L',1),('SIZE4','XL',1),('SIZE5','onesize',1);
-INSERT INTO `taikhoan` VALUES ('NV001','NV001','Phuong@','2023-09-14',1,'QNV'),('AD001','AD001','SangHard!','2023-02-13',1,'QQLHT'),('NV002','NV002','anhLong1111','2023-11-20',0,'QNV'),('NV003','NV003','Oanh2004!','2023-10-22',1,'QNV'),('QL001','QL001','PhuongUyen!','2023-09-01',1,'QQLK'),('QL002','QL002','TriAnhhh','2023-06-22',1,'QQLBH');
 --
 -- Indexes for dumped tables
 --
@@ -390,7 +572,8 @@ ALTER TABLE `hoadon`
 --
 -- Indexes for table `khachhang`
 --
-
+ALTER TABLE `khachhang`
+  ADD PRIMARY KEY (`MAKH`);
 
 --
 -- Indexes for table `loai`
@@ -414,7 +597,8 @@ ALTER TABLE `nhanvien`
 -- Indexes for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  ADD PRIMARY KEY (`MAPN`);
+  ADD PRIMARY KEY (`MAPN`),
+  ADD UNIQUE KEY `DEM` (`DEM`);
 
 --
 -- Indexes for table `quyen`
@@ -433,10 +617,30 @@ ALTER TABLE `sanpham`
 --
 ALTER TABLE `size`
   ADD PRIMARY KEY (`MASIZE`);
+
+--
+-- Indexes for table `taikhoan`
+--
+ALTER TABLE `taikhoan`
+  ADD PRIMARY KEY (`USERNAME`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `khachhang`
+--
+ALTER TABLE `khachhang`
+  MODIFY `MAKH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  MODIFY `DEM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
-alter table phieunhap
-add DEM int AUTO_INCREMENT unique;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
