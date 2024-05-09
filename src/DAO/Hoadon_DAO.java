@@ -4,7 +4,10 @@
  */
 package DAO;
 
+import DTO.ChitietHD_DTO;
 import DTO.Hoadon_DTO;
+import DTO.chitietsanpham_DTO;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,11 +23,20 @@ public class Hoadon_DAO {
             Logger.getLogger(Hoadon_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
+
+   private static void ConnectDataBase() {
+    try {
+        mySQL = new ConnectDataBase();
+    } catch (SQLException ex) {
+        Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
     
     public static ArrayList<Hoadon_DTO> list()
     {
-        ArrayList<Hoadon_DTO> dshd = new ArrayList<>(Hoadon_DTO);
+        ArrayList<Hoadon_DTO> dshd = new ArrayList<Hoadon_DTO>();
         try {
+            ConnectDataBase();
             mySQL.connect();
             String sql = "SELECT * FROM hoadon WHERE 1";
             try (ResultSet rs = mySQL.executeQuery(sql)) {
@@ -38,6 +50,7 @@ public class Hoadon_DAO {
                     int tongtien = rs.getInt("TONGTIEN");
                     
                     Hoadon_DTO hd = new Hoadon_DTO(maHD, ngayHD, maKH, maNV,giamgia, tongtien, ChitietHD_DAO.list(maHD));
+                    dshd.add(hd);
                 }
             }
              System.out.println("Lay danh sach chuc nang thanh cong");
@@ -48,17 +61,40 @@ public class Hoadon_DAO {
         
         return dshd;
     }
-    
-     public static void add(Hoadon_DTO item){
+
+    public static int getNumberOfRow() {
+        int rowCount = 0;
         try {
+            ConnectDataBase();
             mySQL.connect();
-            String query= "INSERT INTO hoadon VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  +item.getGiamgia() +"','"+item.getTongTien()+");";
-            mySQL.executeUpdate(query);
-            System.out.println("Them Hoa don thanh cong");
+            String query = "SELECT COUNT(*) AS row_count FROM hoadon;";
+            ResultSet resultSet = mySQL.executeQuery(query);
+
+            // Lấy kết quả từ ResultSet
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt("row_count");
+            }
             mySQL.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(Hoadon_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowCount;
+    }
+    
+    public static boolean add(Hoadon_DTO item ){
+        boolean result = false;
+        try {
+            ConnectDataBase();
+            mySQL.connect();
+            String query= "INSERT INTO `hoadon`(`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`, `TIENGIAMGIA`) VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  + (double)item.getTongTien() +"','"+ (double)item.getGiamgia()+"');";
+            for (ChitietHD_DTO ctHD : item.getDsctHD()) 
+                ChitietHD_DAO.addCTHD(ctHD);
+            result = mySQL.executeUpdate(query);
+            mySQL.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(Hoadon_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
      
     

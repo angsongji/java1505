@@ -281,7 +281,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
             public void mousePressed(MouseEvent e) {
                 // TODO Auto-generated method stub
                 view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
-
+                j.dispose();
                 // throw new UnsupportedOperationException("Unimplemented method
                 // 'mousePressed'");
             }

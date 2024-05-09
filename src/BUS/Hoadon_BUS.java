@@ -2,6 +2,8 @@
 package BUS;
 
 import DTO.Hoadon_DTO;
+import DTO.chitietphieunhap_DTO;
+import DTO.chitietsanpham_DTO;
 import DAO.Hoadon_DAO;
 import java.util.ArrayList;
 
@@ -20,6 +22,14 @@ public final class Hoadon_BUS {
 
     public static ArrayList<Hoadon_DTO> list(){
         return Hoadon_DAO.list();
+    }
+
+    public static int getNumberOfRow() {
+        return Hoadon_DAO.getNumberOfRow();
+    }
+
+    public static boolean addHoaDon(Hoadon_DTO hoaDon) {
+        return Hoadon_DAO.add(hoaDon);
     }
     
      public static void main(String[] args) {

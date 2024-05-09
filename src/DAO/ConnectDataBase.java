@@ -76,14 +76,16 @@ public void disconnect() {
        return rs;
    }
    
-   public void executeUpdate(String sql) throws SQLException {//executeUpdate() trong JDBC được sử dụng để thực thi các câu lệnh SQL như INSERT, UPDATE, DELETE hoặc các câu lệnh khác như CREATE TABLE, ALTER TABLE và DROP TABLE
+   public boolean executeUpdate(String sql) throws SQLException {//executeUpdate() trong JDBC được sử dụng để thực thi các câu lệnh SQL như INSERT, UPDATE, DELETE hoặc các câu lệnh khác như CREATE TABLE, ALTER TABLE và DROP TABLE
       //connect();
       try {
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
+            return true;
         } catch (SQLException ex) {
             System.out.println("Thực hiện thất bại" + ex.getMessage());
         }
+        return false;
    }
 
     public static void main(String[] args) throws SQLException {

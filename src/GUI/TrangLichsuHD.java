@@ -84,10 +84,10 @@ public final class TrangLichsuHD extends JPanel {
             pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#0A3D62")));
             pa.setBackground(Color.white);
             JLabel lab1 = new JLabel((String) hd.getNgayHD(), JLabel.CENTER);
-            JLabel lab2 = new JLabel(Integer.toString(hd.getMaKH()), JLabel.CENTER);
+            JLabel lab2 = new JLabel(hd.getMaKH() + "", JLabel.CENTER);
             JLabel lab3 = new JLabel((String) hd.getMaNV(), JLabel.CENTER);
             JLabel lab4 = new JLabel((String) hd.getMaHD(), JLabel.CENTER);
-            JLabel lab5 = new JLabel(Integer.toString(hd.getTongTien()), JLabel.CENTER);
+            JLabel lab5 = new JLabel(hd.getTongTien() + "", JLabel.CENTER);
             JLabel lab6 = new JLabel(Integer.toString(hd.getGiamgia()), JLabel.CENTER);
 
             lab1.setPreferredSize(new Dimension((chieurong / 3) / 6, 30));
