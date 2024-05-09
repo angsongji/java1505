@@ -434,7 +434,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             case "Import Excel":{
                 JOptionPane.showMessageDialog(null, "Chọn file excel .xlsx hoặc .xls cần import vào\nLưu ý trong file excel đó:\nTên nhà cung cấp chỉ chứa chữ cái\nSố điện thoại theo định dạng 10 số");
                 
-                nccBUS.importExcelData(nccGUI);
+//                nccBUS.importExcelData(nccGUI);
             }
             case "Sửa": {
                 switch (itemClicked.title.getText()) {

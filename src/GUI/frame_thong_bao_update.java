@@ -20,7 +20,7 @@ public class frame_thong_bao_update extends JFrame{
 		
 		this.setSize(w,h);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
 		

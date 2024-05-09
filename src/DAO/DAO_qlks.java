@@ -83,14 +83,14 @@ public class DAO_qlks {
 	public int delete(model_qlkh t) {
 		int i = 0;
 		try {
-//			Connection conn = jdbc_do_an.getconnection();
+
 			c.connect();
-//			Statement st  = conn.createStatement();
+
 			String sql = "delete from khachhang where MAKH = " + t.getMakh();
-//			i = st.executeUpdate(sql);
+
 			c.executeUpdate(sql);
 			
-//			jdbc_do_an.close_connec(conn);
+
 			c.disconnect();
 			System.out.println("hh");
 		} catch (SQLException e) {
@@ -106,8 +106,7 @@ public class DAO_qlks {
 		
 		
 		try {
-//			Connection conn = jdbc_do_an.getconnection();
-//			Statement st = conn.createStatement();
+
 			c.connect();
 			String sql 	= "select * from khachhang";
 			
@@ -120,7 +119,7 @@ public class DAO_qlks {
 				model_qlkh k = new model_qlkh(ma_kh, ten_kh, sdt, diem);
 				danhsach.add(k);
 			}
-//			jdbc_do_an.close_connec(conn);
+
 			c.disconnect();
 			
 			
@@ -252,4 +251,34 @@ public class DAO_qlks {
 	}
 	return h;
 	}
+	
+		public ArrayList<String> select_hanhdong_qlkh(String MAQUYEN) {
+			ArrayList<String> ds = new ArrayList<String>();
+			
+			try {
+				c.connect();
+				
+				String sql = "SELECT HANHDONG FROM chitietquyen WHERE MACHUCNANG = 'KH' AND  MAQUYEN ='" + MAQUYEN +"'";
+				
+			 ResultSet rs = c.executeQuery(sql);
+			 
+			 while(rs.next()) {
+				 String t = rs.getString("HANHDONG");
+				 ds.add(t);
+			 }
+			 c.disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return ds;
+		}
+	 public static void main(String[] args) {
+		DAO_qlks c = new DAO_qlks();
+		String t = "QQLBH";
+		for (String m : c.select_hanhdong_qlkh("QQLBH")) {
+			System.out.println(m);
+		}
+	} 
+	
 }

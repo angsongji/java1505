@@ -48,10 +48,10 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
         this.sanpham_DTO = sanpham_DTO;
         this.sanpham_BUS = new SanPhamBUS();
-        this.chitietsanpham_BUS = new chitietsanpham_BUS(sanpham_DTO);
+        this.chitietsanpham_BUS = new chitietsanpham_BUS();
         this.j = j;
 
-        ArrayList<String> bangsize = chitietsanpham_BUS.select_masize(sanpham_DTO);
+        ArrayList<String> bangsize = chitietsanpham_BUS.select_masize_by_MASP(sanpham_DTO);
 
         String h00 = "";
         String h01 = "";

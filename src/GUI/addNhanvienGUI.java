@@ -208,8 +208,8 @@ public class addNhanvienGUI extends JFrame implements MouseListener {
                     if (flag_ten && flag_sdt && flag_email && flag_dc && flag_cv  ) {
                         int r2 = JOptionPane.showConfirmDialog(null, "Bạn đã chắc chắn với thông tin nhập vào?", "Thêm nhà cung cấp ", JOptionPane.YES_NO_OPTION);
                         if (r2 == JOptionPane.YES_OPTION) {
-                            nvBUS.add(ten, cv,  Integer.parseInt(sdt), dchi, email);
-                            nvGUI.reloadPage();
+//                            nvBUS.add(ten, cv,  Integer.parseInt(sdt), dchi, email);
+//                            nvGUI.reloadPage();
                             JOptionPane.showMessageDialog(null, "Thêm nhân viên mới thành công!");
                             dispose();
 

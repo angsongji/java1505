@@ -126,7 +126,12 @@ public TaiKhoanDTO tkUSER ;
         setUndecorated(true);
         setVisible(true);
     }
+    
+    public TaiKhoanDTO getTaiKhoanDTO(){
+        return this.tkUSER;
+    }
     public static void main(String[] args) {
+//        TaiKhoanDTO d = new TaiKhoanDTO("AD001", "", "", "", "QQLBH", WIDTH);
         StoreScreen s= new StoreScreen();
     }
 }

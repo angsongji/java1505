@@ -200,5 +200,7 @@ public class panel_con_qlkh extends JPanel implements MouseListener{
 	public model_qlkh get_kh() {
 		return this.model_qlkh;
 	}
+
+	
 	
 }

@@ -1,6 +1,8 @@
 package DTO;
 
 import java.awt.*;
+import java.util.Arrays;
+
 import javax.swing.*;
 
 public class SanPhamDTO {
@@ -34,7 +36,14 @@ public class SanPhamDTO {
         return tenHinh;
     }
 
-    public void setTenHinh(String[] tenHinh) {
+    @Override
+	public String toString() {
+		return "SanPhamDTO [maSP=" + maSP + ", maLoai=" + maLoai + ", tenSP=" + tenSP + ", price=" + price
+				+ ", tenHinh=" + Arrays.toString(tenHinh) + ", trangThai=" + trangThai + "]";
+	}
+
+
+	public void setTenHinh(String[] tenHinh) {
         this.tenHinh = tenHinh;
     }
 
