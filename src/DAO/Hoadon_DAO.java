@@ -7,6 +7,7 @@ package DAO;
 import DTO.ChitietHD_DTO;
 import DTO.Hoadon_DTO;
 import DTO.chitietsanpham_DTO;
+import DTO.model_qlkh;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,6 +81,25 @@ public class Hoadon_DAO {
         }
         return rowCount;
     }
+    public static int getpointtichluy(int a) {
+        int rowCount = 0;
+        try {
+            ConnectDataBase();
+            mySQL.connect();
+            String query = "SELECT DIEMTICHLUY FROM khachhang WHERE MAKH ="+ a;
+            ResultSet resultSet = mySQL.executeQuery(query);
+
+            // Lấy kết quả từ ResultSet
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt("row_count");
+            }
+          
+            mySQL.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(Hoadon_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rowCount ;
+    }
     
     public static boolean add(Hoadon_DTO item ){
         boolean result = false;
@@ -99,8 +119,8 @@ public class Hoadon_DAO {
      
     
      
-//     public static void main (String[] args){
-//        Hoadon_DAO hd = new Hoadon_DAO();
-//        hd.list();
-//    }
+    public static void main (String[] args){
+       Hoadon_DAO hd = new Hoadon_DAO();
+       hd.getpointtichluy(3);
+   }
 }

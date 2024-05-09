@@ -36,4 +36,8 @@ public final class Hoadon_BUS {
         Hoadon_BUS cthd = new Hoadon_BUS();
         cthd.list();
     }
+    public static int getpointtichluy(int a)
+    {
+        return Hoadon_DAO.getpointtichluy(a);
+    }
 }
