@@ -4,6 +4,7 @@ import DTO.SanPhamDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +40,8 @@ public class SanPhamDAO {
                 // Truy cập vào mảng tenHinh chỉ khi có dữ liệu
                 if (rs.getString("TENHINH") != null) {
                     String[] tenHinh = rs.getString("TENHINH").split(",");
+                    // Sắp xếp mảng tenHinh theo thứ tự tăng dần
+                    Arrays.sort(tenHinh);
                     sanPham.setTenHinh(tenHinh);
                 } else {
                     // Xử lý trường hợp không có hình ảnh
@@ -53,7 +56,7 @@ public class SanPhamDAO {
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("danh sách = "+dssp.size());
+        System.out.println("danh sách = " + dssp.size());
         return dssp;
     }
 
@@ -84,37 +87,33 @@ public class SanPhamDAO {
     public void set(SanPhamDTO sp) {
         try {
             mySQL.connect();
-            String query = "UPDATE sanpham SET "
+
+            // Xoá các hình ảnh cũ
+            String deleteQuery = "DELETE FROM hinh WHERE MASP='" + sp.getMaSP() + "'";
+            mySQL.executeUpdate(deleteQuery);
+
+            // Thêm các hình ảnh mới
+            for (int i = 0; i < sp.getTenHinh().length; i++) {
+                String insertQuery = "INSERT INTO hinh VALUES ('" + sp.getTenHinh()[i] + "', '" + sp.getMaSP() + "')";
+                mySQL.executeUpdate(insertQuery);
+            }
+
+            // Cập nhật thông tin sản phẩm
+            String updateQuery = "UPDATE sanpham SET "
                     + "MALOAI='" + sp.getMaLoai() + "', "
                     + "PRICE='" + sp.getPrice() + "', "
                     + "TENSP='" + sp.getTenSP() + "', "
                     + "TRANGTHAI='" + sp.getTrangThai() + "' "
                     + "WHERE MASP ='" + sp.getMaSP() + "'";
-            System.out.println(query);
-            mySQL.executeUpdate(query);
-            
-            //xoá các hinh cu
-            for (int i = 0; i < sp.getTenHinh().length; i++) {
-                query = "DELETE FROM hinh "
-                    + "WHERE MASP='" + sp.getMaSP() + "'";
-                mySQL.executeUpdate(query);
-            }
-            
-            //them cac hinh mơi
-            for (int i = 0; i < sp.getTenHinh().length; i++) {
-                query = "INSERT INTO hinh VALUES ('";
-                query += sp.tenHinh[i] + "', '"
-                        + sp.getMaSP() + "')";
-                mySQL.executeUpdate(query);
-            }
-            
+            mySQL.executeUpdate(updateQuery);
+
             mySQL.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void delete(String maSP){
+    public void delete(String maSP) {
         try {
             mySQL.connect();
             String query = "UPDATE sanpham SET "
@@ -127,8 +126,7 @@ public class SanPhamDAO {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-   
+
     public static void main(String[] args) {
         SanPhamDAO sp = new SanPhamDAO();
         ArrayList<SanPhamDTO> d = new ArrayList<>();
@@ -139,7 +137,7 @@ public class SanPhamDAO {
             System.out.println("Mã loại: " + sanPham.getMaLoai());
             System.out.println("Tên sản phẩm: " + sanPham.getTenSP());
             System.out.println("Giá: " + sanPham.getPrice());
-            System.out.println("Trang thai: "+ sanPham.getTrangThai());
+            System.out.println("Trang thai: " + sanPham.getTrangThai());
             String[] tenHinh = sanPham.getTenHinh();
             System.out.println("Danh sách hình ảnh:");
             for (String ten : tenHinh) {
