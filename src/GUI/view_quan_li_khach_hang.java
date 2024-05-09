@@ -63,7 +63,7 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		jl1_r = new JLabel[2];
 		timkiem = new String[] {"Theo mã khách" , "Theo tên khách","theo so dien thoai", "theo điểm tích lũy"};
 		thaotac = new String[] {"Thêm","Sửa","Xóa"};
-		hinhanh = new String[] {"./src/images/them.png","./src/images/sua.png","./src/images/xoa.png"};
+		hinhanh = new String[] {"./src/images/add_icon.png","./src/images/edit_icon.png","./src/images/remove_icon.png"};
 		panel_north = new JPanel();
 		option_so = new String[] {"","min-max","max-min"};
 		option_kitu = new String[] {"","a-z","z-a"};
