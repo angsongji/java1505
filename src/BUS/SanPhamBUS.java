@@ -37,7 +37,6 @@ public class SanPhamBUS {
                 dsSP.set(i, sp);
                 SanPhamDAO spDAO = new SanPhamDAO();
                 spDAO.set(sp);
-                break;
             }
         }
     }
@@ -53,6 +52,15 @@ public class SanPhamBUS {
         }
     }
     
+    public SanPhamDTO select_by_id(String MASP) {
+    	SanPhamDTO sp = new SanPhamDTO();
+    	for (SanPhamDTO h : dsSP) {
+    		if (h.getMaSP().equals(MASP)) {
+    			sp = h;
+    		}
+    	}
+    	return sp;
+    }
     public static void main(String[] args) {
         SanPhamBUS n = new SanPhamBUS();
         String t[] = {"b.jpg", "p.jpg", "o.jpg"};

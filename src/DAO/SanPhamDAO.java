@@ -128,6 +128,7 @@ public class SanPhamDAO {
         }
     }
     
+   
     public static void main(String[] args) {
         SanPhamDAO sp = new SanPhamDAO();
         ArrayList<SanPhamDTO> d = new ArrayList<>();

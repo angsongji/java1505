@@ -91,11 +91,11 @@ public class ChitietHD_DAO {
             Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     String query= "DELETE FROM chitiethoadon WHERE SOHD = '" + m +"';";
-    boolean result = mySQL.executeUpdate(query);
+         boolean result = mySQL.executeUpdate(query);
     if(result) {
         // cập nhật lại số lượng sản phẩm 
         System.out.println("Xoa san pham hoa don thanh cong!");
-        success = true;
+        success = true; 
     } else {
         System.out.println("Xoa san pham hoa don that bai!");
     }

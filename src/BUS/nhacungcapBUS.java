@@ -11,16 +11,6 @@ package BUS;
 import java.util.ArrayList;
 import DTO.nhacungcapDTO;
 import DAO.nhacungcapDAO;
-import GUI.nhacungcapGUI;
-import java.io.File;
-import java.io.FileInputStream;
-import java.text.DecimalFormat;
-import javax.swing.JFileChooser;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class nhacungcapBUS {
 
@@ -45,22 +35,17 @@ public class nhacungcapBUS {
 
     private void init() {
         nhacungcapDAO n = new nhacungcapDAO();
-        listNhacungcap = n.listNhacungcapRemoveTrangthai0();
+        listNhacungcap = n.listNhacungcap();
     }
 
     public ArrayList<nhacungcapDTO> getList() {
         return listNhacungcap;
     }
-    public ArrayList<nhacungcapDTO> getListFull() {
-         nhacungcapDAO n = new nhacungcapDAO();
-        return n.listNhacungcap();
-    }
 
     private String createMANCC() {
         int max =0;
-          ArrayList<nhacungcapDTO> listFull = getListFull();
-        for(int i=0;i<listFull.size();i++){
-            String MANCClast = listFull.get(i).getMANCC();
+        for(int i=0;i<listNhacungcap.size();i++){
+            String MANCClast = listNhacungcap.get(i).getMANCC();
              String so = MANCClast.replaceAll("[^0-9]","");
         int stt = Integer.parseInt(so) + 1;
         if(stt > max) max = stt;
@@ -133,61 +118,5 @@ public class nhacungcapBUS {
             }
         }
         return flag;
-    }
-    
-    public nhacungcapDTO getnhacungcapDTO(String mancc){
-        for (nhacungcapDTO s : listNhacungcap) {
-            if(s.getMANCC().equals(mancc))
-                return s;
-        }
-        return null;
-    }
-    
-    public void importExcelData(nhacungcapGUI nccGUI) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showOpenDialog(null);
-        
-        
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            DecimalFormat decimalFormat = new DecimalFormat("#");
-            try {
-                FileInputStream excelFile = new FileInputStream(selectedFile);
-                Workbook workbook = new XSSFWorkbook(excelFile);
-                Sheet sheet = workbook.getSheetAt(0);
-                
-               
-                for (Row row : sheet) {
-                   
-                    String ten="";
-                    String sdt="";
-                    int j=0;
-                    for (Cell cell : row) {
-                 
-                        switch (cell.getCellType()) {
-                            case STRING:{
-                                if((j++)==0){
-                                    ten=cell.getStringCellValue();
-                                    if(!checkTENNCC(sdt)) break;
-                                }else{
-                                    sdt=cell.getStringCellValue();
-                                    if(!checkSDT(sdt)) break;
-                                }
-                                break;
-                            }
-                        }
-                    }
-                     nhacungcapDTO nccDTO = new nhacungcapDTO(ten, sdt);
-                    add(nccDTO);
-                    nccGUI.addLineDataInTable(nccDTO);
-                     
-                }
-                
-                workbook.close();
-                excelFile.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 }

@@ -34,7 +34,7 @@ public final class ChitietHD_GUI extends JPanel{
     }
     
     public void init(String maHD, String ngayHD, String maKH, String maNV, String giamgia, String tongtien) throws SQLException{   
-        this.setPreferredSize(new Dimension(3*chieurong/5,chieucao));
+        this.setPreferredSize(new Dimension(2*chieurong/3,chieucao));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         //--------------------------------SHOW_Title-------------------------------
             p1 = new JPanel();
@@ -46,7 +46,7 @@ public final class ChitietHD_GUI extends JPanel{
                         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 28));
                         title.setForeground(Color.decode("#145369"));
             p1.add(title,BorderLayout.CENTER);
-            System.out.println("ok1");
+            
         //--------------------------------SHOW_IDHD-------------------------------
             p2 = new JPanel();
                 p2.setBackground(Color.white); 
@@ -60,8 +60,7 @@ public final class ChitietHD_GUI extends JPanel{
                         idHD.setForeground(Color.decode("#2596be"));
             p2.add(HD);
             p2.add(idHD);
-                        System.out.println("ok2");
-
+            
         //--------------------------------SHOW_DATETIME-------------------------------
             p3 = new JPanel();
                 p3.setBackground(Color.white); 
@@ -75,8 +74,7 @@ public final class ChitietHD_GUI extends JPanel{
                         date.setForeground(Color.decode("#2596be"));
             p3.add(datetime);
             p3.add(date);
-                        System.out.println("ok3");
-
+            
         //--------------------------------SHOW_TENKH-------------------------------
             p4 = new JPanel();
                 p4.setBackground(Color.white);
@@ -102,7 +100,6 @@ public final class ChitietHD_GUI extends JPanel{
                 catch (SQLException e) {
                     e.printStackTrace();
                 }
-            System.out.println("ok4");
 
         //--------------------------------SHOW_IDNV-------------------------------
             p5 = new JPanel();
@@ -117,12 +114,11 @@ public final class ChitietHD_GUI extends JPanel{
                         idNV.setForeground(Color.decode("#2596be"));
             p5.add(NV);
             p5.add(idNV);
-                       System.out.println("ok5");
-
+           
         //--------------------------------SHOW_SANPHAM_CTHD-------------------------------
             p6 = new JPanel();
                 p6.setBackground(Color.white);
-                p6.setPreferredSize(new Dimension((chieurong*3/5), 250));
+                p6.setPreferredSize(new Dimension((chieurong*2/3), 250));
                     String[] columnNames = {"Ten SP", "size", "So luong","Gia"," Tong"};
                     JPanel pa = new JPanel();
                         pa.setLayout(new FlowLayout(1,10,0));
@@ -131,7 +127,7 @@ public final class ChitietHD_GUI extends JPanel{
                         pa.setForeground(Color.red);
                         for (String col : columnNames) {
                             JLabel l = new JLabel(col,JLabel.CENTER);
-                                l.setPreferredSize(new Dimension(((chieurong*3/5)-60)/5, 40));
+                                l.setPreferredSize(new Dimension(((chieurong*2/3)-60)/5, 40));
                                 l.setFont(new Font(l.getFont().getName(), Font.BOLD, 16));
                                 l.setForeground(Color.decode("#0A3D62"));
                         pa.add(l);
@@ -139,27 +135,25 @@ public final class ChitietHD_GUI extends JPanel{
                 p6.add(pa);
                 
                     JPanel p = new JPanel();
-                        p.setLayout(new FlowLayout(0,0,2));
-                        p.setPreferredSize(new Dimension((chieurong*3/5), 200));
+                        p.setLayout(new FlowLayout(0,0,3));
+                        p.setPreferredSize(new Dimension((chieurong*2/3), 200));
                         p.setBackground(Color.white);
                     dscthd = new ChitietHD_BUS(maHD);
-                        for (ChitietHD_DTO sp : dscthd.list) {
+                        for (ChitietHD_DTO sp : dscthd.dsChiTietHD) {
                             JPanel panel = new JPanel();
-                                panel.setLayout(new FlowLayout(0,10,0));
-                                panel.setPreferredSize(new Dimension((chieurong*3/5), 40));
+                                panel.setLayout(new FlowLayout(0,5,0));
+                                panel.setPreferredSize(new Dimension((chieurong*2/3), 40));
                                 panel.setBackground(Color.decode("#d3eaf2"));
-                                System.out.println(sp.getTenSP() + "-" +sp.getMaSize()+ "-" + sp.getSl()+ "-" + sp.getGia()+ "-" +sp.getTt());
-                                
                                 JLabel lab1 = new JLabel( sp.getTenSP(), JLabel.CENTER);
-                                JLabel lab2 = new JLabel( sp.getMaSize(), JLabel.LEFT);
+                                JLabel lab2 = new JLabel( sp.getMaSize(), JLabel.CENTER);
                                 JLabel lab3 = new JLabel(Integer.toString(sp.getSl()), JLabel.CENTER);
                                 JLabel lab4 = new JLabel(Double.toString(sp.getGia()), JLabel.CENTER);
                                 JLabel lab5 = new JLabel(Double.toString(sp.getTt()) , JLabel.CENTER);
-                                    lab1.setPreferredSize(new Dimension(((chieurong*3/5)-20)/4, 40));
-                                    lab2.setPreferredSize(new Dimension(((chieurong*3/5)-30)/7, 40));
-                                    lab3.setPreferredSize(new Dimension(((chieurong*3/5)-50)/6, 40));
-                                    lab4.setPreferredSize(new Dimension(((chieurong*3/5))/5, 40));
-                                    lab5.setPreferredSize(new Dimension(((chieurong*3/5)-40)/5, 40));
+                                    lab1.setPreferredSize(new Dimension(((chieurong*2/3)-20)/5, 40));
+                                    lab2.setPreferredSize(new Dimension(((chieurong*2/3)-30)/5, 40));
+                                    lab3.setPreferredSize(new Dimension(((chieurong*2/3)-50)/5, 40));
+                                    lab4.setPreferredSize(new Dimension(((chieurong*2/3)-50)/5, 40));
+                                    lab5.setPreferredSize(new Dimension(((chieurong*2/3)-50)/5, 40));
                             panel.add(lab1);
                             panel.add(lab2);
                             panel.add(lab3);
@@ -168,7 +162,6 @@ public final class ChitietHD_GUI extends JPanel{
                         p.add(panel);  
                         }
             p6.add(p); 
-            System.out.println("ok6");
 
         //--------------------------------SHOW_TONGTIEN-------------------------------
             p7 = new JPanel();
@@ -180,7 +173,7 @@ public final class ChitietHD_GUI extends JPanel{
                         note.setFont(f);
                         int s = Integer.parseInt(giamgia) + Integer.parseInt(tongtien);
                         JLabel contentnote = new JLabel(String.valueOf(s), JLabel.RIGHT);
-                        contentnote.setPreferredSize(new Dimension(420, 40));
+                        contentnote.setPreferredSize(new Dimension(500, 40));
                         contentnote.setFont(f);
             p7.add(note);
             p7.add(contentnote);
@@ -194,11 +187,10 @@ public final class ChitietHD_GUI extends JPanel{
                         gg.setPreferredSize(new Dimension(150, 40));
                         gg.setFont(f);
                     JLabel g = new JLabel("- " + giamgia, JLabel.RIGHT);
-                        g.setPreferredSize(new Dimension(420, 40));
+                        g.setPreferredSize(new Dimension(500, 40));
                         g.setFont(f);
             p9.add(gg);
             p9.add(g);
-            System.out.println("ok7");
 
         //--------------------------------SHOW_THANHTIEN-------------------------------
             p8 = new JPanel();
@@ -208,13 +200,12 @@ public final class ChitietHD_GUI extends JPanel{
                         amountpaid.setPreferredSize(new Dimension(150, 40));
                         amountpaid.setFont(new Font("Tahoma", Font.BOLD, 18));
                     JLabel sum = new JLabel(tongtien, JLabel.RIGHT);
-                        sum.setPreferredSize(new Dimension(420, 40));
+                        sum.setPreferredSize(new Dimension(500, 40));
                         sum.setFont(new Font("Tahoma", Font.BOLD, 18));
                         sum.setForeground(Color.red);
             p8.add(amountpaid);
             p8.add(sum);
-                    System.out.println("ok8");
-    
+            
             
             this.add(p1);
             this.add(p2);
@@ -230,7 +221,7 @@ public final class ChitietHD_GUI extends JPanel{
      public static void main (String[] args) throws SQLException{
         JFrame f = new JFrame ();
         f.setSize(1200,800);
-        ChitietHD_GUI p = new ChitietHD_GUI(1200,800,"HD001","2023-08-13","3","NV003","100000","1260000");
+        ChitietHD_GUI p = new ChitietHD_GUI(1200,800,"HD001","2024-04-03","KH001","NV001","200000","2100000");
         f.add(p);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
