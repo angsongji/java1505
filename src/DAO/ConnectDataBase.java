@@ -86,6 +86,22 @@ public void disconnect() {
         }
    }
 
+ public boolean executeupdate(String sql) {
+    boolean success = false;
+    try {
+        connect();
+        st = conn.createStatement();
+        int rowsAffected = st.executeUpdate(sql);
+        if (rowsAffected > 0) {
+            success = true;
+        }
+        disconnect();
+    } catch (SQLException ex) {
+        Logger.getLogger(ConnectDataBase.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return success;
+}
+
     public static void main(String[] args) throws SQLException {
         ConnectDataBase cn=new ConnectDataBase();
         cn.connect();
