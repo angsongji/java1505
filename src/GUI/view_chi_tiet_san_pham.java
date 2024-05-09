@@ -22,9 +22,12 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import BUS.SanPhamBUS;
+import BUS.SizeBUS;
 import BUS.chitietsanpham_BUS;
 
 import DTO.SanPhamDTO;
+import DTO.SizeDTO;
+import DTO.chitietsanpham_DTO;
 import java.awt.Image;
 import javax.swing.JFrame;
 
@@ -280,6 +283,17 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
             @Override
             public void mousePressed(MouseEvent e) {
                 // TODO Auto-generated method stub
+                int soluong = Integer.parseInt(jlc2[6].getText());
+               
+                String tensize = (String) optionsize.getSelectedItem();
+                SizeBUS sizeBUS = new SizeBUS();
+                String masize ="";
+                for(SizeDTO s : sizeBUS.getList()){
+                    if(s.getTENSIZE().equals(tensize)) masize=s.getMASIZE();
+                }
+                
+                chitietsanpham_DTO ctsp = new chitietsanpham_DTO(sanpham_DTO.getMaSP(),masize,soluong);
+                System.out.println("MASP "+sanpham_DTO.getMaSP()+" ,MASIZE "+masize+" ,soluong them vao gio hang "+soluong);
                 view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
 
                 // throw new UnsupportedOperationException("Unimplemented method
