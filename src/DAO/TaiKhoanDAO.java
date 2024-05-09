@@ -26,6 +26,7 @@ public class TaiKhoanDAO {
     public ArrayList<TaiKhoanDTO> list() {
         ArrayList<TaiKhoanDTO> dstk = new ArrayList<>();
         try {
+            System.err.println("tai sao");
             mySQL.connect();
             String sql = "SELECT * FROM taikhoan ";
             ResultSet rs = mySQL.executeQuery(sql);

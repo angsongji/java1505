@@ -11,6 +11,8 @@ package DAO;
  * @author hp
  */
 import com.mysql.cj.jdbc.Driver;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 
 import java.sql.*;
@@ -43,6 +45,7 @@ public class ConnectDataBase {
 
    public void connect() throws SQLException {
       try {
+        
          Class.forName(driver);
          conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
       } catch (ClassNotFoundException e) {
@@ -85,6 +88,22 @@ public void disconnect() {
             System.out.println("Thực hiện thất bại" + ex.getMessage());
         }
    }
+
+ public boolean executeupdate(String sql) {
+    boolean success = false;
+    try {
+        connect();
+        Statement st = conn.createStatement();
+        int rowsAffected = st.executeUpdate(sql);
+        if (rowsAffected > 0) {
+            success = true;
+        }
+        disconnect();
+    } catch (SQLException ex) {
+       
+    }
+    return success;
+}
 
     public static void main(String[] args) throws SQLException {
         ConnectDataBase cn=new ConnectDataBase();
