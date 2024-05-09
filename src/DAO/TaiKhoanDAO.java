@@ -1,6 +1,10 @@
 package DAO;
 
 import DTO.TaiKhoanDTO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +13,7 @@ import java.util.logging.Logger;
 
 public class TaiKhoanDAO {
 
-    private ConnectDataBase mySQL;
+    public ConnectDataBase mySQL;
 
     public TaiKhoanDAO() {
         try {
@@ -96,10 +100,27 @@ public class TaiKhoanDAO {
         }
     }
 
+    public boolean checkLogin(String username, String password) {
+
+        try {
+            mySQL.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql = "SELECT * FROM taikhoan WHERE username = '" + username + "' AND password = '" + password+"'";
+
+        ResultSet statement = mySQL.executeQuery(sql);
+        if(statement!=null)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         TaiKhoanDAO t = new TaiKhoanDAO();
         System.out.println(t.list().size());
         TaiKhoanDTO d = new TaiKhoanDTO("NV001", "phuong", "1234", "2016-09-03", "AD", 1);
-        t.delete("NV001");
+    //    System.out.println( t.checkLogin(username,password));
     }
 }

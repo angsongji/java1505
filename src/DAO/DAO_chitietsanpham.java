@@ -26,7 +26,35 @@ public class DAO_chitietsanpham {
                 Logger.getLogger(DAO_chitietsanpham.class.getName()).log(Level.SEVERE, null, ex);
             }
 	}
+        public DAO_chitietsanpham() {
+        try {
+            c = new ConnectDataBase();
+        } catch (SQLException e) {
+        }
+    }
+        public ArrayList<chitietsanpham_DTO> listCTSP() {
+        ArrayList<chitietsanpham_DTO> list = new ArrayList<>();
 
+        try {
+            c.connect();
+            String query = "SELECT * FROM chitietsanpham";
+            ResultSet result = c.executeQuery(query);
+            while (result.next()) {
+               
+                    list.add(new chitietsanpham_DTO(result.getString("MASP"), result.getString("MASIZE"), result.getInt("SOLUONG")));
+                
+            }
+
+            c.disconnect();
+        } catch (SQLException e) {
+        }
+
+        return list;
+    }
+
+	 public DAO_chitietsanpham() {
+            c = new ConnectDataBase();
+        }
 	public ArrayList<String> select_size(SanPhamDTO h){
 		ArrayList<String> k = new ArrayList<String>();
 		try {
@@ -76,6 +104,20 @@ public class DAO_chitietsanpham {
 		}
 		return ds;
 	}
-      
-    
+
+   public void Restore_pro (chitietsanpham_DTO cp){
+            try {
+                c.connect();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO_chitietsanpham.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        String query= "UPDATE chitietsanpham set SOLUONG = '" + cp.getSoluong() + "' WHERE MASP='" + cp.getMASP() + "' AND MASIZE='" + cp.getMASIZE()+"';";
+        boolean result = c.executeUpdate(query);
+        if(result) {
+            System.out.println("Phục hồi số lượng sản phẩm sau hủy hóa đơn thành công!");
+        } else {
+            System.out.println("Phục hồi số lượng sản phẩm sau hủy hóa đơn thất bại!");
+        }
+        c.disconnect();    
+      }
 }

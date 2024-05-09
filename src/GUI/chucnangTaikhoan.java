@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import GUI.ThongTinTaiKhoan;
 import DTO.chucnangDTO;
 import DTO.quyenDTO;
 import java.awt.BorderLayout;
@@ -93,7 +94,9 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
         int heightJP_content=ccao - (int)JP_listNameChucnangConCuaTaikhoan.getPreferredSize().getHeight();
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLTK":
-                ThongTinTaiKhoan tttk = new ThongTinTaiKhoan("Thanh Phương","QQLBH","THANHPHUONG"," ", " ", "2024-4-16", crong,heightJP_content, JP_contentCuaNameChucnangCon.getBackground());
+                ThongTinTaiKhoan tttk = new ThongTinTaiKhoan(centerContent.SS_main, crong,heightJP_content, JP_contentCuaNameChucnangCon.getBackground());
+                tttk.initThaoTac_macdinh();
+//                ThongTinTaiKhoan tttk = new ThongTinTaiKhoan(centerContent.SS_main, crong,heightJP_content, JP_contentCuaNameChucnangCon.getBackground());
                 JP_contentCuaNameChucnangCon.add(tttk);
                 break;
             case "TK":

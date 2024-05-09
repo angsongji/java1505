@@ -52,57 +52,57 @@ public class chitietquyenBUS {
         return false;
     }
 
-    public void updateChitietquyen(ArrayList<chitietquyenDTO> listCtqNEW,String maquyen) {
+    public void updateChitietquyen(ArrayList<chitietquyenDTO> listCtqNEW, String maquyen) {
         //them nhung chi tiet quyen luc sau vao luc dau
-       
-ArrayList<chitietquyenDTO> listCtqTheoMAQUYENbandau = getListCtqTheoMAQUYEN(maquyen);
-            chitietquyenDAO ctqDAO = new chitietquyenDAO();
-            for (chitietquyenDTO i : listCtqTheoMAQUYENbandau) {
-                boolean flagTontai = false;
-                System.out.println("Chi tiet quyen dang xet" + i.toString());
-                for (chitietquyenDTO j : listCtqNEW) {
-                    boolean checkEqualMAQUYEN = i.getMAQUYEN().equals(j.getMAQUYEN());
-                    if (checkEqualMAQUYEN) {
-                        boolean checkEqualMACHUCNANG = i.getMACHUCNANG().equals(j.getMACHUCNANG());
-                        boolean checkEqualHANHDONG = i.getHANHDONG().equals(j.getHANHDONG());
-                        if (checkEqualMACHUCNANG && checkEqualHANHDONG) {
-                            flagTontai = true;
-                            break;
-                        }
-                    }
 
-                }
-
-                if (!flagTontai) {
-                    System.out.println("Chi tiet quyen xoa" + i.toString());
-               
-                    ctqDAO.delete(i);
-                    //xóa khỏi database
-
-                }
-            }
-            for (chitietquyenDTO i : listCtqNEW) {
-                boolean flagTontai = false;
-                for (chitietquyenDTO j : listCtqTheoMAQUYENbandau) {
-                    boolean checkEqualMAQUYEN = i.getMAQUYEN().equals(j.getMAQUYEN());
-
-                    if (checkEqualMAQUYEN) {
-                        boolean checkEqualMACHUCNANG = i.getMACHUCNANG().equals(j.getMACHUCNANG());
-                        boolean checkEqualHANHDONG = i.getHANHDONG().equals(j.getHANHDONG());
-                        if (checkEqualMACHUCNANG && checkEqualHANHDONG) {
-                            flagTontai = true;
-                            break;
-                        }
+        ArrayList<chitietquyenDTO> listCtqTheoMAQUYENbandau = getListCtqTheoMAQUYEN(maquyen);
+        chitietquyenDAO ctqDAO = new chitietquyenDAO();
+        for (chitietquyenDTO i : listCtqTheoMAQUYENbandau) {
+            boolean flagTontai = false;
+            System.out.println("Chi tiet quyen dang xet" + i.toString());
+            for (chitietquyenDTO j : listCtqNEW) {
+                boolean checkEqualMAQUYEN = i.getMAQUYEN().equals(j.getMAQUYEN());
+                if (checkEqualMAQUYEN) {
+                    boolean checkEqualMACHUCNANG = i.getMACHUCNANG().equals(j.getMACHUCNANG());
+                    boolean checkEqualHANHDONG = i.getHANHDONG().equals(j.getHANHDONG());
+                    if (checkEqualMACHUCNANG && checkEqualHANHDONG) {
+                        flagTontai = true;
+                        break;
                     }
                 }
-                if (!flagTontai) {
 
-                    ctqDAO.add(i);
-
-                }
             }
 
-            //tim kiem luc sau co chua ban dau khong
+            if (!flagTontai) {
+                System.out.println("Chi tiet quyen xoa" + i.toString());
+
+                ctqDAO.delete(i);
+                //xóa khỏi database
+
+            }
         }
-    
+        for (chitietquyenDTO i : listCtqNEW) {
+            boolean flagTontai = false;
+            for (chitietquyenDTO j : listCtqTheoMAQUYENbandau) {
+                boolean checkEqualMAQUYEN = i.getMAQUYEN().equals(j.getMAQUYEN());
+
+                if (checkEqualMAQUYEN) {
+                    boolean checkEqualMACHUCNANG = i.getMACHUCNANG().equals(j.getMACHUCNANG());
+                    boolean checkEqualHANHDONG = i.getHANHDONG().equals(j.getHANHDONG());
+                    if (checkEqualMACHUCNANG && checkEqualHANHDONG) {
+                        flagTontai = true;
+                        break;
+                    }
+                }
+            }
+            if (!flagTontai) {
+
+                ctqDAO.add(i);
+
+            }
+        }
+
+        //tim kiem luc sau co chua ban dau khong
+    }
+
 }

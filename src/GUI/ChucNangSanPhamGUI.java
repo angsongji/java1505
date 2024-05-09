@@ -1,6 +1,8 @@
 package GUI;
 
+import BUS.SanPhamBUS;
 import BUS.loaiSPBUS;
+import DTO.SanPhamDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,12 +39,13 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
 
     private JPanel pnHeader, pnContent;
     JPanel pnThaoTac;
-    private JLabel exit, lblThem, lblHuy, lblSua, lblXoa;
+    private JLabel exit, lblThem, lblHuy, lblLuu;
     private JPanel anhSP;
-    private JLabel imageNameLabel; // hiển thị tên ảnh đã chọn
-    private JLabel imageLabel; // jlabel chứa ảnh
-    JComboBox<String> cbxMaLoai, cbxMaSize;
-    JTextField txtMaSP, txtTenSP, txtDonGia, txtSoLuong;
+    private JLabel imageLabel; //chứa ảnh
+    private String imageName; // tên ảnh đã chọn
+    JComboBox<String> cbxTenLoai;
+    JTextField txtMaSP, txtTenSP, txtDonGia;
+    SanPhamGUI spGUI;
 
     int width, height;
     int height_row = 30;
@@ -54,17 +58,28 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     Font font = new Font("Tahoma", Font.BOLD, 13);
     Font font_family = new Font("Tahoma", Font.PLAIN, 12);
 
+    public ChucNangSanPhamGUI(SanPhamGUI spGUI, int width, int height) {
+        this.spGUI = spGUI;
+        this.width = width;
+        this.height = height;
+        init();
+        initPnHead();
+        initContent();
+    }
+
     public ChucNangSanPhamGUI(int width, int height) {
         this.width = width;
         this.height = height;
         init();
+        initPnHead();
+        initContent();
     }
 
     public void init() {
         this.setSize(width, height);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
@@ -106,7 +121,7 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         anhSP.add(imageLabel); // Thêm vào panel
 
         // Tạo JLabel để hiển thị tên hình ảnh đã chọn
-        imageNameLabel = new JLabel("No image selected", JLabel.CENTER); // Mặc định là không có hình ảnh được chọn
+        JLabel imageNameLabel = new JLabel("No image selected", JLabel.CENTER); // Mặc định là không có hình ảnh được chọn
         imageNameLabel.setPreferredSize(new Dimension(200, 30)); // Đặt kích thước cố định để tránh bị dịch chuyển
 
         // Tạo JButton để chọn hình ảnh
@@ -122,7 +137,8 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
                 int result = fileChooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
-                    imageNameLabel.setText("Selected Image: " + selectedFile.getName()); // Hiển thị tên tệp
+                    imageName = selectedFile.getName();
+                    imageNameLabel.setText("Selected Image: " + imageName); // Hiển thị tên tệp
 
                     // Tạo ImageIcon từ tệp và đặt kích thước phù hợp
                     ImageIcon icon = new ImageIcon(selectedFile.getPath());
@@ -149,124 +165,97 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         pnContent.add(chooseImageButton);
         pnContent.add(Box.createRigidArea(new Dimension(0, 20))); // Tạo khoảng cách giữa các hàng
 
-        //--------------- Tạo combobox cbxMaLoai ------------------------
-        loaiSPBUS maLoai = new loaiSPBUS();
-        cbxMaLoai = new JComboBox<>();
-        cbxMaLoai.setMinimumSize(new Dimension(200, height_row));
-        cbxMaLoai.setPreferredSize(new Dimension(200, height_row));
-        cbxMaLoai.setMaximumSize(new Dimension(200, height_row));
-        for (int i = 0; i < 5; i++) {
-            cbxMaLoai.addItem(maLoai.getList().get(i).getMALOAI());
-        }
-        cbxMaLoai.setSelectedIndex(0);
-        
-        // ----------Tạo ScrollPane cho combobox cbxMaLoai -------//
-        cbxMaLoai.addPopupMenuListener(new PopupMenuListener() {
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                JComboBox combo = (JComboBox) e.getSource();
-                BasicComboPopup popup = (BasicComboPopup) combo.getUI().getAccessibleChild(combo, 0);
-                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-
-                // Đặt kích thước cuộn
-                scrollPane.setPreferredSize(new Dimension(100, 100)); // Chiều cao tối đa của popup
-            }
-
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                // Không cần xử lý gì ở đây
-            }
-
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-                // Không cần xử lý gì ở đây
-            }
-        });
-
-        //------------------- Tạo combobox cbxMaSize ---------------------------
-        cbxMaSize = new JComboBox<>();
-        cbxMaSize.setMinimumSize(new Dimension(200, height_row));
-        cbxMaSize.setPreferredSize(new Dimension(200, height_row));
-        cbxMaSize.setMaximumSize(new Dimension(200, height_row));
-        for (int i = 0; i < 10; i++) {
-            cbxMaSize.addItem(i + 1 + "");
-        }
-        cbxMaSize.setSelectedIndex(0);
-
-        // ----------Tạo ScrollPane cho combobox cbxMaSize -------//
-        cbxMaSize.addPopupMenuListener(new PopupMenuListener() {
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                JComboBox combo = (JComboBox) e.getSource();
-                BasicComboPopup popup = (BasicComboPopup) combo.getUI().getAccessibleChild(combo, 0);
-                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
-
-                // Đặt kích thước cuộn
-                scrollPane.setPreferredSize(new Dimension(100, 100)); // Chiều cao tối đa của popup
-            }
-
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                // Không cần xử lý gì ở đây
-            }
-
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-                // Không cần xử lý gì ở đây
-            }
-        });
-
         //------------------- thông tin cần chỉnh sửa --------------------------
-        String thuocTinh[] = {"Mã loại:", "Mã sản phẩm:", "Tên sản phẩm:", "Đơn giá:", "Số lượng:", "Mã size:"};
+        String thuocTinh[] = {"Loại:", "Mã sản phẩm:", "Tên sản phẩm:"};
         //------------ Mã loại -----------------
-        JPanel panelcon1 = new JPanel();
-        panelcon1.setLayout(new GridLayout(1, 1, 10, 10));
-        panelcon1.setPreferredSize(new Dimension(300, height_row));
-        panelcon1.setMaximumSize(new Dimension(300, height_row));
+        JPanel pnMaLoai = new JPanel();
+        pnMaLoai.setLayout(new GridLayout(1, 1, 10, 10));
+        pnMaLoai.setPreferredSize(new Dimension(300, height_row));
+        pnMaLoai.setMaximumSize(new Dimension(300, height_row));
         JLabel lbl1 = new JLabel(thuocTinh[0], JLabel.LEFT);
         lbl1.setFont(font);
         lbl1.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
-
-        panelcon1.add(lbl1);
-        panelcon1.add(cbxMaLoai);
-        pnContent.add(panelcon1);
-        pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
-
-        //------------------- thông tin còn lại-----------------
-        for (int i = 1; i < 5; i++) {
-            JPanel panelcon = new JPanel();
-            panelcon.setLayout(new GridLayout(1, 1, 10, 10)); // Mỗi hàng có 7 cột, khoảng cách 10px
-            JLabel lbl = new JLabel(thuocTinh[i], JLabel.LEFT);
-            lbl.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
-            lbl.setFont(font);
-            JTextField txt = new JTextField();
-            txt.setMinimumSize(new Dimension(200, height_row)); // Kích thước cố định
-            txt.setPreferredSize(new Dimension(200, height_row)); // Kích thước cố định
-            txt.setMaximumSize(new Dimension(200, height_row)); // Kích thước cố định
-            panelcon.add(lbl);
-            panelcon.add(txt);
-
-            panelcon.setPreferredSize(new Dimension(300, height_row)); // Giữ chiều cao cố định
-            panelcon.setMaximumSize(new Dimension(300, height_row));
-            pnContent.add(panelcon); // Thêm vào panel chính
-            pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
+        //---- Tạo combobox cbxMaLoai
+        loaiSPBUS maLoai = new loaiSPBUS();
+        cbxTenLoai = new JComboBox<>();
+        cbxTenLoai.setMinimumSize(new Dimension(200, height_row));
+        cbxTenLoai.setPreferredSize(new Dimension(200, height_row));
+        cbxTenLoai.setMaximumSize(new Dimension(200, height_row));
+        for (int i = 0; i < maLoai.getList().size(); i++) {
+            cbxTenLoai.addItem(maLoai.getList().get(i).getTENLOAI());
         }
+        cbxTenLoai.setSelectedIndex(0);
 
-        //-------------------------- Mã size ------------------------------------
-        JPanel panelcon2 = new JPanel();
-        panelcon2.setLayout(new GridLayout(1, 1, 10, 10));
-        panelcon2.setPreferredSize(new Dimension(300, height_row));
-        panelcon2.setMaximumSize(new Dimension(300, height_row));
-        JLabel lbl2 = new JLabel(thuocTinh[5], JLabel.LEFT);
-        lbl2.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
-        lbl2.setFont(font);
-        panelcon2.add(lbl2);
-        panelcon2.add(cbxMaSize);
-        pnContent.add(panelcon2);
+        // Tạo ScrollPane cho combobox cbxMaLoai 
+        cbxTenLoai.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                JComboBox combo = (JComboBox) e.getSource();
+                BasicComboPopup popup = (BasicComboPopup) combo.getUI().getAccessibleChild(combo, 0);
+                JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+
+                // Đặt kích thước cuộn
+                scrollPane.setPreferredSize(new Dimension(100, 100)); // Chiều cao tối đa của popup
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                // Không cần xử lý gì ở đây
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                // Không cần xử lý gì ở đây
+            }
+        });
+
+        pnMaLoai.add(lbl1);
+        pnMaLoai.add(cbxTenLoai);
+
+        //------------ Mã sản phẩm -----------------
+        JPanel pnMaSP = new JPanel();
+        pnMaSP.setLayout(new GridLayout(1, 1, 10, 10));
+        pnMaSP.setPreferredSize(new Dimension(300, height_row));
+        pnMaSP.setMaximumSize(new Dimension(300, height_row));
+        JLabel lblMaSP = new JLabel(thuocTinh[1], JLabel.LEFT);
+        lblMaSP.setFont(font);
+        lblMaSP.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
+
+        txtMaSP = new JTextField();
+        txtMaSP.setMinimumSize(new Dimension(200, height_row)); // Kích thước cố định
+        txtMaSP.setPreferredSize(new Dimension(200, height_row)); // Kích thước cố định
+        txtMaSP.setMaximumSize(new Dimension(200, height_row)); // Kích thước cố định
+        txtMaSP.setEnabled(false);
+        pnMaSP.add(lblMaSP);
+        pnMaSP.add(txtMaSP);
+
+        //-------------- Tên sản phẩm -------------------
+        JPanel pnTenSP = new JPanel();
+        pnTenSP.setLayout(new GridLayout(1, 1, 10, 10));
+        pnTenSP.setPreferredSize(new Dimension(300, height_row));
+        pnTenSP.setMaximumSize(new Dimension(300, height_row));
+        JLabel lblTenSP = new JLabel(thuocTinh[2], JLabel.LEFT);
+        lblTenSP.setFont(font);
+        lblTenSP.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
+        txtTenSP = new JTextField();
+        txtTenSP.setMinimumSize(new Dimension(200, height_row));
+        txtTenSP.setPreferredSize(new Dimension(200, height_row));
+        txtTenSP.setMaximumSize(new Dimension(200, height_row)); // Kích thước cố định
+
+        pnTenSP.add(lblTenSP);
+        pnTenSP.add(txtTenSP);
+
+        // Them các panel thuộc tính vào pnContent
+        pnContent.add(pnMaLoai);
+        pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
+        pnContent.add(pnMaSP);
+        pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
+        pnContent.add(pnTenSP);
         pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
 
         // Thêm pnContent vào JPanel chính
         this.add(pnContent, BorderLayout.CENTER); // Thêm panel chính vào JFrame hoặc JPanel cha
+        setAutoMaSP(); // Đặt mã sản phẩm ban đầu
 
         //-------------------- các nút thêm, sửa, xoá --------------------------
         pnThaoTac = new JPanel();
@@ -279,7 +268,6 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         lblHuy.setOpaque(true);
         lblHuy.addMouseListener(this);
         lblHuy.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
     }
 
     //--------------------- Thao tac ---------------------------------------
@@ -303,41 +291,171 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     }
 
     public void initSua() {
+        //-------------- Giá sản phẩm -------------------
+        txtMaSP.setText("");
+        JPanel pnGiaSP = new JPanel();
+        pnGiaSP.setLayout(new GridLayout(1, 1, 10, 10));
+        pnGiaSP.setPreferredSize(new Dimension(300, height_row));
+        pnGiaSP.setMaximumSize(new Dimension(300, height_row));
+        JLabel lblGiaSP = new JLabel("Đơn giá", JLabel.LEFT);
+        lblGiaSP.setFont(font);
+        lblGiaSP.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
+        txtDonGia = new JTextField();
+        txtDonGia.setMinimumSize(new Dimension(200, height_row));
+        txtDonGia.setPreferredSize(new Dimension(200, height_row));
+        txtDonGia.setMaximumSize(new Dimension(200, height_row)); // Kích thước cố định
+
+        pnGiaSP.add(lblGiaSP);
+        pnGiaSP.add(txtDonGia);
+
+        //thêm 2 thành phần mới vào pnContent
+        pnContent.add(pnGiaSP);
+        pnContent.add(Box.createRigidArea(new Dimension(0, 10))); // Tạo khoảng cách giữa các hàng
+
         JLabel title = new JLabel("Cập nhật tài khoản", JLabel.CENTER);
         title.setFont(font_tieude);
         title.setBorder(new EmptyBorder(0, 20, 0, 0));
         pnHeader.add(title, BorderLayout.WEST);
-        cbxMaLoai.setEnabled(false);
 //        setTT();
-        lblSua = new JLabel("Lưu", JLabel.CENTER);
-        lblSua.setPreferredSize(new Dimension(80, 30));
-        lblSua.setForeground(chu);
-        lblSua.setFont(font);
-        lblSua.setBackground(normal);
-        lblSua.setOpaque(true);
-        lblSua.addMouseListener(this);
-        lblSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        pnThaoTac.add(lblSua);
+        lblLuu = new JLabel("Lưu", JLabel.CENTER);
+        lblLuu.setPreferredSize(new Dimension(80, 30));
+        lblLuu.setForeground(chu);
+        lblLuu.setFont(font);
+        lblLuu.setBackground(normal);
+        lblLuu.setOpaque(true);
+        lblLuu.addMouseListener(this);
+        lblLuu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        pnThaoTac.add(lblLuu);
         pnThaoTac.add(lblHuy);
-
+        pnContent.add(pnThaoTac);
     }
 //-------------------------------- Hàm xử lý --------------------------------------
-    public void AddSP(){
-        String maLString = (String) cbxMaLoai.getSelectedItem();
-        String maString = (String)cbxMaSize.getSelectedItem();
+
+    public void setAutoMaSP() {
+        SanPhamBUS spBUS = new SanPhamBUS();
+
+        int count = 0;
+        for (int i = 0; i < spBUS.getDsSP().size(); i++) {
+            if (spBUS.getDsSP().get(i).getMaSP().startsWith("SP")) {
+                count++;
+            }
+        }
+        txtMaSP.setText("SP" + (count + 1));
+    }
+
+    public boolean check_TenSP(String tenSP) {
+        if (tenSP.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Tên sản phẩm không được để trống, xin vui lòng nhập Tên sản phẩm !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean check_Gia(String giaSP) {
+        if (giaSP.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Giá sản phẩm không được để trống, xin vui lòng nhập Giá sản phẩm!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        try {
+            double gia = Double.parseDouble(giaSP);
+            if (gia < 0) {
+                JOptionPane.showMessageDialog(null,
+                        "Giá sản phẩm phải lớn hơn hoặc bằng 0, xin vui lòng nhập lại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Giá sản phẩm phải là số, xin vui lòng nhập lại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public void EditSP() {
+        loaiSPBUS loai = new loaiSPBUS();
+        String tenLoai = (String) cbxTenLoai.getSelectedItem();
+        String maLoai = null;
+        for (int i = 0; i < loai.getList().size(); i++) {
+            if (loai.getList().get(i).getTENLOAI().equals(tenLoai)) {
+                maLoai = loai.getList().get(i).getMALOAI();
+                break;
+            }
+        }
         String maSP = txtMaSP.getText();
         String tenSP = txtTenSP.getText();
-        double donGia = Double.parseDouble(txtDonGia.getText());
-        double thanhTien = Double.parseDouble(txtDonGia.getText());
-        
+        String[] tenHinh = {imageName};
+        String gia = txtDonGia.getText();
+        SanPhamDTO sp = new SanPhamDTO(maSP, maLoai, tenSP, Double.parseDouble(gia), tenHinh, 1);
+        if (check_TenSP(tenSP) && check_Gia(gia)) {
+            dispose();
+            JOptionPane.showMessageDialog(null,
+                    "Bạn đã lưu sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+            spGUI.EditSP(sp);
+            revalidate();
+            repaint();
+            
+        }
     }
-    
-    
+
+    // Đổ dữ liệu sản phẩm đã chọn
+    public void setTT() {
+        cbxTenLoai.setSelectedItem(spGUI.selectedSP.getMaLoai());
+        txtMaSP.setText(spGUI.selectedSP.getMaSP());
+        txtTenSP.setText(spGUI.selectedSP.getTenSP());
+        txtDonGia.setText(spGUI.selectedSP.getPrice() + "");
+        // Tạo ImageIcon từ tệp và đặt kích thước phù hợp
+        ImageIcon icon = new ImageIcon("./src/images/" + spGUI.selectedSP.tenHinh[0]);
+        Image scaledImage = icon.getImage().getScaledInstance(174, 210, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(scaledImage));
+        revalidate();
+        repaint();
+    }
+
+    public void AddSP() {
+        loaiSPBUS loai = new loaiSPBUS();
+        String tenLoai = (String) cbxTenLoai.getSelectedItem();
+        String maLoai = null;
+        for (int i = 0; i < loai.getList().size(); i++) {
+            if (loai.getList().get(i).getTENLOAI().equals(tenLoai)) {
+                maLoai = loai.getList().get(i).getMALOAI();
+                break;
+            }
+        }
+        String maSP = txtMaSP.getText();
+        String tenSP = txtTenSP.getText();
+        String[] tenHinh = {imageName};
+        SanPhamDTO sp = new SanPhamDTO(maSP, maLoai, tenSP, 0, tenHinh, 1);
+        if (check_TenSP(tenSP)) {
+            this.dispose();
+            JOptionPane.showMessageDialog(null,
+                    "Bạn đã thêm sản phẩm thành công !", "Thông báo", JOptionPane.DEFAULT_OPTION);
+            spGUI.AddSP(sp);
+            spGUI.revalidate(); // Cập nhật lại giao diện
+            spGUI.repaint(); // Vẽ lại giao diện
+        }
+
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         JLabel lbl = (JLabel) e.getSource();
         if (lbl == exit || lbl == lblHuy) {
             this.dispose();
+            spGUI.clear(-1);
+            spGUI.selectedSP = new SanPhamDTO();
+        }
+        if (lbl == lblThem) {
+            AddSP();
+            spGUI.selectedSP = new SanPhamDTO();
+            spGUI.clear(-1);
+        }
+        if (lbl == lblLuu) {
+//            setTT();
+            EditSP();
+            spGUI.selectedSP = new SanPhamDTO();
+            spGUI.clear(-1);
         }
     }
 
@@ -362,9 +480,9 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
-        ChucNangSanPhamGUI gui = new ChucNangSanPhamGUI(600, 700);
-        gui.initPnHead();
-        gui.initContent();
-        gui.initThem();
+        SanPhamGUI t = new SanPhamGUI(500, 800, Color.darkGray);
+        ChucNangSanPhamGUI gui = new ChucNangSanPhamGUI(t, 600, 700);
+//        gui.initThem();
+        gui.initSua();
     }
 }
