@@ -12,7 +12,10 @@ import java.util.logging.Logger;
 public class ChitietHD_DAO {
     public ConnectDataBase mySQL; 
     public ChitietHD_DAO() throws SQLException {
-        mySQL = new ConnectDataBase();
+        try{
+            mySQL = new ConnectDataBase();
+        }catch(Exception e){}
+        
     }
     
     public ArrayList<ChitietHD_DTO> list(String maHD)
@@ -91,7 +94,7 @@ public class ChitietHD_DAO {
             Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     String query= "DELETE FROM chitiethoadon WHERE SOHD = '" + m +"';";
-         boolean result = mySQL.executeUpdate(query);
+         boolean result = mySQL.executeupdate(query);
     if(result) {
         // cập nhật lại số lượng sản phẩm 
         System.out.println("Xoa san pham hoa don thanh cong!");
