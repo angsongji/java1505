@@ -191,6 +191,8 @@ public class ShoppingCartUI extends JPanel {
                     JOptionPane.showMessageDialog(null, "Bạn đã thanh toán thành công cho các đơn hàng: \n" + spMua + "Tổng tiền: " + 
                                                 new BigDecimal(totalPrice).toBigInteger().toString() + "VND");
                     dsSP2.clear();
+                    totalPrice = 0.0;
+                    totalPriceLabel.setText("Tổng tiền: " + new BigDecimal(totalPrice).toBigInteger().toString() + "VND");
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn ít nhất một đơn hàng để thanh toán!");
                 }
@@ -262,7 +264,7 @@ public class ShoppingCartUI extends JPanel {
         // gbc.gridy = 3;
         // panel.add(quantityLabel, gbc);
 
-        JLabel priceLabel = new JLabel("Giá: " + new BigDecimal(sp.getPrice()).toBigInteger()); // Giả sử giá cố định
+        JLabel priceLabel = new JLabel("Giá: " + new BigDecimal(sp.getPrice()).toBigInteger());
         priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
         priceLabel.setForeground(new Color(10, 61, 98));
         priceLabel.setPreferredSize(new Dimension(300, 30));

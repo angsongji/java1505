@@ -1,18 +1,30 @@
 
 package DTO;
 
+import java.util.ArrayList;
+
 public class Hoadon_DTO {
     private String maHD,maNV;
     private String ngayHD;
     private int maKH, giamgia, tongTien;
+    private ArrayList<ChitietHD_DTO> dsctHD;
 
-    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, int tongTien) {
+    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, int tongTien, ArrayList<ChitietHD_DTO> dsctHD) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.ngayHD = ngayHD;
         this.giamgia = giamgia;
         this.tongTien = tongTien;
+        this.dsctHD = dsctHD;
+    }
+
+    public ArrayList<ChitietHD_DTO> getDsctHD() {
+        return dsctHD;
+    }
+
+    public void setDsctHD(ArrayList<ChitietHD_DTO> dsctHD) {
+        this.dsctHD = dsctHD;
     }
 
     public String getMaHD() {

@@ -10,12 +10,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChitietHD_DAO {
-    public ConnectDataBase mySQL; 
-    public ChitietHD_DAO() throws SQLException {
-        mySQL = new ConnectDataBase();
+    public static ConnectDataBase mySQL; 
+    
+    public ChitietHD_DAO() {
+        try {
+            mySQL = new ConnectDataBase();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public ArrayList<ChitietHD_DTO> list(String maHD)
+    public static ArrayList<ChitietHD_DTO> list(String maHD)
     {
         ArrayList<ChitietHD_DTO> dscthd = new ArrayList<>();
         try {
@@ -36,8 +41,7 @@ public class ChitietHD_DAO {
                     double tt = rs.getDouble("THANHTIEN"); // Corrected column name
                     System.out.println(tt);
                               
-                    ChitietHD_DTO cthd = new ChitietHD_DTO(masp, tensp, size, sl, gia, tt);
-                    dscthd.add(cthd);
+                    ChitietHD_DTO cthd = new ChitietHD_DTO(masp,tensp, size, sl, gia, tt);
                                 System.out.println("Lay danh sach chi tiet hoa don thanh cong");
 
             }
