@@ -1,19 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DTO;
 
-/**
- *
- * @author LENOVO
- */
 public class chitietsanpham_DTO  {
 	private String MASP;
 	private String MASIZE;
 	private int soluong;
 
-	public chitietsanpham_DTO(String MASP,String MASIZE, int Soluong) {
+	public chitietsanpham_DTO() {
+		
+	}
+	public chitietsanpham_DTO(String MASP,String MASIZE, int soluong) {
 		this.MASP = MASP;
 		this.MASIZE = MASIZE;
 		this.soluong = soluong;
@@ -49,4 +44,3 @@ public class chitietsanpham_DTO  {
 		this.soluong = soluong;
 	}
 }
-

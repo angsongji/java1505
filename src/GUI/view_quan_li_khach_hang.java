@@ -30,6 +30,7 @@ import javax.swing.text.html.HTML;
 
 import BUS.BUS_qlkh;
 import DAO.DAO_qlks;
+import DTO.TaiKhoanDTO;
 import DTO.model_qlkh;
 
 public class view_quan_li_khach_hang extends JPanel implements MouseListener{
@@ -48,8 +49,7 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 	private frame_themkh frame_themkh;
 	private frame_thong_bao_update frame_thong_bao_update;
 	
-	public view_quan_li_khach_hang(int w,int h){
-           
+	public view_quan_li_khach_hang(int w,int h,TaiKhoanDTO taiKhoanDTO){
 		this.setPreferredSize(new Dimension(w,h));
 		this.setLayout(new BorderLayout());
 		jp = new JPanel[5];
@@ -63,7 +63,7 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		jl1_r = new JLabel[2];
 		timkiem = new String[] {"Theo mã khách" , "Theo tên khách","theo so dien thoai", "theo điểm tích lũy"};
 		thaotac = new String[] {"Thêm","Sửa","Xóa"};
-		hinhanh = new String[] {"./src/images/add_icon.png","./src/images/edit_icon.png","./src/images/remove_icon.png"};
+		hinhanh = new String[] {"./src/images/them.png","./src/images/sua.png","./src/images/xoa.png"};
 		panel_north = new JPanel();
 		option_so = new String[] {"","min-max","max-min"};
 		option_kitu = new String[] {"","a-z","z-a"};
@@ -177,34 +177,93 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 //		jp[3].setBackground(Color.pink);
 		jp[3].setLayout(new FlowLayout(0,10,0));
 		
-//     **********************************các thao tác Thêm Xóa Sửa ***********************************
+//     ********************************** thao tác Thêm  ***********************************
 		
-		for (int i = 0; i < 3; i++) {
-			ImageIcon ttac = new ImageIcon(hinhanh[i]);
-			jp3[i] = new JPanel();jp3[i].setPreferredSize(new Dimension(100,100));jp3[i].setLayout(new FlowLayout());
-			jp3[i].setBackground(Color.white);
-			jl3[i] = new JLabel(thaotac[i],JLabel.CENTER);jl3[i].setPreferredSize(new Dimension(100,50));
 		
-			jp3[i].setBorder(border_thaotac);
-			jlha[i] = new JLabel("",JLabel.CENTER);jlha[i].setIcon(ttac);
-			jlha[i].setPreferredSize(new Dimension(jp3[i].getPreferredSize().width,40));
-			jp3[i].add(jl3[i]);
-			jp3[i].add(jlha[i]);
-			jp[3].add(jp3[i]);
-			jlha[i].addMouseListener(this);
-			jl3[i].addMouseListener(this);                                                                                                                                
-			jp3[i].addMouseListener(this);
+			ImageIcon ttac_them = new ImageIcon(hinhanh[0]);
+			jp3[0] = new JPanel();jp3[0].setPreferredSize(new Dimension(100,100));jp3[0].setLayout(new FlowLayout());
+			jp3[0].setBackground(Color.white);
+			jl3[0] = new JLabel(thaotac[0],JLabel.CENTER);jl3[0].setPreferredSize(new Dimension(100,50));
+		
+			jp3[0].setBorder(border_thaotac);
+			jlha[0] = new JLabel("",JLabel.CENTER);jlha[0].setIcon(ttac_them);
+			jlha[0].setPreferredSize(new Dimension(jp3[0].getPreferredSize().width,40));
+			jp3[0].add(jl3[0]);
+			jp3[0].add(jlha[0]);
 			
-		}
+			
+			
+			
+			jlha[0].addMouseListener(this);
+			jl3[0].addMouseListener(this);                                                                                                                                
+			jp3[0].addMouseListener(this);
+			
 		
-		jp[4] = new JPanel();
-                jp[4].setLayout(new BorderLayout());
-                jp[4].setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
-            jp[4].setOpaque(true);
+		
+		//////////////////////////// nút sửa  ////////////////////////////////////////////////
+		ImageIcon ttac_sua = new ImageIcon(hinhanh[1]);
+		jp3[1] = new JPanel();jp3[1].setPreferredSize(new Dimension(100,100));jp3[1].setLayout(new FlowLayout());
+		jp3[1].setBackground(Color.white);
+		jl3[1] = new JLabel(thaotac[1],JLabel.CENTER);jl3[1].setPreferredSize(new Dimension(100,50));
+	
+		jp3[1].setBorder(border_thaotac);
+		jlha[1] = new JLabel("",JLabel.CENTER);jlha[1].setIcon(ttac_sua);
+		jlha[1].setPreferredSize(new Dimension(jp3[1].getPreferredSize().width,40));
+		jp3[1].add(jl3[1]);
+		jp3[1].add(jlha[1]);
+		
+		
+		
+		jlha[1].addMouseListener(this);
+		jl3[1].addMouseListener(this);                                                                                                                                
+		jp3[1].addMouseListener(this);
+		
+		//////////////////////////////////////// nút xóa ////////////////////////////////
+		ImageIcon ttac_xoa = new ImageIcon(hinhanh[2]);
+		jp3[2] = new JPanel();jp3[2].setPreferredSize(new Dimension(100,100));jp3[2].setLayout(new FlowLayout());
+		jp3[2].setBackground(Color.white);
+		jl3[2] = new JLabel(thaotac[2],JLabel.CENTER);jl3[2].setPreferredSize(new Dimension(100,50));
+	
+		jp3[2].setBorder(border_thaotac);
+		jlha[2] = new JLabel("",JLabel.CENTER);jlha[2].setIcon(ttac_xoa);
+		jlha[2].setPreferredSize(new Dimension(jp3[2].getPreferredSize().width,40));
+		jp3[2].add(jl3[2]);
+		jp3[2].add(jlha[2]);
+		
+		jlha[2].addMouseListener(this);
+		jl3[2].addMouseListener(this);                                                                                                                                
+		jp3[2].addMouseListener(this);
+		
+		
+		///////////////////////////////////////////////////// hiện danh sách ///////////////////////////////////
+	
+		jp[4] = new JPanel();jp[4].setLayout(new BorderLayout());	
 		jp[4].setBackground(Color.white);
 		
 		jp[4].add(panel_bang_danh_sach_kh());
 		
+		//////////////////////////////////// add các hành động thao tác theo mã quyền /////////////////////////////////////
+		
+		for (String t : BUS_qlkh.select_hanhdong_qlkh(taiKhoanDTO.getMaQuyen())) {
+			System.out.println(t);
+			
+			switch (t) {
+			case "Thêm":
+				jp[3].add(jp3[0]);
+				break;
+			case "Sửa" :
+				jp[3].add(jp3[1]);
+				break;
+			case "Xóa" :
+				jp[3].add(jp3[2]);
+				break;
+			default:
+				break;
+			}
+		}
+		
+		
+	
 		
 		
 		
@@ -238,32 +297,18 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		 jp[4].revalidate();
 		 
 	}
+	
 	public ArrayList<model_qlkh>  ds_kh_update() {
 		return this.panel_bang_dskh.ds_kh_update();
 	}
+	
 	public ArrayList<model_qlkh> ds_kh_xoa(){
 		
 		return this.panel_bang_dskh.ds_kh_xoa();
 	}
+
 	
-	public void return_chinhsua() {
-		clickedchinhsua = false;
-		jp3[1].setBorder(border_thaotac);
-		jp3[1].setBackground(Color.white);
-		refresh_bang_dskh();
-		jl3[1].setText("Chỉnh sửa");
-		jlha[1].setIcon(new ImageIcon(hinhanh[1]));
-	}
-	
-	public void return_xoa() {
-		clickedxoa = false;
-		jp3[2].setBorder(border_thaotac);
-		jp3[2].setBackground(Color.white);
-		jl3[2].setText("Xóa");
-		refresh_bang_dskh();
-		
-	}
-	
+
 	public Boolean ktra_tt_after_update() {
 		for (model_qlkh h : this.panel_bang_dskh.ds_kh_update()) {
 			if (!this.kiem_tra_tt_update(h)) {
@@ -272,7 +317,6 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 			}
 		}
 		return true;
-	
 		
 	}
 	public void xoa_kh() {
@@ -282,26 +326,21 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		}
 	}
 	
-	
 	public void return_true_clicked_chinhsua() {
 		clickedchinhsua = true;
 	}
-	
 	
 	public void return_true_clicked_xoa() {
 		clickedxoa = true;
 	}
 	
-	
 	public void return_false_clicked_chinhsua() {
 		clickedchinhsua = false;
 	}
 	
-	
 	public void return_false_clicked_xoa() {
 		clickedxoa = false;
 	}
-	
 	
 	public void dinh_dang() {
 		if (clickedchinhsua) {
@@ -326,21 +365,15 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 			jl3[2].setText("Xóa");
 		}
 	}
-	
-	
 	public void update_ve_che_do_xem() {
 		this.panel_bang_dskh.update_ve_che_do_xem();
 	}
-	
-	
 	public boolean kiem_tra_rong(String t) {
 		if (t== null||t.trim().isEmpty()) {
 			return true;
 			}
 		else return false;
 	}
-	
-	
 	public boolean kiem_tra_sdt(String t) {
 		for (int i = 0; i < t.length();i++) {
 			if (!Character.isDigit(t.charAt(i))){
@@ -350,8 +383,6 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		return true;
 	}
 
-	
-	
 	public boolean kiem_tra_sdt_trung(String t) {
 		for (model_qlkh h : BUS_qlkh.getlist()) {
 			if(t.equals(h.getSdt())) {
@@ -360,16 +391,12 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		}
 		return false;
 	}
-	
-	
 	public boolean kiem_tra_hop_le(String ten, String sdt) {
 			if (!kiem_tra_rong(sdt)&&!kiem_tra_rong(ten)&& kiem_tra_sdt(sdt)&& !kiem_tra_sdt_trung(sdt) &&(sdt.length() == 10 || sdt.length() == 11) ) {
 				return true;
 			}
 			return false;
 	}
-	
-	
 	public Boolean kiem_tra_tt_update(model_qlkh h) {
 			String loi;
 			String sdt = this.BUS_qlkh.selecby_id(h.getMakh()).getSdt();
@@ -403,13 +430,9 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		
 		return true;
 	}
-	
-	
 	public BUS_qlkh getBus_qlkh() {
 		return this.BUS_qlkh;
 	}
-	
-	
 	public void search() {
 		String mkh = (String) optionmkh.getSelectedItem();
 		String ten = (String) optiontenkh.getSelectedItem();
@@ -424,7 +447,6 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 			jp[4].repaint();
 			jp[4].revalidate();
 	}
-	
 	@Override
 	
 	public void mouseClicked(MouseEvent e) {
@@ -568,6 +590,10 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 				String t = "Bạn có muốn hủy những thay đổi";
 				frame_thong_bao_update tb = new frame_thong_bao_update(400, 350, t, this);
 			}
+				
+			
+			
+			
 			
 		}
 		System.out.println();

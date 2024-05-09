@@ -94,7 +94,7 @@ public class SizeDAO {
         try {
             c.connect();
             chitietsanpham_BUS ctspBUS = new chitietsanpham_BUS();
-            ArrayList<chitietsanpham_DTO> listCTSP =ctspBUS.getList();
+            ArrayList<chitietsanpham_DTO> listCTSP =ctspBUS.getlist();
             boolean flag = true;
   
             for(chitietsanpham_DTO i : listCTSP){

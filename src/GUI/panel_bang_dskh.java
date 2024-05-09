@@ -14,23 +14,7 @@ public class panel_bang_dskh extends JPanel{
 	private panel_center_bang_dskh panel_center_bang_dskh;
 	private JPanel jp,panel_north;
 	
-//	public panel_bang_dskh(int w , ArrayList<model_qlkh> ds){
-//		this.setLayout(new BorderLayout());
-//		panel_north = new JPanel();
-//		panel_north_bang_dskh = new panel_north_bang_dskh(w-40);
-//		panel_center_bang_dskh = new panel_center_bang_dskh(w-40,ds);
-//		
-//		jp = new JPanel();
-//		jp.add(panel_center_bang_dskh);
-//		JScrollPane sc = new JScrollPane(jp,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//		panel_north.add(panel_north_bang_dskh);
-//		this.add(panel_north, BorderLayout.NORTH);
-//		this.add(sc,BorderLayout.CENTER);
-//		
-//		
-//		
-//		
-//	}
+
 	public panel_bang_dskh(int w,int h,ArrayList<model_qlkh> ds){
 		
 		this.setLayout(new BorderLayout());
@@ -40,11 +24,21 @@ public class panel_bang_dskh extends JPanel{
 		
 		jp = new JPanel();
 		jp.add(panel_center_bang_dskh);
+		
 		JScrollPane sc = new JScrollPane(jp,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panel_north.add(panel_north_bang_dskh);
+		
+		System.out.println(sc.getPreferredSize().width);
+		
 		this.add(panel_north, BorderLayout.NORTH);
 		this.add(sc,BorderLayout.CENTER);	
 	}
+	
+	
+	
+	
+	
+	
 	public void panel_bang_dskh_update() {
 		this.panel_center_bang_dskh.panel_center_dskh_update();
 	}

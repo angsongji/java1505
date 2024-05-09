@@ -266,7 +266,10 @@ public class view_thong_bao extends JPanel implements MouseListener{
 				this.view_quan_li_khach_hang.xoa_kh();
 				JOptionPane.showMessageDialog(this, "Đã xóa thành công");
 				j.setVisible(false);
-				this.view_quan_li_khach_hang.return_xoa();
+
+				this.view_quan_li_khach_hang.return_false_clicked_xoa();
+				this.view_quan_li_khach_hang.dinh_dang();
+				this.view_quan_li_khach_hang.refresh_bang_dskh();
 			
 			}
 			if(this.content.contains("Bạn có muốn thay đổi thông tin của")) {
@@ -276,7 +279,9 @@ public class view_thong_bao extends JPanel implements MouseListener{
 						this.view_quan_li_khach_hang.getBus_qlkh().set(m);
 						j.setVisible(false);
 						this.view_quan_li_khach_hang.refresh_bang_dskh();
-						this.view_quan_li_khach_hang.return_chinhsua();
+
+						this.view_quan_li_khach_hang.return_false_clicked_chinhsua();
+						this.view_quan_li_khach_hang.dinh_dang();
 						i++;	
 					}
 				} else {

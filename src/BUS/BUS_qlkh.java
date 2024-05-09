@@ -78,6 +78,11 @@ public class BUS_qlkh {
 		return max+1;
 	}
 	
+	public ArrayList<String> select_hanhdong_qlkh(String MAQUYEN){
+		DAO_qlks c = new DAO_qlks();
+		return c.select_hanhdong_qlkh(MAQUYEN);
+	}
+	
 	public static void main(String[] args) {
 		BUS_qlkh h = new BUS_qlkh();
 		for (model_qlkh k : h.getlist()) {
