@@ -135,6 +135,7 @@ public class ThongKeGUI extends JPanel {
         table.setModel(df);
         df.fireTableDataChanged();
         //Doanh thu
+        tinhDoanhThu();
         pnDoanhThu = new JPanel();
         pnDoanhThu.setLayout(new FlowLayout());
         pnDoanhThu.setPreferredSize(new Dimension(width, 100));
@@ -267,9 +268,10 @@ public class ThongKeGUI extends JPanel {
         ArrayList<String> currentday = new ArrayList<>();
         currentday.add("2023/01/01");
         currentday.add("2024/05/04");
-        currentday.add("1");
+        currentday.add("Tất cả");
         //      ShowbanChay("2023/01/01", "2024/05/04", 1);
-        thongKeGUI.ShowbanChay(currentday);
+//        thongKeGUI.ShowbanChay(currentday);
+         thongKeGUI.ShowdoanhThu(currentday);
         JFrame frame = new JFrame("Thống Kê Sản Phẩm");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
