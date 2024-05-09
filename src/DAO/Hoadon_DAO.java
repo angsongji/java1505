@@ -106,7 +106,7 @@ public class Hoadon_DAO {
         try {
             ConnectDataBase();
             mySQL.connect();
-            String query= "INSERT INTO `hoadon`(`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`, `TIENGIAMGIA`) VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  + (double)item.getTongTien() +"','"+ (double)item.getGiamgia()+"');";
+            String query= "INSERT INTO `hoadon`(`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`) VALUES ('" + item.getMaHD() +"','"+ item.getNgayHD() +"','" +item.getMaKH() +"','" +item.getMaNV() +"','"  + (double)item.getTongTien() +"');";
             for (ChitietHD_DTO ctHD : item.getDsctHD()) 
                 ChitietHD_DAO.addCTHD(ctHD);
             result = mySQL.executeUpdate(query);

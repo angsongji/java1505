@@ -101,9 +101,9 @@ public class ChitietHD_DAO {
         try {
             ConnectDataBase();
             mySQL.connect();
-            String query= "INSERT INTO `chitiethoadon`(`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) " +
-                        "VALUES ('"+ctHD.getMaHD()+"', '" + ctHD.getMaSP() + "', '" + ctHD.getMaSize() + "', '" + ctHD.getSl() + "', '" + ctHD.getGia() + "')";
-            System.out.println("            "+ctHD.getMaHD()+", " + ctHD.getMaSP() + ", " + ctHD.getMaSize() + ", " + ctHD.getSl() + ", " + (double)ctHD.getGia() + "");
+            String query= "INSERT INTO `chitiethoadon`(`SOHD`, `MASP`, `MASIZE`, `SOLUONG`) " +
+                        "VALUES ('"+ctHD.getMaHD()+"', '" + ctHD.getMaSP() + "', '" + ctHD.getMaSize() + "', '" + ctHD.getSl() + "')";
+            System.out.println("            "+ctHD.getMaHD()+", " + ctHD.getMaSP() + ", " + ctHD.getMaSize() + ", " + ctHD.getSl() + "");
             result = mySQL.executeUpdate(query);
             mySQL.disconnect();
         } catch (SQLException ex) {

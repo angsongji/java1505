@@ -138,10 +138,10 @@ public class ShoppingCartUI extends JPanel {
         CustomerCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(CustomerCodeField);
 
-        JLabel pointLabel = new JLabel();
-        pointLabel.setText(Hoadon_BUS.getpointtichluy()+" ");
-        pointLabel.setBounds(950, 60, 100, 30);
-        endPanel.add(pointLabel);
+        // JLabel pointLabel = new JLabel();
+        // pointLabel.setText(Hoadon_BUS.getpointtichluy()+" ");
+        // pointLabel.setBounds(950, 60, 100, 30);
+        // endPanel.add(pointLabel);
 
         applyDiscountButton.addActionListener(new ActionListener() {
             @Override
