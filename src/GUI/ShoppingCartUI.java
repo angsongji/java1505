@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.SimpleTimeZone;
 
 import DTO.model_qlkh;
 
@@ -39,7 +40,7 @@ public class ShoppingCartUI extends JPanel {
     private ArrayList<chitietsanpham_DTO> dsctsp = new ArrayList<chitietsanpham_DTO>();
     private ArrayList<ChitietHD_DTO> dscthd = new ArrayList<ChitietHD_DTO>();
     private double totalPrice = 0.0; // Tổng tiền
-    private JLabel totalPriceLabel, titleLabel;
+    private JLabel totalPriceLabel, titleLabel, finalPriceLabel;
     // int sl=1;
 
     public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt) {
@@ -56,19 +57,34 @@ public class ShoppingCartUI extends JPanel {
 
         // headerPanel
         headerPanel = new JPanel();
-        headerPanel.setLayout(new BorderLayout());
-        headerPanel.setPreferredSize(new Dimension(100, 100));
+        headerPanel.setLayout(null);
+        headerPanel.setPreferredSize(new Dimension(crong, 100));
         headerPanel.setBackground(new Color(96, 163, 188));
 
-        titleLabel = new JLabel("Giỏ Hàng");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        JLabel CustomerCodeLabel = new JLabel("Mã KH");
+        CustomerCodeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         // titleLabel.setPreferredSize(new Dimension(crong - 500, 10));
-        // titleLabel.setBounds(50, 50, 50, 50);
-        titleLabel.setPreferredSize(new Dimension(200, 100));
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        titleLabel.setVerticalAlignment(JLabel.CENTER);
-        titleLabel.setForeground(new Color(10, 61, 98));
-        headerPanel.add(titleLabel, BorderLayout.CENTER);
+        CustomerCodeLabel.setBounds(0, 0, 150, 100);
+        // titleLabel.setPreferredSize(new Dimension(200, 100));
+        CustomerCodeLabel.setHorizontalAlignment(JLabel.CENTER);
+        CustomerCodeLabel.setVerticalAlignment(JLabel.CENTER);
+        CustomerCodeLabel.setForeground(new Color(10, 61, 98));
+        headerPanel.add(CustomerCodeLabel);
+  
+        JTextField CustomerCodeField = new JTextField();
+        CustomerCodeField.setBounds(155, 30, 100, 40);
+        CustomerCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
+        CustomerCodeField.setFont(new Font("Arial", Font.PLAIN, 25));
+        headerPanel.add(CustomerCodeField);
+
+        JButton findCustomerButton = new JButton("Tìm kiếm");
+        findCustomerButton.setBounds(260, 35, 100, 30);
+        findCustomerButton.setForeground(new Color(96, 163, 188));
+        findCustomerButton.setBackground(new Color(10, 61, 98));
+        findCustomerButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        findCustomerButton.setFocusPainted(false);
+        headerPanel.add(findCustomerButton);
+
 
         // closeButton = new JLabel("X");
         // closeButton.setFont(new Font("Arial", Font.BOLD, 30));
@@ -106,63 +122,77 @@ public class ShoppingCartUI extends JPanel {
         add(endPanel, BorderLayout.SOUTH);
 
         // Mã giảm giá
-        JLabel discountCodeLabel = new JLabel("Mã giảm giá:");
-        discountCodeLabel.setBounds(50, 20, 150, 30);
+        JLabel discountCodeLabel = new JLabel("Giảm giá:");
+        discountCodeLabel.setBounds(50, 60, 150, 30);
         discountCodeLabel.setForeground(new Color(10, 61, 98));
         discountCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(discountCodeLabel);
 
-        JTextField discountCodeField = new JTextField();
-        discountCodeField.setBounds(200, 20, 150, 30);
-        discountCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
-        discountCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
-        endPanel.add(discountCodeField);
+        // JTextField discountCodeField = new JTextField();
+        // discountCodeField.setBounds(200, 20, 150, 30);
+        // discountCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
+        // discountCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
+        // endPanel.add(discountCodeField);
 
-        JButton applyDiscountButton = new JButton("Áp dụng");
-        applyDiscountButton.setBounds(400, 20, 100, 30);
-        applyDiscountButton.setForeground(new Color(96, 163, 188));
-        applyDiscountButton.setBackground(new Color(10, 61, 98));
-        applyDiscountButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        applyDiscountButton.setFocusPainted(false);
-        endPanel.add(applyDiscountButton);
+        JLabel pointLabel = new JLabel("Điểm tích luỹ:");
+        pointLabel.setBounds(crong/2-130, 20, 140, 30);
+        pointLabel.setForeground(new Color(10, 61, 98));
+        pointLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        headerPanel.add(pointLabel);
 
-        JLabel CustomerCodeLabel = new JLabel("Mã khách hàng:");
-        CustomerCodeLabel.setBounds(800, 20, 150, 30);
-        CustomerCodeLabel.setForeground(new Color(10, 61, 98));
-        CustomerCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        endPanel.add(CustomerCodeLabel);
+        JTextField PointField = new JTextField();
+        PointField.setBounds(crong/2, 20, 100, 30);
+        PointField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
+        PointField.setFont(new Font("Arial", Font.PLAIN, 20));
+        // headerPanel.add(PointField);
 
-        JTextField CustomerCodeField = new JTextField("1");
-        CustomerCodeField.setBounds(950, 20, 150, 30);
-        CustomerCodeField.setBorder(BorderFactory.createLineBorder(new Color(10, 61, 98), 2));
-        CustomerCodeField.setFont(new Font("Arial", Font.PLAIN, 20));
-        endPanel.add(CustomerCodeField);
+        JCheckBox applyDiscount = new JCheckBox("Sử dụng");
+        applyDiscount.setBounds(crong/2+110, 20, 100, 30);
+        // applyDiscount.setPreferredSize(new Dimension(100, 50));
+        // applyDiscount.setVerticalAlignment(JButton.TOP);
+        applyDiscount.setBackground(new Color(96, 163, 188));
+        applyDiscount.setForeground(new Color(10, 61, 98));
+        applyDiscount.setFont(new Font("Arial", Font.PLAIN, 16));
+        applyDiscount.setFocusPainted(false);
+        headerPanel.add(applyDiscount);
+
+        // JLabel CustomerCodeLabel = new JLabel("Mã khách hàng:");
+        // CustomerCodeLabel.setBounds(800, 20, 150, 30);
+        // CustomerCodeLabel.setForeground(new Color(10, 61, 98));
+        // CustomerCodeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        // endPanel.add(CustomerCodeLabel);
 
         // JLabel pointLabel = new JLabel();
         // pointLabel.setText(Hoadon_BUS.getpointtichluy()+" ");
         // pointLabel.setBounds(950, 60, 100, 30);
         // endPanel.add(pointLabel);
 
-        applyDiscountButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String discountCode = discountCodeField.getText();
-                // Thực hiện kiểm tra mã giảm giá và áp dụng
+        // applyDiscount.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         String discountCode = discountCodeField.getText();
+        //         // Thực hiện kiểm tra mã giảm giá và áp dụng
 
-                // Cập nhật tổng tiền và hiển thị lại
-            }
-        });
+        //         // Cập nhật tổng tiền và hiển thị lại
+        //     }
+        // });
 
         // Tổng tiền
         totalPriceLabel = new JLabel("Tổng tiền:" + totalPrice);
-        totalPriceLabel.setBounds(50, 110, 500, 50);
+        totalPriceLabel.setBounds(50, 10, 500, 50);
         totalPriceLabel.setForeground(new Color(10, 61, 98));
         totalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         endPanel.add(totalPriceLabel);
 
+        finalPriceLabel = new JLabel("Thành tiền:" + totalPrice);
+        finalPriceLabel.setBounds(50, 110, 500, 50);
+        finalPriceLabel.setForeground(new Color(10, 61, 98));
+        finalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        endPanel.add(finalPriceLabel);
+
         // Thanh toán
         JButton payButton = new JButton("Thanh toán");
-        payButton.setBounds(400, 110, 150, 50);
+        payButton.setBounds(crong-200, 110, 150, 50);
         payButton.setForeground(new Color(96, 163, 188));
         payButton.setBackground(new Color(10, 61, 98));
         payButton.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -239,10 +269,14 @@ public class ShoppingCartUI extends JPanel {
     private String getCurrentTimeStamp() {
         return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
+    private String getCurrentTime() {
+        return new SimpleDateFormat("HH:mm:ss").format(new Date());
+    }
 
     private void payment(String maHD, ArrayList<ChitietHD_DTO> dscthd, int maKH) {
         System.out.println(getCurrentTimeStamp());
-        Hoadon_DTO hoaDon = new Hoadon_DTO(maHD, getCurrentTimeStamp(), maKH, "", 0, totalPrice, dscthd);
+        System.out.println(getCurrentTime());
+        Hoadon_DTO hoaDon = new Hoadon_DTO(maHD, getCurrentTimeStamp(), maKH, "", 0, totalPrice, getCurrentTime(), dscthd);
         if (Hoadon_BUS.addHoaDon(hoaDon))
             JOptionPane.showMessageDialog(this, "Thêm hóa đơn thành công");
         else
