@@ -10,7 +10,7 @@ package DAO;
  *
  * @author hp
  */
-import com.mysql.cj.jdbc.Driver;
+//import com.mysql.cj.jdbc.Driver;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
@@ -49,7 +49,7 @@ public class ConnectDataBase {
          Class.forName(driver);
          conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
       } catch (ClassNotFoundException e) {
-         throw new SQLException("Driver not found");
+//         throw new SQLException("Driver not found");
       }
       
    }

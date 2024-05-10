@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.CollectionOrBuilder;
 
 import BUS.chitietphieunhap_BUS;
 import BUS.nhacungcapBUS;
