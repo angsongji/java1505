@@ -1,22 +1,25 @@
 
 package DTO;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Hoadon_DTO {
     private String maHD,maNV;
     private String ngayHD;
+    private String Thoigian;
     private int  giamgia, maKH;
     private double tongTien;
     private ArrayList<ChitietHD_DTO> dsctHD;
 
-    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, double tongTien, ArrayList<ChitietHD_DTO> dsctHD) {
+    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, double tongTien, String Thoigian, ArrayList<ChitietHD_DTO> dsctHD) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.ngayHD = ngayHD;
         this.giamgia = giamgia;
         this.tongTien = tongTien;
+        this.Thoigian = Thoigian;
         this.dsctHD = dsctHD;
     }
 
@@ -79,7 +82,13 @@ public class Hoadon_DTO {
         this.tongTien = tongTien;
     }
 
+    public String getThoigian() {
+        return Thoigian;
+    }
+
+    public void setThoigian(String thoigian) {
+        Thoigian = thoigian;
+    }
     
-    
-    
+
 }
