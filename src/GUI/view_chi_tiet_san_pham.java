@@ -294,7 +294,8 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
                 maSizeThem =(String) optionsize.getSelectedItem();
                 view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
                 JOptionPane.showMessageDialog(null,
-                    "Bạn đã thêm sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    "Bạn đã thêm sản phẩm thành công ! \n"
+                            + "Hãy vào hoá đơn để xem đơn hàng vừa thêm.", "Thông báo", JOptionPane.DEFAULT_OPTION);
                 j.dispose();
                 
             }

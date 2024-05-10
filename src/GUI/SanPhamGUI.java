@@ -56,27 +56,30 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     public JPanel initContent(ArrayList<SanPhamDTO> dsSP) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new FlowLayout(3, 15, 15));
         panel.setBackground(backGroundColor);
         panel.setOpaque(true);
+
+        int dsSize = dsSP.size(); // Lấy kích thước của danh sách
+        int row = (int) Math.ceil((double) dsSize / 5) - 2;
+        
+        if(dsSize <= 5){
+            panel.setPreferredSize(new Dimension(chieurong - 5, 315));
+        }
+        if (dsSize > 10) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, chieucao + (315 * row)));
+        }
+        if(dsSize > 5 && dsSize <= 10){
+            panel.setPreferredSize(new Dimension(chieurong - 5, 315*2));
+        }
+        
+        
         product = new JPanel[dsSP.size()];
-
-        int count = 0;
-        JPanel pnCon = new JPanel();
-        pnCon.setMinimumSize(new Dimension(chieurong / 2, 300));
-        pnCon.setPreferredSize(new Dimension(chieurong / 2, 300));
-        pnCon.setMaximumSize(new Dimension(chieurong, 300));
-        pnCon.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
-        pnCon.setBackground(Color.WHITE);
-        pnCon.setOpaque(true);
-
         for (int i = 0; i < dsSP.size(); i++) {
-            count++;
             final int index = i;
+
             product[i] = new JPanel();
-            product[i].setMinimumSize(new Dimension(180, 300));
             product[i].setPreferredSize(new Dimension(180, 300));
-            product[i].setMaximumSize(new Dimension(180, 300));
             product[i].setLayout(new BoxLayout(product[i], BoxLayout.Y_AXIS));
             product[i].setAlignmentY(TOP_ALIGNMENT);
 
@@ -130,37 +133,21 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
             product[i].add(lblChiTietSP);
             product[i].addMouseListener(this);
-            pnCon.add(product[i]);
-
-            if (count == 5) {
-                panel.add(Box.createRigidArea(new Dimension(0, 20)));
-                panel.add(pnCon);
-                panel.add(Box.createRigidArea(new Dimension(0, 10)));
-                pnCon = new JPanel();
-                pnCon.setMinimumSize(new Dimension(chieurong / 2, 300));
-                pnCon.setPreferredSize(new Dimension(chieurong / 2, 300));
-                pnCon.setMaximumSize(new Dimension(chieurong, 300));
-                pnCon.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
-                pnCon.setBackground(Color.WHITE);
-                pnCon.setOpaque(true);
-                count = 0;
-            }
-            // Nếu còn sản phẩm chưa được thêm, thêm pnCon cuối cùng vào panel
-            if (count > 0) {
-                panel.add(pnCon);
-                
-            }
+            panel.add(product[i]);
 
             if (i < product.length - 1) {
                 panel.add(Box.createHorizontalStrut(10)); // Khoảng cách 10 pixel
             }
         }
-        JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(null);
+        JScrollPane scrollPane = new JScrollPane(panel); // Tạo JScrollPane bao quanh panel
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Thanh cuộn dọc khi cần
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Không cần thanh cuộn ngang
+
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
-        return mainPanel;
+        mainPanel.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào mainPanel
+
+        return mainPanel; // Trả về mainPanel
+
     }
 
     public void refresh() {

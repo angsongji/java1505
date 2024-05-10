@@ -107,7 +107,7 @@ public class chucnangThongke extends JPanel {
                 currentday.add("Tất cả");
 
                 tkGUI.ShowdoanhThu(currentday);
-
+                tkGUI.initPnDoanhThu();
                 JP_contentCuaLoaiThongke.add(tkGUI);
                 break;
             case 1:
