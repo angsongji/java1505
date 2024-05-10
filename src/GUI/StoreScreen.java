@@ -25,7 +25,7 @@ public class StoreScreen extends JFrame{
     public int chieurong;
     public JPanel title_bar;
     private JLabel exitStore;
-    private MenuChucNangStore menu;
+    public MenuChucNangStore menu;
     protected CenterContentStore centerContent;
   
 public TaiKhoanDTO tkUSER ;

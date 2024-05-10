@@ -173,23 +173,27 @@ public class SearchInStore extends JPanel implements MouseListener {
             case "Theo loại": {
                 Vector loai = new Vector();
                 loaiSPBUS loaiBUS = new loaiSPBUS();
-                ArrayList<loaiSP> listLoai = loaiBUS.getList();
+                
 
                 loai.add("Tất cả");
 
-                for (loaiSP q : listLoai) {
+                
                     switch (MACHUCNANG) {
                         case "SP": {
+                            for (loaiSP q : loaiBUS.getList()) {
                             if (loaiBUS.checkTINHTRANG(q.getMALOAI())) {
                                 loai.add(q.getTENLOAI());
                             }
+                             }
                             break;
                         }
                         case "NULLThK": {
+                            for (loaiSP q : loaiBUS.getListFull()) {
                             loai.add(q.getTENLOAI());
+                            }
                         }
 
-                    }
+                   
 
                 }
 

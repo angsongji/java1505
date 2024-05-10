@@ -79,7 +79,7 @@ public class Nhanvien_DAO {
                 Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
     String query= "INSERT INTO nhanvien VALUES ('" + item.getManv() +"','"+ item.getTennv() +"','" +item.getChucvu() +"','" +item.getSdt() + "','" +item.getDiachi() +"','" +item.getEmail()+"');";
-    boolean result = mySQL.executeUpdate(query);
+    boolean result = mySQL.executeupdate(query);
     if(result) {
         System.out.println("Thêm nhân viên thành công!");
         success = true;
@@ -99,7 +99,7 @@ public class Nhanvien_DAO {
                 Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
     String query= "UPDATE nhanvien set TENNV = '" + item.getTennv()+"', CHUCVU='"+ item.getChucvu()+ "', SDT='" + item.getSdt() + "', DIACHI='" + item.getDiachi()+ "', EMAIL='" + item.getEmail() + "' WHERE MANV='" + item.getManv() + "'";
-    boolean result = mySQL.executeUpdate(query);
+    boolean result = mySQL.executeupdate(query);
     if(result) {
         System.out.println("Cập nhật thông tin nhân viên thành công!");
         success = true;
@@ -118,7 +118,7 @@ public class Nhanvien_DAO {
                 Logger.getLogger(Nhanvien_DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
     String query= "DELETE FROM hoadon WHERE MANV = '" + m +"';";
-    boolean result = mySQL.executeUpdate(query);
+    boolean result = mySQL.executeupdate(query);
     if(result) {
         System.out.println("Xóa nhân viên thành công!");
         success = true;

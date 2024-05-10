@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.CollectionOrBuilder;
 
 import BUS.chitietphieunhap_BUS;
 import BUS.nhacungcapBUS;
@@ -67,7 +66,7 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 		 option_kitu = new String[] {"","a-z","z-a"};
 		 option_so = new String[] {"", "min-max" , "max-min"};
 		 thaotacc = new String[] {"Thêm","Sửa","Xóa","Export Excel"};
-		 images = new String[] {"./Source Packages/images/them.png","./Source Packages/images/sua.png","./Source Packages/images/xoa.png","./src/images/import_icon.png"};
+		 images = new String[] {"./src/images/add_icon.png","./src/images/edit_icon.png","./src/images/remove_icon.png","./src/images/import_icon.png"};
 		 this.clickedchinhsua =false;
 		 this.clickedxoa = false;
 		 this.taiKhoanDTO = d;
