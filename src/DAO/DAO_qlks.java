@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -19,7 +20,7 @@ public class DAO_qlks {
 	public static DAO_qlks getinstance() {
 		return new DAO_qlks();
 	}
-	
+
 	public DAO_qlks() {
 		try {
 			c = new ConnectDataBase();
@@ -273,6 +274,25 @@ public class DAO_qlks {
 			} 
 			return ds;
 		}
+
+		    public int getDiemTichLuy(String maKH) {
+        // Kết nối cơ sở dữ liệu (cần thay đổi thông tin kết nối dựa trên cấu hình của bạn)
+        try {
+			c.connect();
+            String sql = "SELECT DIEMTICHLUY FROM KhachHang WHERE MaKH =" + maKH;
+            // Đặt giá trị cho tham số maKH
+            // Thực thi truy vấn và nhận kết quả trả về
+            ResultSet rs = c.executeQuery(sql);
+            // Nếu có kết quả trả về, lấy giá trị DIEMTICHLUY và trả về
+            if (rs.next()) {
+                return rs.getInt("DIEMTICHLUY");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        // Trả về giá trị mặc định nếu không lấy được từ cơ sở dữ liệu
+        return 0;
+    }
 	 public static void main(String[] args) {
 		DAO_qlks c = new DAO_qlks();
 		String t = "QQLBH";
