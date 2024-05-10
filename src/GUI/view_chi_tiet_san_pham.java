@@ -36,13 +36,14 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
     private JPanel[] pc1, pc2;
     private JLabel[] jlc1, jlc2, jl_mls;
     private JLabel jln1, jln2;
-    private int soluong;
+    public static int soluong;
     private SanPhamDTO sanpham_DTO;
     private SanPhamBUS sanpham_BUS;
     private chitietsanpham_BUS chitietsanpham_BUS;
     private JComboBox<String> optionsize;
     private frame_chitietsanpham j;
     public static ArrayList<SanPhamDTO> dssptt = new ArrayList<SanPhamDTO>();
+    public static String maSizeThem;
     ImageIcon h0, h1, h2;
     
     // Định dạng sử dụng dấu phân cách hàng nghìn
@@ -290,13 +291,12 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
+                maSizeThem =(String) optionsize.getSelectedItem();
                 view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
                 JOptionPane.showMessageDialog(null,
                     "Bạn đã thêm sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
                 j.dispose();
-                // throw new UnsupportedOperationException("Unimplemented method
-                // 'mousePressed'");
+                
             }
 
             @Override

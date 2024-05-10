@@ -33,6 +33,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         this.chieurong = chieurong;
         this.chieucao = chieucao;
         backGroundColor = backG_thisJPanel;
+        //san pham con ban moi hien thi
         dsSP = new ArrayList<>();
         for (int i = 0; i < spBUS.getDsSP().size(); i++) {
             if (spBUS.getDsSP().get(i).getTrangThai() == 1) {
@@ -55,16 +56,27 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     public JPanel initContent(ArrayList<SanPhamDTO> dsSP) {
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(chieurong, chieucao));
-        panel.setLayout(new FlowLayout(3, 15, 15));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(backGroundColor);
         panel.setOpaque(true);
         product = new JPanel[dsSP.size()];
+
+        int count = 0;
+        JPanel pnCon = new JPanel();
+        pnCon.setMinimumSize(new Dimension(chieurong / 2, 300));
+        pnCon.setPreferredSize(new Dimension(chieurong / 2, 300));
+        pnCon.setMaximumSize(new Dimension(chieurong, 300));
+        pnCon.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        pnCon.setBackground(Color.WHITE);
+        pnCon.setOpaque(true);
+
         for (int i = 0; i < dsSP.size(); i++) {
+            count++;
             final int index = i;
-            //san pham con ban moi hien thi
             product[i] = new JPanel();
+            product[i].setMinimumSize(new Dimension(180, 300));
             product[i].setPreferredSize(new Dimension(180, 300));
+            product[i].setMaximumSize(new Dimension(180, 300));
             product[i].setLayout(new BoxLayout(product[i], BoxLayout.Y_AXIS));
             product[i].setAlignmentY(TOP_ALIGNMENT);
 
@@ -118,13 +130,37 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
             product[i].add(lblChiTietSP);
             product[i].addMouseListener(this);
-            panel.add(product[i]);
+            pnCon.add(product[i]);
+
+            if (count == 5) {
+                panel.add(Box.createRigidArea(new Dimension(0, 20)));
+                panel.add(pnCon);
+                panel.add(Box.createRigidArea(new Dimension(0, 10)));
+                pnCon = new JPanel();
+                pnCon.setMinimumSize(new Dimension(chieurong / 2, 300));
+                pnCon.setPreferredSize(new Dimension(chieurong / 2, 300));
+                pnCon.setMaximumSize(new Dimension(chieurong, 300));
+                pnCon.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+                pnCon.setBackground(Color.WHITE);
+                pnCon.setOpaque(true);
+                count = 0;
+            }
+            // Nếu còn sản phẩm chưa được thêm, thêm pnCon cuối cùng vào panel
+            if (count > 0) {
+                panel.add(pnCon);
+                
+            }
 
             if (i < product.length - 1) {
                 panel.add(Box.createHorizontalStrut(10)); // Khoảng cách 10 pixel
             }
         }
-        return panel;
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        return mainPanel;
     }
 
     public void refresh() {
@@ -183,7 +219,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
                         dsNew.add(dsSP.get(i));
                     }
                 }
-            } else if (maLoai.equals("Tất cả")){
+            } else if (maLoai.equals("Tất cả")) {
                 dsNew = dsSP;
             }
         } else {
@@ -245,13 +281,13 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-    //     for (int i = 0; i < dsSP.size(); i++){
-    //         if (e.getSource() == product[i]){
-    //             product[i].setBackground(Color.white);
-    //             frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
-    //         }
-    // }
-}
+        //     for (int i = 0; i < dsSP.size(); i++){
+        //         if (e.getSource() == product[i]){
+        //             product[i].setBackground(Color.white);
+        //             frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
+        //         }
+        // }
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {
