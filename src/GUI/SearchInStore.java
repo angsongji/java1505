@@ -440,6 +440,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                     case 0:
 
                         thongke.ShowdoanhThu(data_filter);
+                        thongke.initPnDoanhThu();
                         break;
                     case 1:
 

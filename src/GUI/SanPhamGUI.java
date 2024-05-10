@@ -33,6 +33,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         this.chieurong = chieurong;
         this.chieucao = chieucao;
         backGroundColor = backG_thisJPanel;
+        //san pham con ban moi hien thi
         dsSP = new ArrayList<>();
         for (int i = 0; i < spBUS.getDsSP().size(); i++) {
             if (spBUS.getDsSP().get(i).getTrangThai() == 1) {
@@ -55,14 +56,27 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     public JPanel initContent(ArrayList<SanPhamDTO> dsSP) {
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(chieurong, chieucao));
-        panel.setLayout(new FlowLayout(3, 15, 15));
+        panel.setLayout(new FlowLayout(3, 30, 30));
         panel.setBackground(backGroundColor);
         panel.setOpaque(true);
+
+        int dsSize = dsSP.size(); // Lấy kích thước của danh sách
+        int row = (int) Math.ceil((double) dsSize / 6) - 2;
+
+        if (dsSize <= 6) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, 330));
+        }
+        if (dsSize > 12) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, chieucao + (330 * row)));
+        }
+        if (dsSize > 6 && dsSize <= 12) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, 330 * 2));
+        }
+
         product = new JPanel[dsSP.size()];
         for (int i = 0; i < dsSP.size(); i++) {
             final int index = i;
-            //san pham con ban moi hien thi
+
             product[i] = new JPanel();
             product[i].setPreferredSize(new Dimension(180, 300));
             product[i].setLayout(new BoxLayout(product[i], BoxLayout.Y_AXIS));
@@ -120,11 +134,16 @@ public class SanPhamGUI extends JPanel implements MouseListener {
             product[i].addMouseListener(this);
             panel.add(product[i]);
 
-            if (i < product.length - 1) {
-                panel.add(Box.createHorizontalStrut(10)); // Khoảng cách 10 pixel
-            }
         }
-        return panel;
+        JScrollPane scrollPane = new JScrollPane(panel); // Tạo JScrollPane bao quanh panel
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Thanh cuộn dọc khi cần
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Không cần thanh cuộn ngang
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào mainPanel
+
+        return mainPanel; // Trả về mainPanel
+
     }
 
     public void refresh() {
@@ -183,7 +202,7 @@ public class SanPhamGUI extends JPanel implements MouseListener {
                         dsNew.add(dsSP.get(i));
                     }
                 }
-            } else if (maLoai.equals("Tất cả")){
+            } else if (maLoai.equals("Tất cả")) {
                 dsNew = dsSP;
             }
         } else {
@@ -245,13 +264,13 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-    //     for (int i = 0; i < dsSP.size(); i++){
-    //         if (e.getSource() == product[i]){
-    //             product[i].setBackground(Color.white);
-    //             frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
-    //         }
-    // }
-}
+        //     for (int i = 0; i < dsSP.size(); i++){
+        //         if (e.getSource() == product[i]){
+        //             product[i].setBackground(Color.white);
+        //             frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(i));
+        //         }
+        // }
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {

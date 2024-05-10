@@ -32,10 +32,10 @@ public class ShoppingCartUI extends JPanel {
     private double totalPrice = 0.0; // Tổng tiền
     private JLabel totalPriceLabel, titleLabel;
     //int sl=1;
+    
 
 
-
-    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt) {
+    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt,int soluong, String maSize) {
         // this.chucnang = chucnang;
         // int crong = chucnang.getCrong();
         // int heightJP_content = chucnang.getHeightJPContent();
@@ -452,10 +452,10 @@ public class ShoppingCartUI extends JPanel {
         // System.out.println(numberOfOrders);
     }
 
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> {
-    //         ShoppingCartUI shoppingCart = new ShoppingCartUI();
-    //         shoppingCart.setVisible(true);
-    //     });
-    // }
+//     public static void main(String[] args) {
+//         SwingUtilities.invokeLater(() -> {
+//             ShoppingCartUI shoppingCart = new ShoppingCartUI();
+//             shoppingCart.setVisible(true);
+//         });
+//     }
 }

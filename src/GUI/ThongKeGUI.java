@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -52,7 +53,7 @@ public class ThongKeGUI extends JPanel {
     public ThongKeGUI(int width, int height) {
         this.width = width;
         this.height = height;
-        
+
         try {
             mySQL = new ConnectDataBase();
         } catch (SQLException e) {
@@ -82,9 +83,9 @@ public class ThongKeGUI extends JPanel {
         String denNgay = data_filters.get(1);
         String loai = data_filters.get(2);
         loaiSPBUS loaiBUS = new loaiSPBUS();
-        for(int i=0; i<loaiBUS.getList().size(); i++){
-            if(loaiBUS.getList().get(i).getTENLOAI().equals(loai)){
-                loai = loaiBUS.getList().get(i).getMALOAI();
+        for (int i = 0; i < loaiBUS.getListFull().size(); i++) {
+            if (loaiBUS.getListFull().get(i).getTENLOAI().equals(loai)) {
+                loai = loaiBUS.getListFull().get(i).getMALOAI();
             }
         }
         df.setRowCount(0);
@@ -134,17 +135,7 @@ public class ThongKeGUI extends JPanel {
         }
         table.setModel(df);
         df.fireTableDataChanged();
-        //Doanh thu
         tinhDoanhThu();
-        pnDoanhThu = new JPanel();
-        pnDoanhThu.setLayout(new FlowLayout());
-        pnDoanhThu.setPreferredSize(new Dimension(width, 100));
-        String dt = FormatDouble.format(doanhThu); //format cách hiện thị của số doanh thu
-        JLabel lblDoanhThu = new JLabel();
-        lblDoanhThu.setText("Tổng doanh thu :  " + dt + " VNĐ");
-        lblDoanhThu.setFont(font);
-        pnDoanhThu.add(lblDoanhThu);
-        this.add(pnDoanhThu, BorderLayout.SOUTH);
     }
 
     public void ShowbanChay(ArrayList<String> data_filters) {
@@ -197,7 +188,28 @@ public class ThongKeGUI extends JPanel {
             df.addRow(data);
         }
         table.setModel(df);
-        df.fireTableDataChanged();      
+        df.fireTableDataChanged();
+    }
+
+    public void initPnDoanhThu() {
+        // Tính toán doanh thu trước
+        tinhDoanhThu(); // Đảm bảo gọi tinhDoanhThu trước khi cập nhật nhãn
+
+        if (pnDoanhThu == null) {
+            pnDoanhThu = new JPanel(new FlowLayout());
+            pnDoanhThu.setPreferredSize(new Dimension(width, 100));
+        }
+
+        String dt = FormatDouble.format(doanhThu); // Định dạng doanh thu
+        JLabel lblDoanhThu = new JLabel("Tổng doanh thu: " + dt + " VNĐ");
+        lblDoanhThu.setFont(font);
+
+        pnDoanhThu.removeAll(); // Xóa các thành phần cũ để đảm bảo không bị trùng
+        pnDoanhThu.add(lblDoanhThu); // Thêm nhãn mới
+        this.add(pnDoanhThu, BorderLayout.SOUTH); // Đảm bảo thêm vào đúng vị trí
+
+        this.revalidate(); // Cập nhật bố trí
+        this.repaint(); // Vẽ lại giao diện
     }
 
     public void init(int width, int height) {
@@ -215,6 +227,7 @@ public class ThongKeGUI extends JPanel {
 
         //tạo bảng thống kê
         table = new JTable();
+        table.setDefaultEditor(Object.class, null);
         table.setRowHeight(30); //thiết lập chiều cao các cột
 
         // Thiết lập dữ liệu cho JTable
@@ -267,17 +280,18 @@ public class ThongKeGUI extends JPanel {
         ThongKeGUI thongKeGUI = new ThongKeGUI(800, 600);
         ArrayList<String> currentday = new ArrayList<>();
         currentday.add("2023/01/01");
-        currentday.add("2024/05/04");
+        currentday.add("2024/01/01");
         currentday.add("Tất cả");
-        //      ShowbanChay("2023/01/01", "2024/05/04", 1);
+        thongKeGUI.ShowdoanhThu(currentday);
+        thongKeGUI.initPnDoanhThu();
+
+//              ShowbanChay("2023/01/01", "2024/05/04", 1);
 //        thongKeGUI.ShowbanChay(currentday);
-         thongKeGUI.ShowdoanhThu(currentday);
         JFrame frame = new JFrame("Thống Kê Sản Phẩm");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
         frame.add(thongKeGUI); // Thêm GUI vào JFrame
         frame.setVisible(true); // Hiển thị cửa sổ
-
     }
 }
