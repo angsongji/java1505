@@ -56,24 +56,23 @@ public class SanPhamGUI extends JPanel implements MouseListener {
 
     public JPanel initContent(ArrayList<SanPhamDTO> dsSP) {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(3, 15, 15));
+        panel.setLayout(new FlowLayout(3, 30, 30));
         panel.setBackground(backGroundColor);
         panel.setOpaque(true);
 
         int dsSize = dsSP.size(); // Lấy kích thước của danh sách
-        int row = (int) Math.ceil((double) dsSize / 5) - 2;
-        
-        if(dsSize <= 5){
-            panel.setPreferredSize(new Dimension(chieurong - 5, 315));
+        int row = (int) Math.ceil((double) dsSize / 6) - 2;
+
+        if (dsSize <= 6) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, 330));
         }
-        if (dsSize > 10) {
-            panel.setPreferredSize(new Dimension(chieurong - 5, chieucao + (315 * row)));
+        if (dsSize > 12) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, chieucao + (330 * row)));
         }
-        if(dsSize > 5 && dsSize <= 10){
-            panel.setPreferredSize(new Dimension(chieurong - 5, 315*2));
+        if (dsSize > 6 && dsSize <= 12) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, 330 * 2));
         }
-        
-        
+
         product = new JPanel[dsSP.size()];
         for (int i = 0; i < dsSP.size(); i++) {
             final int index = i;
@@ -135,9 +134,6 @@ public class SanPhamGUI extends JPanel implements MouseListener {
             product[i].addMouseListener(this);
             panel.add(product[i]);
 
-            if (i < product.length - 1) {
-                panel.add(Box.createHorizontalStrut(10)); // Khoảng cách 10 pixel
-            }
         }
         JScrollPane scrollPane = new JScrollPane(panel); // Tạo JScrollPane bao quanh panel
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Thanh cuộn dọc khi cần
