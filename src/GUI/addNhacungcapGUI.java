@@ -141,9 +141,9 @@ public class addNhacungcapGUI extends JFrame implements MouseListener {
                 case "btn_exit":
                     int r1 = JOptionPane.showConfirmDialog(null, "Những thông tin sẽ không được lưu sau khi thoát!\nBạn có muốn tiếp tục?", "Thoát", JOptionPane.YES_NO_OPTION);
                     if (r1 == JOptionPane.YES_OPTION) {
-                        dispose();
+                        
                     } else {
-                        // Thực hiện hành động khi người dùng chọn No hoặc đóng cửa sổ
+                       dispose();
                     }
 
                     break;

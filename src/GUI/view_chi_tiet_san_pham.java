@@ -25,7 +25,9 @@ import BUS.SanPhamBUS;
 import BUS.chitietsanpham_BUS;
 
 import DTO.SanPhamDTO;
+import java.awt.Cursor;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import javax.swing.JFrame;
 
 public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
@@ -34,14 +36,18 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
     private JPanel[] pc1, pc2;
     private JLabel[] jlc1, jlc2, jl_mls;
     private JLabel jln1, jln2;
-    private int soluong;
+    public static int soluong;
     private SanPhamDTO sanpham_DTO;
     private SanPhamBUS sanpham_BUS;
     private chitietsanpham_BUS chitietsanpham_BUS;
     private JComboBox<String> optionsize;
     private frame_chitietsanpham j;
     public static ArrayList<SanPhamDTO> dssptt = new ArrayList<SanPhamDTO>();
+    public static String maSizeThem;
     ImageIcon h0, h1, h2;
+    
+    // Định dạng sử dụng dấu phân cách hàng nghìn
+    DecimalFormat FormatInt = new DecimalFormat("#,###"); //phuong them
 
     public view_chi_tiet_san_pham(SanPhamDTO sanpham_DTO, frame_chitietsanpham j) {
         soluong = 1;
@@ -64,10 +70,10 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
             }
         } else {
             try {
-                h00 = "./src/images/" + this.sanpham_DTO.getTenHinh()[0];
-                h01 = "./src/images/" + this.sanpham_DTO.getTenHinh()[1];
+                h00 = "./src/images/t-shirt.png";
+                h01 = "./src/images/" + this.sanpham_DTO.getTenHinh()[0];
 
-                h02 = "./src/images/" + this.sanpham_DTO.getTenHinh()[2];
+                h02 = "./src/images/" + this.sanpham_DTO.getTenHinh()[1];
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -120,7 +126,6 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         pc1[1].setPreferredSize(new Dimension(300, 260));
 
         // *************** hình lớn ****************///////////////////////////////////
-        pc1[1].add(jlc1[0]);
         jlc1[0] = new JLabel();
         jlc1[0].setPreferredSize(new Dimension(190, 250));
         jlc1[0].setBackground(Color.white);
@@ -142,13 +147,17 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         if (!h01.equals("")) {
             jlc1[1] = new JLabel();
             jlc1[1].setPreferredSize(new Dimension(40, 30));
-            h1 = new ImageIcon(h00);
+            h1 = new ImageIcon(h01);
             Image scaledImage_be1 = h1.getImage().getScaledInstance(40, 30, Image.SCALE_SMOOTH);
             ImageIcon h_be1 = new ImageIcon(scaledImage_be1);
-
+            
+            scaledImage_lon = h1.getImage().getScaledInstance(190, 250, Image.SCALE_SMOOTH);
+            h_to.setImage(scaledImage_lon);
+            
             jlc1[1].setIcon(h_be1);
             jlc1[1].setBackground(Color.white);
             jlc1[1].setOpaque(true);
+            jlc1[1].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             jlc1[1].addMouseListener(this);
             pc1[2].add(jlc1[1]);
         }
@@ -156,13 +165,13 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         if (!h02.equals("")) {
             jlc1[2] = new JLabel();
             jlc1[2].setPreferredSize(new Dimension(40, 30));
-            h2 = new ImageIcon(h01);
+            h2 = new ImageIcon(h02);
             Image scaledImage_be2 = h2.getImage().getScaledInstance(40, 30, Image.SCALE_SMOOTH);
             ImageIcon h_be2 = new ImageIcon(scaledImage_be2);
 
             jlc1[2].setIcon(h_be2);
             jlc1[2].setBackground(Color.white);
-
+            jlc1[2].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             jlc1[2].setOpaque(true);
 
             jlc1[2].addMouseListener(this);
@@ -237,6 +246,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         jlc2[5].setBackground(Color.decode("#0A3D62"));
         jlc2[5].setOpaque(true);
         jlc2[5].setForeground(Color.white);
+        jlc2[5].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         ///////////////////////////////// số lượng //////////////////////////
         jlc2[6] = new JLabel(soluong + "", JLabel.CENTER);
@@ -251,15 +261,16 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         jlc2[7].setBackground(Color.decode("#0A3D62"));
         jlc2[7].setOpaque(true);
         jlc2[7].setForeground(Color.white);
+        jlc2[7].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jlc2[7].addMouseListener(this);
 
         pc2[4].add(jlc2[5]);
         pc2[4].add(jlc2[6]);
         pc2[4].add(jlc2[7]);
 
-        /////////////////////////////////////////// giá
-        /////////////////////////////////////////// ///////////////////////////////////
-        jlc2[4] = new JLabel(this.sanpham_DTO.getPrice() * soluong + "");
+        /////////////////////////////////////////// giá ///////////////////////////
+        String gia = FormatInt.format(this.sanpham_DTO.getPrice() * soluong);
+        jlc2[4] = new JLabel(gia + "");
         jlc2[4].setFont(tensp);
         pc2[5].add(jlc2[4]);
 
@@ -270,6 +281,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         jlc2[8].setPreferredSize(new Dimension(100, 30));
         jlc2[8].setBackground(Color.decode("#0A3D62"));
         jlc2[8].setOpaque(true);
+        jlc2[8].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jlc2[8].addMouseListener(this);
         jlc2[8].addMouseListener(new MouseListener() {
             // @Override
@@ -279,11 +291,13 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
+                maSizeThem =(String) optionsize.getSelectedItem();
                 view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
+                JOptionPane.showMessageDialog(null,
+                    "Bạn đã thêm sản phẩm thành công ! \n"
+                            + "Hãy vào hoá đơn để xem đơn hàng vừa thêm.", "Thông báo", JOptionPane.DEFAULT_OPTION);
                 j.dispose();
-                // throw new UnsupportedOperationException("Unimplemented method
-                // 'mousePressed'");
+                                j.dispose();
             }
 
             @Override
@@ -374,12 +388,14 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         }
         if (e.getSource() == jlc2[5]) {
             jlc2[6].setText(this.giam_sl() + "");
-            jlc2[4].setText(this.sanpham_DTO.getPrice() * this.soluong + "");
+           String gia = FormatInt.format(this.sanpham_DTO.getPrice() * soluong);
+            jlc2[4].setText(gia + "");
 
         }
         if (e.getSource() == jlc2[7]) {
             jlc2[6].setText(this.tang_sl() + "");
-            jlc2[4].setText(this.sanpham_DTO.getPrice() * this.soluong + "");
+            String gia = FormatInt.format(this.sanpham_DTO.getPrice() * soluong);
+            jlc2[4].setText(gia+ "");
         }
         if (e.getSource() == jlc1[1]) {
             Image scaledImage_be2 = h1.getImage().getScaledInstance(190, 250, Image.SCALE_SMOOTH);

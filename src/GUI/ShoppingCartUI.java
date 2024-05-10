@@ -45,7 +45,7 @@ public class ShoppingCartUI extends JPanel {
     private JLabel totalPriceLabel, titleLabel, finalPriceLabel;
     // int sl=1;
 
-    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt) {
+    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt,int soluong, String maSize) {
         // this.chucnang = chucnang;
         // int crong = chucnang.getCrong();
         // int heightJP_content = chucnang.getHeightJPContent();

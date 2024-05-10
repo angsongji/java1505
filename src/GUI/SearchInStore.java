@@ -173,23 +173,27 @@ public class SearchInStore extends JPanel implements MouseListener {
             case "Theo loại": {
                 Vector loai = new Vector();
                 loaiSPBUS loaiBUS = new loaiSPBUS();
-                ArrayList<loaiSP> listLoai = loaiBUS.getList();
+                
 
                 loai.add("Tất cả");
 
-                for (loaiSP q : listLoai) {
+                
                     switch (MACHUCNANG) {
                         case "SP": {
+                            for (loaiSP q : loaiBUS.getList()) {
                             if (loaiBUS.checkTINHTRANG(q.getMALOAI())) {
                                 loai.add(q.getTENLOAI());
                             }
+                             }
                             break;
                         }
                         case "NULLThK": {
+                            for (loaiSP q : loaiBUS.getListFull()) {
                             loai.add(q.getTENLOAI());
+                            }
                         }
 
-                    }
+                   
 
                 }
 
@@ -436,6 +440,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                     case 0:
 
                         thongke.ShowdoanhThu(data_filter);
+                        thongke.initPnDoanhThu();
                         break;
                     case 1:
 
@@ -445,6 +450,22 @@ public class SearchInStore extends JPanel implements MouseListener {
 
                 thongke.repaint();
                 thongke.validate();
+                break;
+            case "TK":
+                chucnangTaikhoan cntk = (chucnangTaikhoan) components[0];
+                JPanel pnContent = cntk.JP_contentCuaNameChucnangCon;
+                Component[] pnCon = pnContent.getComponents();
+                TaiKhoanGUI taikhoan = (TaiKhoanGUI) pnCon[0];
+                taikhoan.SearchTK(data_filter);
+                taikhoan.repaint();
+                taikhoan.validate();
+                break;
+            case "SP":
+                SanPhamGUI spGUI = (SanPhamGUI) components[0];
+                System.out.println("san pham dssdf: "+data_filter);
+                spGUI.SearchSP(data_filter);
+                spGUI.repaint();
+                spGUI.validate();
                 break;
         }
     }
@@ -483,6 +504,14 @@ public class SearchInStore extends JPanel implements MouseListener {
                 }
                 break;
             }
+            case "TK":
+                data_filter.add("");
+                data_filter.add("Tất cả");
+                break;
+            case "SP":
+                data_filter.add("");
+                data_filter.add("Tất cả");
+                break;
         }
         searchOfChucnang(data_filter);
     }
