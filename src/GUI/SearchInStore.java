@@ -173,27 +173,23 @@ public class SearchInStore extends JPanel implements MouseListener {
             case "Theo loại": {
                 Vector loai = new Vector();
                 loaiSPBUS loaiBUS = new loaiSPBUS();
-                
 
                 loai.add("Tất cả");
 
-                
-                    switch (MACHUCNANG) {
-                        case "SP": {
-                            for (loaiSP q : loaiBUS.getList()) {
+                switch (MACHUCNANG) {
+                    case "SP": {
+                        for (loaiSP q : loaiBUS.getList()) {
                             if (loaiBUS.checkTINHTRANG(q.getMALOAI())) {
                                 loai.add(q.getTENLOAI());
                             }
-                             }
-                            break;
                         }
-                        case "NULLThK": {
-                            for (loaiSP q : loaiBUS.getListFull()) {
+                        break;
+                    }
+                    case "NULLThK": {
+                        for (loaiSP q : loaiBUS.getListFull()) {
                             loai.add(q.getTENLOAI());
-                            }
                         }
-
-                   
+                    }
 
                 }
 
@@ -319,7 +315,7 @@ public class SearchInStore extends JPanel implements MouseListener {
 //                break;
 //            }
             case "NV": {
-                String[] list = {"Theo tên nhân viên, theo MANV, theo SĐT", "Theo chức vụ"};
+                String[] list = {"Theo tên nhân viên, theo MANV, theo SĐT"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
@@ -462,7 +458,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 break;
             case "SP":
                 SanPhamGUI spGUI = (SanPhamGUI) components[0];
-                System.out.println("san pham dssdf: "+data_filter);
+                System.out.println("san pham dssdf: " + data_filter);
                 spGUI.SearchSP(data_filter);
                 spGUI.repaint();
                 spGUI.validate();
@@ -552,7 +548,26 @@ public class SearchInStore extends JPanel implements MouseListener {
                     text.setText("");
                 } else if (c instanceof JComboBox<?>) {
                     JComboBox<String> comboBox = (JComboBox<String>) c;
-                    comboBox.setSelectedItem("Tất cả");
+                    switch (MACHUCNANG) {
+                        case "NULLThK": {
+                            switch (thongkeloai) {
+                                case 0:
+                                    comboBox.setSelectedItem("Tất cả");
+
+                                    break;
+                                case 1:
+
+                                    comboBox.setSelectedItem("1");
+                                    break;
+                            }
+                            break;
+                        }
+                        default:
+                            comboBox.setSelectedItem("Tất cả");
+                            break;
+
+                    }
+
                 } else {
 
                     JSpinner date = (JSpinner) c;

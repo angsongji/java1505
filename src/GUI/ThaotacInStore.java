@@ -609,6 +609,17 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             for (String i : listDelete) {
                                 loaiBUS.delete(i);
                                 loaiBUS.deleteInSQL(i);
+                                SanPhamBUS spBUS = new SanPhamBUS();
+                                  
+                                        ArrayList<SanPhamDTO> dsSP = spBUS.getDsSP();
+                                        for (SanPhamDTO s : dsSP) {
+                                            if (s.getMaLoai().equals(i)) {
+                                                s.setTrangThai(0);
+                                                spBUS.set(s);
+                                            }
+
+                                        
+                                    }
                             }
                             loaiGUI.addDataInTable(loaiBUS.getList());
                             JOptionPane.showMessageDialog(null, "Xóa thành công");

@@ -305,31 +305,39 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
             @Override
             public void mousePressed(MouseEvent e) {
            
-                int soluong = Integer.parseInt(jlc2[6].getText());
+                int soluong = Integer.parseInt(jlc2[6].getText());//so luong ma nguoi dung chon khi bam them vao gio
                
-                String tensize = (String) optionsize.getSelectedItem();
+                String tensize = (String) optionsize.getSelectedItem();//ten size nguoi dung chon khi bam them vao gio
+                
                 SizeBUS sizeBUS = new SizeBUS();
-              
-                for(SizeDTO s : sizeBUS.getList()){
-                    if(s.getTENSIZE().equals(tensize)) maSizeThem=s.getMASIZE();
+                for(SizeDTO s : sizeBUS.getList()){//duyet mang size de lay ra ma size
+                    if(s.getTENSIZE().equals(tensize)) maSizeThem=s.getMASIZE();//lay ra ma size tu ten size ma nguoi dung lua chon
                 }
                 
-                chitietsanpham_DTO ctsp = new chitietsanpham_DTO(sanpham_DTO.getMaSP(),maSizeThem,soluong);
+                chitietsanpham_DTO ctsp = new chitietsanpham_DTO(sanpham_DTO.getMaSP(),maSizeThem,soluong);// chi tiet san pham ma nguoi dung them vao gio hang
                 System.out.println("MASP "+sanpham_DTO.getMaSP()+" ,MASIZE "+maSizeThem+" ,soluong them vao gio hang "+soluong);
-                boolean flag = true;
+                
+                boolean flag = true;// true la chua co ton tai
                 for(SanPhamDTO spDTO: dssptt){
-                    if(spDTO.getMaSP().equals(sanpham_DTO.getMaSP()))  flag = false;
+                    if(spDTO.getMaSP().equals(sanpham_DTO.getMaSP()))  flag = false;// false la co ton tai
+                    //kiem tra san pham vua bam them vao gio, da co trong gio hang chua
+                    //neu tim thay san pham vua them vao gio da ton tai trong gio hang thi chuyen trang thai sang false
                 }
-                if(flag) 
+                if(flag) // neu flag = tue la chua ton tai thi them vao dssptt, false thi khong them vao dssptt
                     view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
-                 flag = true;
+                
+                
+                 flag = true;// true la chua co ton tai
                 for(chitietsanpham_DTO ctspDTO: dsctsptt){
                     if(ctspDTO.getMASP().equals(sanpham_DTO.getMaSP()) && ctspDTO.getMASIZE().equals(maSizeThem) ) {
                         ctspDTO.setSoluong(ctspDTO.getSoluong()+soluong);
-                        flag = false;
+                        flag = false;//neu co tim thay san pham vua them trong chitietsan pham va size = size thi flag=false
+                        //kiem tra size san pham vua them vao gio hang da co trong gio hang chua
+                        //neu size cua san pham vua them da co trong gio hang thi cap nhat tai chi tiet san pham do, so luong += soluong vua them
+                        //neu size cua san pham vua them chua co trong gio hang thi them chi tiet san pham do vao dsctsptt
                     }
                 }
-                if(flag) 
+                if(flag)//falg= true thi them vao dsctsptt
                     view_chi_tiet_san_pham.dsctsptt.add(ctsp);
                 JOptionPane.showMessageDialog(null,
                     "Bạn đã thêm sản phẩm thành công ! \n"
