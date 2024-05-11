@@ -9,20 +9,31 @@ public class SanPhamDTO {
     private String maSP, maLoai,tenSP;
     private double price;
     public String [] tenHinh;
-    private int trangThai;
+    private int soLuong, trangThai;
 
     public SanPhamDTO() {
     }
 
  
-    public SanPhamDTO(String maSP, String maLoai, String tenSP, double price, String[] tenHinh, int trangThai) {
+    public SanPhamDTO(String maSP, String maLoai,String tenSP, double price, String[] tenHinh, int soLuong, int trangThai) {
         this.maSP = maSP;
         this.maLoai = maLoai;
         this.tenSP = tenSP;
         this.price = price;
         this.tenHinh = tenHinh;
+        this.soLuong = soLuong;
         this.trangThai = trangThai;
     }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
 
     public int getTrangThai() {
         return trangThai;

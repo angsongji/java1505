@@ -1,18 +1,34 @@
 
 package DTO;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 public class Hoadon_DTO {
     private String maHD,maNV;
     private String ngayHD;
-    private int maKH, giamgia, tongTien;
+    private String Thoigian;
+    private int  giamgia, maKH;
+    private double tongTien;
+    private ArrayList<ChitietHD_DTO> dsctHD;
 
-    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, int tongTien) {
+    public Hoadon_DTO(String maHD, String ngayHD, int maKH, String maNV,  int giamgia, double tongTien, String Thoigian, ArrayList<ChitietHD_DTO> dsctHD) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.ngayHD = ngayHD;
         this.giamgia = giamgia;
         this.tongTien = tongTien;
+        this.Thoigian = Thoigian;
+        this.dsctHD = dsctHD;
+    }
+
+    public ArrayList<ChitietHD_DTO> getDsctHD() {
+        return dsctHD;
+    }
+
+    public void setDsctHD(ArrayList<ChitietHD_DTO> dsctHD) {
+        this.dsctHD = dsctHD;
     }
 
     public String getMaHD() {
@@ -33,7 +49,7 @@ public class Hoadon_DTO {
         return giamgia;
     }
 
-    public int getTongTien() {
+    public double getTongTien() {
         return tongTien;
     }
 
@@ -62,11 +78,17 @@ public class Hoadon_DTO {
         this.giamgia = giamgia;
     }
 
-    public void setTongTien(int tongTien) {
+    public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
 
+    public String getThoigian() {
+        return Thoigian;
+    }
+
+    public void setThoigian(String thoigian) {
+        Thoigian = thoigian;
+    }
     
-    
-    
+
 }
