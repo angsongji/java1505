@@ -60,19 +60,19 @@ public class chitietsanpham_BUS {
 		return i;
 	}
 
-	public static void main(String[] args) {
-		SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
-		chitietsanpham_BUS c = new chitietsanpham_BUS();
-		for (chitietsanpham_DTO h : c.getlist()) {
-			System.out.println(h.toString());
-		}
-		chitietsanpham_DTO d = new chitietsanpham_DTO("SP9", "SIZE3", 6);
-		c.update(d);
-		System.out.println();
-		for (chitietsanpham_DTO h : c.getlist()) {
-			System.out.println(h.toString());
-		}
-	}
+	// public static void main(String[] args) {
+	// 	SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
+	// 	chitietsanpham_BUS c = new chitietsanpham_BUS();
+	// 	for (chitietsanpham_DTO h : c.getlist()) {
+	// 		System.out.println(h.toString());
+	// 	}
+	// 	chitietsanpham_DTO d = new chitietsanpham_DTO("SP9", "SIZE3", 6);
+	// 	c.update(d);
+	// 	System.out.println();
+	// 	for (chitietsanpham_DTO h : c.getlist()) {
+	// 		System.out.println(h.toString());
+	// 	}
+	// }
 		
 	
 	

@@ -1,8 +1,14 @@
 package BUS;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import DAO.ConnectDataBase;
 import DAO.DAO_qlks;
+import DAO.Hoadon_DAO;
 import DTO.model_qlkh;
 
 public class BUS_qlkh {
@@ -82,6 +88,25 @@ public class BUS_qlkh {
 		DAO_qlks c = new DAO_qlks();
 		return c.select_hanhdong_qlkh(MAQUYEN);
 	}
+	
+    public int getDiemTichLuy(String maKH) {
+        int diemTL = 0;
+        try {
+            ConnectDataBase mySQL = new ConnectDataBase();
+            mySQL.connect();
+            String query = "SELECT DIEMTICHLUY FROM khachhang WHERE MAKH ="+ maKH;
+            ResultSet resultSet = mySQL.executeQuery(query);
+
+            if (resultSet.next()) {
+                diemTL = resultSet.getInt("DIEMTICHLUY");
+            }
+          
+            mySQL.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(Hoadon_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return diemTL ;
+    }
 	
 	public static void main(String[] args) {
 		BUS_qlkh h = new BUS_qlkh();

@@ -2,19 +2,28 @@
 package DTO;
 
 public class ChitietHD_DTO {
-    private String  maSP, tenSP, maSize ;
+    private String  maHD, maSP, tenSP, maSize;
     private int sl;
-        private double gia, tt;
+    private double gia, tt;
     public ChitietHD_DTO() {
     }
 
-    public ChitietHD_DTO(String maSP, String tenSP, String maSize, int sl, double gia, double tt) {
+    public ChitietHD_DTO(String maHD, String maSP, String tenSP, String maSize, int sl, double gia, double tt) {
+        this.maHD = maHD;
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.maSize = maSize;
         this.sl = sl;
         this.gia = gia;
         this.tt = tt;
+    }
+
+    public String getMaHD() {
+        return maHD;
+    }
+
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
 
     public String getMaSP() {

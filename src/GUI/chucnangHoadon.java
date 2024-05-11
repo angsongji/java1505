@@ -108,7 +108,7 @@ if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLHD":
                 ShoppingCartUI p = new ShoppingCartUI(crong, heightJP_content, 
-                        view_chi_tiet_san_pham.dssptt, view_chi_tiet_san_pham.soluong,view_chi_tiet_san_pham.maSizeThem);
+                        view_chi_tiet_san_pham.dssptt,view_chi_tiet_san_pham.dsctsptt, view_chi_tiet_san_pham.soluong,view_chi_tiet_san_pham.maSizeThem);
                 // p.setPreferredSize(new Dimension(crong,heightJP_content));
                 JP_contentCuaNameChucnangCon.add(p);
                 break;

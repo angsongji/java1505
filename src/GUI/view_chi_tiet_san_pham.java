@@ -22,11 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import BUS.SanPhamBUS;
+import BUS.SizeBUS;
 import BUS.chitietsanpham_BUS;
 
 import DTO.SanPhamDTO;
+import DTO.SizeDTO;
+import DTO.chitietsanpham_DTO;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 
@@ -43,6 +47,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
     private JComboBox<String> optionsize;
     private frame_chitietsanpham j;
     public static ArrayList<SanPhamDTO> dssptt = new ArrayList<SanPhamDTO>();
+    public static ArrayList<chitietsanpham_DTO> dsctsptt = new ArrayList<chitietsanpham_DTO>();
     public static String maSizeThem;
     ImageIcon h0, h1, h2;
     
@@ -58,6 +63,14 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         this.j = j;
 
         ArrayList<String> bangsize = chitietsanpham_BUS.select_masize_by_MASP(sanpham_DTO);
+         ArrayList<String> tensize = new ArrayList<>();
+        SizeBUS sizeBUS = new SizeBUS();
+        for(String i: bangsize){
+            for(SizeDTO s : sizeBUS.getList()){
+                if(s.getMASIZE().equals(i))
+                    tensize.add(s.getTENSIZE());
+            }
+        }
 
         String h00 = "";
         String h01 = "";
@@ -230,7 +243,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
         jlc2[3].setFont(size);
         jlc2[3].addMouseListener(this);
 
-        optionsize = new JComboBox<String>(bangsize.toArray(new String[0]));
+        optionsize = new JComboBox<String>(tensize.toArray(new String[0]));
         optionsize.setPreferredSize(new Dimension(120, 30));
 
         pc2[3].add(optionsize);
@@ -291,13 +304,37 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                maSizeThem =(String) optionsize.getSelectedItem();
-                view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
+           
+                int soluong = Integer.parseInt(jlc2[6].getText());
+               
+                String tensize = (String) optionsize.getSelectedItem();
+                SizeBUS sizeBUS = new SizeBUS();
+              
+                for(SizeDTO s : sizeBUS.getList()){
+                    if(s.getTENSIZE().equals(tensize)) maSizeThem=s.getMASIZE();
+                }
+                
+                chitietsanpham_DTO ctsp = new chitietsanpham_DTO(sanpham_DTO.getMaSP(),maSizeThem,soluong);
+                System.out.println("MASP "+sanpham_DTO.getMaSP()+" ,MASIZE "+maSizeThem+" ,soluong them vao gio hang "+soluong);
+                boolean flag = true;
+                for(SanPhamDTO spDTO: dssptt){
+                    if(spDTO.getMaSP().equals(sanpham_DTO.getMaSP()))  flag = false;
+                }
+                if(flag) 
+                    view_chi_tiet_san_pham.dssptt.add(sanpham_DTO);
+                 flag = true;
+                for(chitietsanpham_DTO ctspDTO: dsctsptt){
+                    if(ctspDTO.getMASP().equals(sanpham_DTO.getMaSP()) && ctspDTO.getMASIZE().equals(maSizeThem) ) {
+                        ctspDTO.setSoluong(ctspDTO.getSoluong()+soluong);
+                        flag = false;
+                    }
+                }
+                if(flag) 
+                    view_chi_tiet_san_pham.dsctsptt.add(ctsp);
                 JOptionPane.showMessageDialog(null,
                     "Bạn đã thêm sản phẩm thành công ! \n"
                             + "Hãy vào hoá đơn để xem đơn hàng vừa thêm.", "Thông báo", JOptionPane.DEFAULT_OPTION);
-                j.dispose();
-                
+                                j.dispose();
             }
 
             @Override

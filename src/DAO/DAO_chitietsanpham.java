@@ -1,8 +1,11 @@
 package DAO;
 
+import java.net.ConnectException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import DTO.SanPhamDTO;
 
@@ -10,34 +13,43 @@ import DTO.chitietsanpham_DTO;
 import DTO.SanPhamDTO;
 
 public class DAO_chitietsanpham {
-	private ConnectDataBase c;
+	private static ConnectDataBase mySQL;
 	private SanPhamDTO sanpham_DTO;
 	public DAO_chitietsanpham() {
 		
 		try {
-			c = new ConnectDataBase();
+			mySQL = new ConnectDataBase();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	private static void ConnectDataBase() {
+        try {
+            mySQL = new ConnectDataBase();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 	
-	public ArrayList<String> select_size(SanPhamDTO h){
+	public static ArrayList<String> select_size(String maSP){
 		ArrayList<String> k = new ArrayList<String>();
 		try {
-			c.connect();
+			ConnectDataBase();
+			mySQL.connect();
 			
-			String sql = "select TENSIZE from size where MASIZE in ("
-					+ "SELECT DISTINCT MASIZE FROM chitietsanpham WHERE MASP = '"+ h .getMaSP() +"' )";
+			String sql = "select MASIZE from size where MASIZE in ("
+					+ "SELECT DISTINCT MASIZE FROM chitietsanpham WHERE MASP = '"+ maSP +"' )";
 			
-			ResultSet rs = c.executeQuery(sql);
+			ResultSet rs = mySQL.executeQuery(sql);
 			while(rs.next()) {
-				String t = rs.getString("TENSIZE");
+				String t = rs.getString("MASIZE");
 				k.add(t);
 				
 			}
-			c.disconnect();
+			mySQL.disconnect();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -50,11 +62,11 @@ public class DAO_chitietsanpham {
 		ArrayList<chitietsanpham_DTO> ds = new ArrayList<chitietsanpham_DTO>();
 		
 		try {
-			c.connect();
+			mySQL.connect();
 			
 			String sql = "select * from chitietsanpham ";
 			
-			ResultSet rs = c.executeQuery(sql);
+			ResultSet rs = mySQL.executeQuery(sql);
 			
 			while (rs.next()) {
 				
@@ -65,7 +77,7 @@ public class DAO_chitietsanpham {
 				chitietsanpham_DTO k = new chitietsanpham_DTO(masp, masize, solong);
 				ds.add(k);
 			}
-			c.disconnect();
+			mySQL.disconnect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,13 +87,13 @@ public class DAO_chitietsanpham {
 	
 	public void add(chitietsanpham_DTO d) {
 		try {
-			c.connect();
+			mySQL.connect();
 			
 			String sql = "INSERT INTO chitietsanpham (MASP,MASIZE,SOLUONG) " 
 					+ "VALUES ('" +d.getMASP() + "','" + d.getMASIZE() + "',"+d.getSoluong()+")";
 			
-			c.executeUpdate(sql);
-			c.disconnect();
+			mySQL.executeUpdate(sql);
+			mySQL.disconnect();
 			
 			System.out.println(sql);
 		} catch (SQLException e) {
@@ -93,15 +105,15 @@ public class DAO_chitietsanpham {
 	public chitietsanpham_DTO search(String MASP,String MASIZE) {
 		chitietsanpham_DTO h = null;
 		try {
-			c.connect();
+			mySQL.connect();
 			String sql = "SELECT * FROM chitietsanpham WHERE MASP = '" + MASP + "' and MASIZE = '" + MASIZE +"'";
 			
-			ResultSet rs = c.executeQuery(sql);
+			ResultSet rs = mySQL.executeQuery(sql);
 			
 			while (rs.next()) {
 				h = new chitietsanpham_DTO(MASP, MASIZE, rs.getInt("SOLUONG"));
 			}
-			c.disconnect();
+			mySQL.disconnect();
 			
 			System.out.println(sql);
 		} catch (SQLException e) {
@@ -115,25 +127,25 @@ public class DAO_chitietsanpham {
 	
 	public void update(chitietsanpham_DTO d) {
 		try {
-			c.connect();
+			mySQL.connect();
 			String sql = "update chitietsanpham set SOLUONG = SOLUONG + " + d.getSoluong() +" where MASP = '" + d.getMASP()  + "' and MASIZE = '" + d.getMASIZE() +"'";             
 					
-			c.executeUpdate(sql);
+			mySQL.executeUpdate(sql);
 			
-			c.disconnect();
+			mySQL.disconnect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
-		DAO_chitietsanpham c = new DAO_chitietsanpham();
+	// public static void main(String[] args) {
+	// 	SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
+	// 	DAO_chitietsanpham c = new DAO_chitietsanpham();
 		
-		System.out.println(c.select_all().toString());
+	// 	System.out.println(mySQL.select_all().toString());
 		
 		
 		
-	}
+	// }
 	
 }
