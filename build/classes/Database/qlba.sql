@@ -531,7 +531,7 @@ INSERT INTO `taikhoan` (`MANV`, `USERNAME`, `PASSWORD`, `NGAYTAOTK`, `TINHTRANG`
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`SOHD`,`MASP`);
+  ADD PRIMARY KEY (`SOHD`,`MASP`,`MASIZE`);
 
 --
 -- Indexes for table `chitietphieunhap`
