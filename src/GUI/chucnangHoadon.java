@@ -18,6 +18,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -89,7 +91,11 @@ if(i.getMACHUCNANG().equals(cnDTO.getMACHUCNANG())){
                 public void mouseClicked(MouseEvent e) {
                     JPanel btn_clicked = (JPanel) e.getSource();
                    chucnangDTO cn= new chucnangDTO(btn_clicked.getName());
-                   centerContent.changeCenterContent(cn, maquyen);
+                    try {
+                        centerContent.changeCenterContent(cn, maquyen);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(chucnangHoadon.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 
             });
