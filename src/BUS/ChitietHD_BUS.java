@@ -21,4 +21,10 @@ public class ChitietHD_BUS {
          public static void main (String[] args) throws SQLException{
         ChitietHD_BUS hd = new ChitietHD_BUS("HD002");
     }
+         
+         public ArrayList<ChitietHD_DTO> getList(){
+             return  dsChiTietHD;
+         }
+         
+         
 }
