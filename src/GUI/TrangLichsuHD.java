@@ -140,17 +140,7 @@ public final class TrangLichsuHD extends JPanel {
                         {System.out.println(l);
                         }
                         inHD=true;
-                        if(inHD) {
-                            try {
-                                inPDF in = new inPDF(LCont.get(4));
-                                inHD=false;
-                                 JOptionPane.showMessageDialog(null, "In hóa đơn thành công!");
-                            } catch (SQLException ex) {
-                               JOptionPane.showMessageDialog(null, "In hóa đơn thất bại!");
-                            } catch (IOException ex) {
-                                 JOptionPane.showMessageDialog(null, "In hóa đơn thất bại!");
-                            }
-                        }
+                        MAHDSelect=LCont.get(4);
                            
                         try {
                          

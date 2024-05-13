@@ -301,8 +301,20 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     case "In PDF":{
                     
                         if(!lshd.inHD){
-                            JOptionPane.showMessageDialog(null, "Click vào hóa đơn cần in!");
+                            JOptionPane.showMessageDialog(null, "Click vào hóa đơn cần in!\nSau đó ấn In PDF");
                             
+                        }else{
+                           
+                            try {
+                                inPDF in = new inPDF(lshd.MAHDSelect);
+                                lshd.inHD=false;
+                                 JOptionPane.showMessageDialog(null, "In hóa đơn thành công!");
+                            } catch (SQLException ex) {
+                               JOptionPane.showMessageDialog(null, "In hóa đơn thất bại!");
+                            } catch (IOException ex) {
+                                 JOptionPane.showMessageDialog(null, "In hóa đơn thất bại!");
+                            }
+                     
                         }
                         break;
                     }  
