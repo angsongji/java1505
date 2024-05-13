@@ -388,7 +388,7 @@ CREATE TABLE `nhanvien` (
 -- Dumping data for table `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MANV`, `TENNV`, `CHUCVU`, `SDT`, `DIACHI`, `EMAIL`) VALUES
+INSERT INTO `nhanvien` (`MANV`, `TENNV`, `CHUCVU`, `SDT`, `DIACHI`, `EMAIL`,`TRANGTHAI`) VALUES
 ('AD1', 'Thanh Sang', 'Quản lí ứng dụng', 907665456, '273 An Dương Vương Quận 5 TPHCM', 'ngthanhsangsgu@gmail.com',1),
 ('NV1', 'Thanh Phương', 'Nhân viên bán hàng', 909332432, '18 Nguyễn Tri Phương Quận 8 TPHCM', 'thanhphuong22@gmail.com',1),
 ('NV2', 'Nhật Long', 'Nhân viên bán hàng', 908332112, '23/1 Lê Hồng Phong TPHCM', 'ntLong@gmail.com',1),
