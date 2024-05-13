@@ -252,9 +252,9 @@ public class SearchInStore extends JPanel implements MouseListener {
         JPanel btn = new JPanel();
         btn.setLayout(new FlowLayout(1));
         btn.setPreferredSize(new Dimension(80, 60));
-        reset = new JButton("RESET");
+        reset = new JButton("XOÁ");
         cssBtn(reset);
-        submit = new JButton("SUBMIT");
+        submit = new JButton("TÌM");
         cssBtn(submit);
         btn.add(submit);
         btn.add(reset);

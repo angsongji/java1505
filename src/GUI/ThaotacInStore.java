@@ -179,6 +179,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         cntk_p.tkGUI = a;
                         break;
                     case "Sửa":
+                        cntk_p.tkGUI.remove(cntk_p.tkGUI.pnThaoTacTK_main);
+                        cntk_p.tkGUI.revalidate(); // Cập nhật lại container
+                        cntk_p.tkGUI.repaint();
                         if (cntk_p.tkGUI.selectedTK.getMaNV() == null) {
                             JOptionPane.showMessageDialog(null,
                                     "Xin vui lòng chọn tài khoản cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
@@ -372,13 +375,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
                             pq.isEditingEnabled = false;
 
-
-                            JOptionPane.showMessageDialog(null,"Lưu chỉnh sửa thành công!");
+                            JOptionPane.showMessageDialog(null, "Lưu chỉnh sửa thành công!");
                             s.menu.removeAll();
                             s.menu.init();
                             s.menu.revalidate();
                             s.menu.repaint();
-
 
                         } else {
                             int r2_1 = JOptionPane.showConfirmDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION);
