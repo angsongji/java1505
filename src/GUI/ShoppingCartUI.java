@@ -348,7 +348,7 @@ public class ShoppingCartUI extends JPanel {
     private void payment(String maHD, ArrayList<ChitietHD_DTO> dscthd, int maKH) {
         System.out.println(getCurrentTimeStamp());
         System.out.println(getCurrentTime());
-        Hoadon_DTO hoaDon = new Hoadon_DTO(maHD, getCurrentTimeStamp(), maKH, "", 0, totalPrice, getCurrentTime(), dscthd);
+        Hoadon_DTO hoaDon = new Hoadon_D TO(maHD, getCurrentTimeStamp(), maKH, "", 0, totalPrice, getCurrentTime(), dscthd);
         if (Hoadon_BUS.addHoaDon(hoaDon))
             JOptionPane.showMessageDialog(this, "Thêm hóa đơn thành công");
         else

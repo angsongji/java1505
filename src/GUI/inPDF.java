@@ -49,8 +49,10 @@ public class inPDF {
     private ArrayList<ChitietHD_DTO> cthdDTO;
     private model_qlkh kh;
     private Nhanvien_DTO nvDTO;
-    PdfFont font;
+    private String MAHD;
+    private PdfFont font;
     public inPDF(String MAHD) throws SQLException, FileNotFoundException, IOException{
+        this.MAHD = MAHD;
         getData(MAHD);
         init();
     }
@@ -61,7 +63,7 @@ public class inPDF {
         Nhanvien_BUS nvBUS = new Nhanvien_BUS();
         SanPhamBUS spBUS = new SanPhamBUS();
         //lay ra hhoa don dto
-         ArrayList<Hoadon_DTO> listhdDTO = hdBUS.list();
+         ArrayList<Hoadon_DTO> listhdDTO = hdBUS.dshoadon;
          for(Hoadon_DTO h: listhdDTO){
              System.out.println("Hd xet "+h.getMaHD()+" hd hien tai "+MAHD);
              if(h.getMaHD().equals(MAHD)){
@@ -75,15 +77,16 @@ public class inPDF {
          cthdDTO = cthsBUS.getList();
          
          //lay ra khach hang dto
-         kh = new model_qlkh(3, "Oanh le", "123456789", 230);
+//         kh = new model_qlkh(3, "Oanh le", "123456789", 230);
 //       
-//         for(model_qlkh k: khBUS.getlist()){
-//             System.out.println("ma kh dang xet "+String.valueOf(k.getMakh()).equals(hdDTO.getMaKH()));
-//             if(k.getMakh() ==  (Integer.parseInt(hdDTO.getMaKH())));
-//                 kh = k;
-//         }
+         for(model_qlkh k: khBUS.getlist()){
+           
+             if(k.getMakh() ==  hdDTO.getMaKH())
+                 kh = k;
+         }
          
          //lay ra nhan vien
+         System.out.println("so luong nv"+nvBUS.listnv.size());
          for(Nhanvien_DTO n: nvBUS.listnv){
             
              if(n.getManv().equals(hdDTO.getMaNV()))
@@ -99,7 +102,7 @@ public class inPDF {
            
     }
     private void init() throws FileNotFoundException, IOException {
-        String path="test.pdf";
+        String path=MAHD+".pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDoc = new PdfDocument(pdfWriter);
         
@@ -151,7 +154,7 @@ public class inPDF {
          //layout ngay hóa đơn
         
          labelNgay.add("Ngày: ");
-          labelNgay.add(hdDTO.getNgayHD());
+          labelNgay.add(hdDTO.getNgayHD()+" "+hdDTO.getThoigian());
         labelNgay.setFontSize(6);
           labelNgay.setMarginTop(0f);
         doc.add(labelNgay);
@@ -160,19 +163,22 @@ public class inPDF {
         labelNV.add("Nhân viên: ");
         labelNV.add(nvDTO.getManv()+" - "+nvDTO.getTennv());
         labelNV.setMarginTop(0f);
+        labelNV.setFont(font);
         labelNV.setFontSize(6);
         doc.add(labelNV);
          
         
        
         labelKH.add("Khách hàng: ");
-        labelKH.add(kh.getMakh()+" - "+kh.getTen()+" - 0"+kh.getSdt());
+        labelKH.add(kh.getMakh()+" - "+kh.getTen());
+        labelKH.setFont(font);
         labelKH.setMarginTop(0f);
+        labelKH.setMarginBottom(10f);
         labelKH.setFontSize(6);
         doc.add(labelKH);
         
         
-        String []headerTable={"Tên sản phẩm","SL","Đon giá","Thành tiền"};
+        String []headerTable={"Tên sản phẩm","SL","Đơn giá","Thành tiền"};
         float []colWidth={60,15,30,35};
         Table chitietsanpham = new Table(colWidth);
         for(String i : headerTable){
@@ -188,33 +194,36 @@ public class inPDF {
         for(ChitietHD_DTO c : cthdDTO){
              Paragraph infor = new Paragraph(c.getTenSP());
                 infor.setFontSize(4);
+                infor.setFont(font);
             infor.setTextAlignment(TextAlignment.CENTER); 
             chitietsanpham.addCell(infor);
             
             
-              Paragraph infor1 = new Paragraph(String.valueOf(c.getSl()));
+              Paragraph infor1 = new Paragraph(c.getSl()+"");
                 infor1.setFontSize(4);
             infor1.setTextAlignment(TextAlignment.CENTER); 
             chitietsanpham.addCell(infor1);
             
-            Paragraph infor2 = new Paragraph(c.getTenSP());
+            Paragraph infor2 = new Paragraph(c.getGia()+"");
                 infor2.setFontSize(4);
             infor2.setTextAlignment(TextAlignment.CENTER); 
             chitietsanpham.addCell(infor2);
             
             
-              Paragraph infor3 = new Paragraph(String.valueOf(c.getSl()));
+              Paragraph infor3 = new Paragraph(c.getTt()+"");
                 infor3.setFontSize(4);
             infor3.setTextAlignment(TextAlignment.CENTER); 
             chitietsanpham.addCell(infor3);
             
         }
+        
         doc.add(chitietsanpham);
         
         
         labelTOTAL.add(new Text("Tổng cộng ").setBold());
         labelTOTAL.setFont(font);
         labelTOTAL.setFontSize(6);
+        labelTOTAL.setMarginTop(10f);
         labelTOTAL.add((hdDTO.getTongTien()+hdDTO.getGiamgia())+"");
         labelTOTAL.setMarginBottom(0);
         doc.add(labelTOTAL);
@@ -252,7 +261,7 @@ labelThanks.setFontSize(8);
          
     }
     public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
-        inPDF in= new inPDF("HD1");
+        inPDF in= new inPDF("HD4");
         
     }
 }
