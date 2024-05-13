@@ -7,14 +7,16 @@ import DAO.DAO_chitietsanpham;
 import DTO.chitietsanpham_DTO;
 
 import DTO.SanPhamDTO;
+import java.sql.SQLException;
 
 public class chitietsanpham_BUS {
 	ArrayList<chitietsanpham_DTO> ds;
 	public chitietsanpham_BUS() {
 		newlist();
+        }
+        
 	
-		
-	}
+
 	public void newlist() {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();
 		
@@ -49,6 +51,11 @@ public class chitietsanpham_BUS {
 		}
 	}
 	
+        public void Restore_pro(chitietsanpham_DTO cp) throws SQLException {
+        DAO_chitietsanpham nvDAO = new DAO_chitietsanpham();
+        nvDAO.Restore_pro(cp);
+        }
+        
 	
 	public int getSoLuong(String masp, String masize) {
 		int i = 0;
@@ -60,19 +67,19 @@ public class chitietsanpham_BUS {
 		return i;
 	}
 
-	public static void main(String[] args) {
-		SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
-		chitietsanpham_BUS c = new chitietsanpham_BUS();
-		for (chitietsanpham_DTO h : c.getlist()) {
-			System.out.println(h.toString());
-		}
-		chitietsanpham_DTO d = new chitietsanpham_DTO("SP9", "SIZE3", 6);
-		c.update(d);
-		System.out.println();
-		for (chitietsanpham_DTO h : c.getlist()) {
-			System.out.println(h.toString());
-		}
-	}
+	// public static void main(String[] args) {
+	// 	SanPhamDTO m = new SanPhamDTO("SP8", null,null, 0, args, 0);
+	// 	chitietsanpham_BUS c = new chitietsanpham_BUS();
+	// 	for (chitietsanpham_DTO h : c.getlist()) {
+	// 		System.out.println(h.toString());
+	// 	}
+	// 	chitietsanpham_DTO d = new chitietsanpham_DTO("SP9", "SIZE3", 6);
+	// 	c.update(d);
+	// 	System.out.println();
+	// 	for (chitietsanpham_DTO h : c.getlist()) {
+	// 		System.out.println(h.toString());
+	// 	}
+	// }
 		
 	
 	

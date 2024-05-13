@@ -45,9 +45,9 @@ public class ConnectDataBase {
 
    public void connect() throws SQLException {
       try {
-        
+          System.out.println("tai sao");
          Class.forName(driver);
-         conn = DriverManager.getConnection(url + dbName + "?useSSL=false", userName, password);
+         conn = DriverManager.getConnection(url + dbName + "?sslMode=DISABLED", userName, password);
       } catch (ClassNotFoundException e) {
 //         throw new SQLException("Driver not found");
       }
@@ -84,6 +84,7 @@ public void disconnect() {
       try {
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
+            
         } catch (SQLException ex) {
             System.out.println("Thực hiện thất bại" + ex.getMessage());
         }

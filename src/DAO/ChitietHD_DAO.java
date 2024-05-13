@@ -12,10 +12,7 @@ import java.util.logging.Logger;
 public class ChitietHD_DAO {
     public ConnectDataBase mySQL; 
     public ChitietHD_DAO() throws SQLException {
-        try{
-            mySQL = new ConnectDataBase();
-        }catch(Exception e){}
-        
+        mySQL = new ConnectDataBase();
     }
     
     public ArrayList<ChitietHD_DTO> list(String maHD)
@@ -86,19 +83,15 @@ public class ChitietHD_DAO {
     
      
     
-    public boolean delete(String m) {
+    public boolean delete(String m) throws SQLException {
     boolean success = false;
-        try {
-            mySQL.connect();
-        } catch (SQLException ex) {
-            Logger.getLogger(ChitietHD_DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    mySQL.connect();
     String query= "DELETE FROM chitiethoadon WHERE SOHD = '" + m +"';";
-         boolean result = mySQL.executeupdate(query);
+    boolean result = mySQL.executeupdate(query);
     if(result) {
         // cập nhật lại số lượng sản phẩm 
         System.out.println("Xoa san pham hoa don thanh cong!");
-        success = true; 
+        success = true;
     } else {
         System.out.println("Xoa san pham hoa don that bai!");
     }
@@ -110,7 +103,7 @@ public class ChitietHD_DAO {
         ChitietHD_DAO cthd = new ChitietHD_DAO();
         ArrayList<ChitietHD_DTO> list = cthd.list("HD001");
 //        ArrayList<chitietsanpham_DTO> listup = cthd.listtorestore("HD002");
-//        cthd.delete("HD001");
+        cthd.delete("HD1");
 
     }
 }
