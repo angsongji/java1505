@@ -90,7 +90,7 @@ public class CenterContentStore extends JPanel {
         
     }
 
-    public void changeCenterContent(chucnangDTO cnDTO, String maquyen) {
+    public void changeCenterContent(chucnangDTO cnDTO, String maquyen) throws SQLException {
         this.search.removeAll();
      this.search.revalidate();
         this.search.repaint();

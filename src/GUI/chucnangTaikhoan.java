@@ -37,7 +37,7 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
     private ArrayList<chucnangDTO> listChucnangCon;
     public JPanel JP_contentCuaNameChucnangCon;
     private CenterContentStore centerContent;
-    public chucnangTaikhoan(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) {
+    public chucnangTaikhoan(CenterContentStore centerContent,chucnangDTO cnDTO,String maquyen) throws SQLException {
         this.centerContent=centerContent;
         ccao = (int)centerContent.pageContent.getPreferredSize().getHeight();
         crong = (int)centerContent.pageContent.getPreferredSize().getWidth();
@@ -45,7 +45,7 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
         
         init(cnDTO,maquyen);
     }
-    private void init(chucnangDTO cnDTO,String maquyen) {
+    private void init(chucnangDTO cnDTO,String maquyen) throws SQLException {
         listChucnangCon.add(new chucnangDTO("NULLTK","NULLTEN"));
         listChucnangCon.add(new chucnangDTO("TK","Tài khoản"));
         JP_listNameChucnangConCuaTaikhoan = new JPanel(new FlowLayout(3));
@@ -79,7 +79,11 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
                 public void mouseClicked(MouseEvent e) {
                     JPanel btn_clicked = (JPanel) e.getSource();
                    chucnangDTO cn= new chucnangDTO(btn_clicked.getName());
-                   centerContent.changeCenterContent(cn, maquyen);
+                    try {
+                        centerContent.changeCenterContent(cn, maquyen);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(chucnangTaikhoan.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 
             });
