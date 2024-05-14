@@ -1,6 +1,8 @@
 
 package DTO;
 
+import java.util.ArrayList;
+
 public class Hoadon_DTO {
     private String maHD,maNV;
     private String ngayHD, thoigian;
@@ -14,6 +16,10 @@ public class Hoadon_DTO {
         this.giamgia = giamgia;
         this.tongTien = tongTien;
         this.thoigian = thoigian;
+    }
+
+    public Hoadon_DTO(String maHD, String currentTimeStamp, int maKH, String string, int i, double totalPrice, String currentTime, ArrayList<ChitietHD_DTO> dscthd) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getThoigian() {

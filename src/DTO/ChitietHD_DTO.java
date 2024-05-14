@@ -17,6 +17,10 @@ public class ChitietHD_DTO {
         this.tt = tt;
     }
 
+    public ChitietHD_DTO(String maHD, String maSP, String tenSP, String masize, int soluong, double price, double totalPrice) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public String getMaSP() {
         return maSP;
     }

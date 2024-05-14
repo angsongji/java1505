@@ -8,6 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class Hoadon_BUS {
+
+    public static int getNumberOfRow() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public static boolean addHoaDon(Hoadon_DTO hoaDon) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     public ArrayList<Hoadon_DTO> dshoadon;
     
     public Hoadon_BUS() throws SQLException{
