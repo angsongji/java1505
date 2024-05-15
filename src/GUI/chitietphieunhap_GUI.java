@@ -30,6 +30,7 @@ import DAO.DAO_chitietphieunhap;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
 import DTO.phieunhap_DTO;
+import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
 
 public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	private phieunhap_DTO phieunhap_DTO;
@@ -189,7 +190,7 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 		this.DAO_chiChitietphieunhap = new DAO_chitietphieunhap();
 		this.clicked_chinhsua = false;
 		Font f = new Font(TOOL_TIP_TEXT_KEY, 1, 20);
-		 d = new DecimalFormat("#,###") ;
+		 d = new DecimalFormat("#,###.00") ;
 		this.phieunhap_GUI = phieunhap_GUI;
 		Color mau = Color.decode("#60A3BC");
 		
