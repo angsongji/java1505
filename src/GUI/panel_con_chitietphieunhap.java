@@ -278,8 +278,8 @@ public class panel_con_chitietphieunhap extends JPanel implements MouseListener{
 	public boolean so_sanh_gia_sanpham() {
 		
 		
-		SanPhamDTO m = sanPhamBUS.select_by_id(h.getMasp());
-		if (Double.parseDouble(jt[1].getText().replaceAll(",", "")) != m.getPrice()) {
+		
+		if (Double.parseDouble(jt[1].getText().replaceAll(",", "")) != h.getGianhap()) {
 			return false;
 		}
 		return true;

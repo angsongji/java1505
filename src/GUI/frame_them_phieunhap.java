@@ -15,9 +15,9 @@ public class frame_them_phieunhap  extends JFrame{
 		 this.add(c);
 		 
 		 
-		 
+		 this.setUndecorated(true);
 		 this.setVisible(true);
-                 this.setUndecorated(true);
+                
 	 }
 	 public void them_chitietphieunhap() {
 		 this.c.them_chitietphieunhap();

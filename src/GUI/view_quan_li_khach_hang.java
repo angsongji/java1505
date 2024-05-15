@@ -34,6 +34,8 @@ import DTO.TaiKhoanDTO;
 import DTO.model_qlkh;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -44,12 +46,12 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 	private JLabel[] jl,jl1,jl3,jlha,jl1_r;
 	private JTextField[] tf;
 	private String[] timkiem,thaotac,hinhanh,option_so,option_kitu;
+        private int diemmin,diemmax;
 	private  Boolean clickedchinhsua,clickedxoa,clickedthem ;
 	private ArrayList<model_qlkh> ds_kh_update_loi;
 	private JPanel panel_north;
 	private Border border_thaotac;
 	private  panel_bang_dskh panel_bang_dskh;
-	
 	private JComboBox<String> optiondtl,optiontenkh,optionmkh;
 	private frame_themkh frame_themkh;
 	private frame_thong_bao_update frame_thong_bao_update;
@@ -81,7 +83,8 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
                 this.frame_themkh = null;
 		border_thaotac = BorderFactory.createMatteBorder(2, 0, 0, 0,Color.decode("#60A3BC") );
 		 mkh = ten =sdt = diem = "";
-		
+		 diemmin = 0;
+                diemmax = 1000000;
 		
 		panel_north.setLayout(new FlowLayout());
 		panel_north.setPreferredSize(new Dimension(this.getPreferredSize().width,265));
@@ -120,101 +123,73 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 //		*********************   option tim kiem khach hang *********************
 		
                     
-//		 optionmkh = new JComboBox<String>(option_so);
-//		optionmkh.setPreferredSize(new Dimension(150,25));optionmkh.setEditable(true);
-//		optiondtl = new JComboBox<String>(option_so);
-//		optiondtl.setPreferredSize(new Dimension(150,25));optiondtl.setEditable(true);
-//		 optiontenkh = new JComboBox<String>(option_kitu);
-//		optiontenkh.setPreferredSize(new Dimension(150,25));optiontenkh.setEditable(true);
+////////////////////////////////////////////////// tMAKH //////////////////////////             
                 
                 
-                
-                tf= new JTextField[4];
+                tf= new JTextField[5];
                 
                 tf[0] = new JTextField();
                 tf[0].setPreferredSize(new Dimension(150, 25));
-//                tf[0].setForeground(Color.GRAY);
-//                tf[0].addFocusListener(new FocusListener() {
-//                    @Override
-//                    public void focusGained(FocusEvent e) {
-//                        if (tf[0].getText().equals("min-max/max-min")){
-//                            tf[0].setText("");
-//                            tf[0].setForeground(Color.black);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void focusLost(FocusEvent e) {
-//                        if (tf[0].getText().equals("")){
-//                            tf[0].setText("min-max/max-min");
-//                            tf[0].setForeground(Color.GRAY);
-//                        }
-//                    }
-//                    
-//                });
-//                tf[0].getDocument().addDocumentListener(new DocumentListener() {
-//                    @Override
-//                    public void insertUpdate(DocumentEvent e) {
-//                        mkh = tf[0].getText();
-//                    }
-//
-//                    @Override
-//                    public void removeUpdate(DocumentEvent e) {
-//                        mkh = tf[0].getText();
-//                    }
-//
-//                    @Override
-//                    public void changedUpdate(DocumentEvent e) {
-//                        mkh = tf[0].getText();
-//                              
-//                    }
-//                });
-//                
+                
+               
+                tf[0].getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        mkh = tf[0].getText();
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                        mkh = tf[0].getText();
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        mkh = tf[0].getText();
+                              
+                    }
+                });
                 
                 
+                ///////////////////////////////////////////// TEN KH ///////////////////////////////////////////
                 tf[1] = new JTextField();
                 tf[1].setPreferredSize(new Dimension(150, 25));
-//                tf[1].setForeground(Color.GRAY);
-//                tf[1].addFocusListener(new FocusListener() {
-//                    @Override
-//                    public void focusGained(FocusEvent e) {
-//                        if (tf[1].getText().equals("a-z/z-a")){
-//                            tf[1].setText("");
-//                            tf[1].setForeground(Color.black);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void focusLost(FocusEvent e) {
-//                        if (tf[1].getText().equals("")){
-//                            tf[1].setText("a-z/z-a");
-//                            tf[1].setForeground(Color.GRAY);
-//                        }
-//                    }
-//                    
-//                });
-//                tf[1].getDocument().addDocumentListener(new DocumentListener() {
-//                    @Override
-//                    public void insertUpdate(DocumentEvent e) {
-//                        ten = tf[1].getText();
-//                    }
-//
-//                    @Override
-//                    public void removeUpdate(DocumentEvent e) {
-//                        ten = tf[1].getText();
-//                    }
-//
-//                    @Override
-//                    public void changedUpdate(DocumentEvent e) {
-//                        ten = tf[1].getText();
-//                              
-//                    }
-//                });
                 
+               
+                  
+                tf[1].getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        ten = tf[1].getText();
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                        ten = tf[1].getText();
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        ten = tf[1].getText();
+                              
+                    }
+                });
                 
+        //////////////////////////////////////////////// SO DIEN THAOI /////////////////////////////////////////////
                 tf[2]= new JTextField();
                         
                 tf[2].setPreferredSize(new Dimension(150, 25));
+                
+                tf[2].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+					e.consume();
+				}
+			}
+			
+			
+		});
                 
                 tf[2].getDocument().addDocumentListener(new DocumentListener() {
                     @Override
@@ -234,22 +209,132 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
                     }
                 });
                 
-                
-                
-                
-                
-                
-                tf[3] = new JTextField();
-                tf[3].setPreferredSize(new Dimension(150, 25));
-		
-		
-		
-		
-		for (int  i = 0 ; i< 4; i++) {
+                for (int  i = 0 ; i< 3; i++) {
 			jp1[i] = new JPanel();
 			jp1[i].setBackground(Color.white);
                         jp1[i].add(tf[i]);
 		}
+                
+                
+                
+        //////////////////////////////////////////////////////////////// DIEM /////////////////////////////
+        
+            jp1[3] = new JPanel();
+            jp1[3].setLayout(new FlowLayout());
+            jp1[3].setBackground(Color.white);
+            
+            
+            tf[3] = new JTextField();
+            tf[3].setPreferredSize(new Dimension(90, 25));
+             tf[3].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+					e.consume();
+				}
+			}
+			
+			
+		});
+            tf[3].getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        String t = tf[3].getText();
+                        if (t.isEmpty()){
+                            diemmin = 0;
+                        } else {
+                            diemmin = Integer.parseInt(t) ;
+                        }
+                        
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                       String t = tf[3].getText();
+                        if (t.isEmpty()){
+                            diemmin = 0;
+                        } else {
+                            diemmin = Integer.parseInt(t) ;
+                        }
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        String t = tf[3].getText();
+                        if (t.isEmpty()){
+                            diemmin = 0;
+                        } else {
+                            diemmin = Integer.parseInt(t) ;
+                        }
+                              
+                    }
+                });
+            
+            
+            
+            
+            tf[4] = new JTextField();
+            tf[4].setPreferredSize(new Dimension(90, 25));
+             tf[4].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+					e.consume();
+				}
+			}
+			
+			
+		});
+             tf[4].getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        String t = tf[4].getText();
+                        if (t.isEmpty()){
+                            diemmax = 1000000;
+                        } else {
+                            diemmax = Integer.parseInt(t) ;
+                        }
+                        
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                       String t = tf[4].getText();
+                        if (t.isEmpty()){
+                            diemmax = 1000000;
+                        } else {
+                            diemmax = Integer.parseInt(t) ;
+                        }
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                       String t = tf[4].getText();
+                        if (t.isEmpty()){
+                            diemmax = 1000000;
+                        } else {
+                            diemmax = Integer.parseInt(t) ;
+                        }
+                              
+                    }
+                });
+             
+             
+             
+             
+             
+             
+             
+             jp1[3].add(tf[3]);
+             JLabel den = new JLabel("đến");
+            jp1[3].add(den);
+            jp1[3].add(tf[4]);
+                
+		
+		
+		
+		
+		
 		
 		
 		for (int  i = 0 ; i< 4; i++) {
@@ -639,9 +724,9 @@ public class view_quan_li_khach_hang extends JPanel implements MouseListener{
 		return this.BUS_qlkh;
 	}
 	public void search() {
-		
-		
-			BUS_qlkh.search(mkh, ten, sdt, diem);
+                    
+                    System.out.println(diemmin + " va " + diemmax);
+			BUS_qlkh.search(mkh, ten, sdt, diemmin,diemmax);
 			ArrayList<model_qlkh> ds1 = BUS_qlkh.getlist();
 			
 			this.panel_bang_dskh = new panel_bang_dskh(this.getPreferredSize().width, this.getPreferredSize().height, ds1);

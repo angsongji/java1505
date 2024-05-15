@@ -35,7 +35,7 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 	public thong_bao_phieunhap( String t,phieunhap_GUI phieunhap_GUI) {
 		this.phieunhap_GUI = phieunhap_GUI;
 		
-		this.setSize(600,400);
+		this.setSize(400,400);
 		
 		this.content = t;
 		this.setLayout(new BorderLayout());
@@ -100,7 +100,8 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 			
 		panel_c2 = new JPanel();
 		panel_c2.setPreferredSize(new Dimension(this.getWidth(),(this.getHeight()-30)/3));
-		jl_c2 = new JLabel(t,JLabel.LEFT);jl_c2.setBackground(Color.white);jl_c2.setOpaque(true);
+		jl_c2 = new JLabel(t,JLabel.LEFT);
+//                jl_c2.setBackground(Color.white);jl_c2.setOpaque(true);
 		jl_c2.setPreferredSize(new Dimension(panel_c2.getPreferredSize().width-panel_c2.getPreferredSize().width/3,panel_c2.getPreferredSize().height-panel_c2.getPreferredSize().height/3));
 		jl_c2.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
 		panel_c2.setLayout(new FlowLayout(1));
@@ -138,7 +139,7 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 		this.add(panel_north, BorderLayout.NORTH);
 		this.add(panel_center, BorderLayout.CENTER);
 		
-		
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		
 		
 	}
@@ -252,6 +253,12 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
                                 this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
                                 this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 			}
+                        if(this.content.contains("Trả về giá trị ban đầu")){
+                            this.phieunhap_GUI.tra_ve_gia_tri_cu();
+                            
+                            this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                            this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+                        }
                         
                        
 			

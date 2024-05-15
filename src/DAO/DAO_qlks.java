@@ -189,7 +189,7 @@ public class DAO_qlks {
 	}
 	
 
-	public ArrayList<model_qlkh> search(String ma_kh,String ten,String sdt,String diem){
+	public ArrayList<model_qlkh> search(String ma_kh,String ten,String sdt,int diemmin,int diemmax){
 		ArrayList<model_qlkh> h = new ArrayList<model_qlkh>();
 	
 		
@@ -200,61 +200,14 @@ public class DAO_qlks {
 //		Statement st = conn.createStatement();
 		
 		
-		String mkh = "",tenn="" ,dtll ="",t="";
 		
-		if (ma_kh.equals("min-max") ) {
-                        ma_kh = "";
-                        
-			mkh = " MAKH asc ";
-		} else if (ma_kh.equals("max-min")) {
-                        ma_kh = "";
-			mkh = " MAKH desc ";
-		}
-		if (ten.equals("a-z") ) {
-                        ten ="";
-                        if (mkh.isEmpty()){
-                            tenn = " TENKH ASC ";
-                        } else {
-                            tenn = " , TENKh asc ";
-                        }
-			
-		} else if (ten.equals("z-a")) {
-                        ten = "";
-                        if (mkh.isEmpty()){
-                            tenn = " TENKH desc ";
-                        } else {
-                            tenn = " , TENKH desc ";
-                        }
-			
-		}
-		if (diem.equals("min-max") ) {
-                        diem = "";
-                        if (mkh.isEmpty() && tenn.isEmpty()){
-                           dtll = " DIEMTICHLUY asc "; 
-                        } else {
-                            dtll = " , DIEMTICHLUY asc";
-                        }
-                    
-			
-		} else if (diem.equals("max-min")) {
-                        diem = "";
-                        if (mkh.isEmpty() && tenn.isEmpty()){
-                            dtll = " DIEMTICHLUY desc ";
-                        } else {
-                            dtll = " , DIEMTICHLUY DESC ";
-                        }
-			
-		}
-                if (!mkh.isEmpty() || !tenn.isEmpty() || !dtll.isEmpty()){
-                    t = " order by ";
-                }
 		
                 
                 
                 
 		String sql = "select * from khachhang where TENKH like '%" + ten + "%' and SDT like '%" + sdt +"%' " +
-				"and MAKH like '%" + ma_kh +"%' "+ "and DIEMTICHLUY like '%" +diem+"%' "+
-                        t + mkh + tenn + dtll;
+				"and MAKH like '%" + ma_kh +"%' "+ "and DIEMTICHLUY BETWEEN "+ diemmin  +" AND " + diemmax  ;
+                        
                 
                 
                 
@@ -263,8 +216,7 @@ public class DAO_qlks {
 		c.connect();
 		
 		ResultSet rs = c.executeQuery(sql);
-		System.out.println(sql);
-		System.out.println("mkh = " + mkh + " , tenn = " + tenn);
+		
 		while(rs.next()) {
 			int makh = rs.getInt("MAKH");
 			String tenkh = rs.getString("TENKH");
@@ -323,14 +275,6 @@ public class DAO_qlks {
         // Trả về giá trị mặc định nếu không lấy được từ cơ sở dữ liệu
         return 0;
     }
-	 public static void main(String[] args) {
-		DAO_qlks c = new DAO_qlks();
-                ArrayList<model_qlkh> ds = c.search("max-min", "a-z", "", "max-min");
-                        
-		for (model_qlkh h : ds){
-                    System.out.println(h.toString());
-                    
-                }
-	} 
+
 	
 }

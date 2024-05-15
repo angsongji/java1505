@@ -584,6 +584,9 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 		this.repaint();
 		this.revalidate();
 	}
+        public void tra_ve_gia_tri_cu(){
+            this.chitietphieunhap_GUI.return_gia_tri_cu();
+        }
 	
 	
         

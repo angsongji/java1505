@@ -569,9 +569,7 @@ public class panel_them_phieunhap extends JPanel implements MouseListener{
 			}
 			
 		}
-                if (e.getSource() == jl[7]){
-                    this.j.setVisible(false);
-                }
+                
 		
 	}
 	
