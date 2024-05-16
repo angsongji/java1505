@@ -33,6 +33,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 
@@ -56,7 +57,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
     // Định dạng sử dụng dấu phân cách hàng nghìn
     DecimalFormat FormatInt = new DecimalFormat("#,###"); //phuong them
 
-    public view_chi_tiet_san_pham(SanPhamDTO sanpham_DTO, frame_chitietsanpham j) {
+    public view_chi_tiet_san_pham(SanPhamDTO sanpham_DTO, frame_chitietsanpham j) throws SQLException {
         soluong = 1;
 
         this.sanpham_DTO = sanpham_DTO;

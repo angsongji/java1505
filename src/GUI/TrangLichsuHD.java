@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -124,6 +125,8 @@ public final class TrangLichsuHD extends JPanel {
                 pa.addMouseListener(new MouseAdapter() {
                 @Override
                     public void mouseClicked(MouseEvent e) {
+                        changeColorJPanelChild(pa,Cacthuoctinh_phuongthuc_chung.darkness_blue,Color.white);
+                        pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,  Color.decode("#60A3BC")));                       
                         JPanel HDItem = (JPanel) e.getSource();
                             HDItem.setBackground(Color.decode("#0A3D62"));
                             Component[] components = HDItem.getComponents();
@@ -416,6 +419,8 @@ public final class TrangLichsuHD extends JPanel {
                 pa.addMouseListener(new MouseAdapter() {
                 @Override
                     public void mouseClicked(MouseEvent e) {
+                        changeColorJPanelChild(pa,Cacthuoctinh_phuongthuc_chung.darkness_blue,Color.white);
+                            pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,  Color.decode("#60A3BC")));                       
                         JPanel HDItem = (JPanel) e.getSource();
                             HDItem.setBackground(Color.decode("#0A3D62"));
                             Component[] components = HDItem.getComponents();
@@ -495,13 +500,67 @@ public final class TrangLichsuHD extends JPanel {
      }
    
     
+    public void search(ArrayList<Hoadon_DTO> list) throws SQLException {
+        this.setPreferredSize(new Dimension(chieurong,chieucao));
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            right = new JPanel(); 
+            right.setPreferredSize(new Dimension(chieurong*3/5, 0));
+            right.setBackground(Color.white); 
+            right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
+                p = new JPanel(); 
+                p.setLayout(new BorderLayout());
+                p.add(new JLabel("Chưa lựa chọn Hóa đơn để hiển thị chi tiết",JLabel.CENTER),BorderLayout.CENTER);
+                p.setPreferredSize(new Dimension(chieurong*3/5,0));
+                p.setBackground(Color.WHITE);
+            right.add(p);
+            left = new JPanel();
+            left.setPreferredSize(new Dimension(chieurong*2/5, 0));
+            left.setBackground(Color.white);
+            left.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4,  Color.decode("#60A3BC")));
+        this.add(left);
+        this.add(right);
+        // create title
+        String[] columnNames = {"Ngay","Thoigian","KH", "Nhanvien","Hoadon","Giamgia","Thanhtien" }; 
+                    JPanel titlePanel = new JPanel();
+                        titlePanel.setLayout(new FlowLayout(1,0,0));
+                        titlePanel.setBackground(Color.decode("#60A3BC"));
+                     for (String col : columnNames) {
+                        
+                            JLabel l = new JLabel(col,JLabel.CENTER);
+                                l.setPreferredSize(new Dimension(((chieurong)*2/5)/7, 30));
+                                l.setFont(new Font(l.getFont().getName(), Font.CENTER_BASELINE, 12));
+                                l.setForeground(Color.white);
+                        titlePanel.add(l);
+                             }
+                     left.add(titlePanel);
+            for (Hoadon_DTO hd : list) {
+               addHD_gui(this,hd);
+            }
+    }
+        
     public void removePanel(JPanel itemHD, JPanel control) {
     this.remove(itemHD); // Xóa panel itemNV khỏi container
     this.remove(control); // Xóa panel control khỏi container
     this.revalidate(); // Cập nhật container
     this.repaint(); // Vẽ lại container để hiển thị sự thay đổi
 }
+    public void changeColorJPanelChild(JPanel p, Color bg, Color fg) {
+        p.setBackground(bg);
+        p.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Component[] components = p.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+                label.setForeground(fg);
 
+            }
+        }
+        MouseListener[] mouseListeners = p.getMouseListeners();
+        for (MouseListener listener : mouseListeners) {
+            p.removeMouseListener(listener);
+        }
+
+    }
 // reload trang nhân viên
     public void reloadPage() throws SQLException {
         // Xóa toàn bộ nội dung của frame
@@ -520,6 +579,39 @@ public void reloadPagecontrol() throws SQLException {
         revalidate();
         repaint();
     }
+    
+ public void reloadSearch(ArrayList<Hoadon_DTO> listhd) throws SQLException {
+        this.removeAll();
+        this.search(listhd);
+        revalidate();
+        repaint();
+    }
+ public void SearchHD(ArrayList<String> data_filter) throws SQLException, ParseException {
+    for (String data : data_filter) {
+        System.out.print("-------" + data);
+    }
+
+    String id_search = data_filter.get(0);
+    String begin_d = data_filter.get(1);
+    String end_d = data_filter.get(2);
+
+    ArrayList<Hoadon_DTO> listhd = new ArrayList<>();
+
+    if (!id_search.equals("")) {
+        if (begin_d.equals(end_d) && begin_d.equals("2024/05/16")) {
+            listhd = lshd.search_for_ID(id_search);
+        } else {
+            listhd = lshd.search_for_IDDate(id_search, begin_d, end_d);
+        }
+    } else {
+        if (begin_d.equals(end_d) && begin_d.equals("2024/05/16")) {
+            JOptionPane.showMessageDialog(null, "Mời nhập thông tin tìm kiếm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            listhd = lshd.search_for_Date(begin_d, end_d);
+        }
+    }
+    this.reloadSearch(listhd);
+}
      public static void main (String[] args) throws SQLException{
         JFrame f = new JFrame ();
         f.setSize(1200,800);

@@ -20,12 +20,16 @@ import java.util.ArrayList;
 import java.awt.Cursor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
@@ -404,7 +408,7 @@ public class SearchInStore extends JPanel implements MouseListener {
 
     }
 
-    public void searchOfChucnang(ArrayList<String> data_filter) {
+    public void searchOfChucnang(ArrayList<String> data_filter) throws SQLException, ParseException {
         Component[] components = pageContent.getComponents();
         switch (MACHUCNANG) {
             case "NCC": {
@@ -464,10 +468,19 @@ public class SearchInStore extends JPanel implements MouseListener {
                 spGUI.repaint();
                 spGUI.validate();
                 break;
+            case "HD":
+                chucnangHoadon cnhd = (chucnangHoadon) components[0];
+                JPanel pnCont = cnhd.JP_contentCuaNameChucnangCon;
+                Component[] pn = pnCont.getComponents();
+                TrangLichsuHD lshd = (TrangLichsuHD) pn[0];
+                lshd.SearchHD(data_filter);
+                lshd.repaint();
+                lshd.validate();
+                break;
         }
     }
 
-    public void resetOfChucnang() {
+    public void resetOfChucnang() throws SQLException, ParseException {
         ArrayList<String> data_filter = new ArrayList<>();
         switch (MACHUCNANG) {
             case "NCC": {
@@ -509,6 +522,11 @@ public class SearchInStore extends JPanel implements MouseListener {
                 data_filter.add("");
                 data_filter.add("Tất cả");
                 break;
+            case "HD": {
+                data_filter.add("");
+                data_filter.add("Tất cả");
+                break;
+            }
         }
         searchOfChucnang(data_filter);
     }
@@ -541,7 +559,13 @@ public class SearchInStore extends JPanel implements MouseListener {
                     data_filter.add(dateString);
                 }
             }
-            searchOfChucnang(data_filter);
+            try {
+                searchOfChucnang(data_filter);
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchInStore.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(SearchInStore.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             for (Component c : listComponentTimkiem) {
                 if (c instanceof JTextField) {
@@ -579,7 +603,13 @@ public class SearchInStore extends JPanel implements MouseListener {
                     date.setEditor(dateEditor);
                 }
             }
-            resetOfChucnang();
+            try {
+                resetOfChucnang();
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchInStore.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(SearchInStore.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

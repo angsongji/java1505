@@ -35,6 +35,7 @@ import BUS.chitietsanpham_BUS;
 import DTO.SanPhamDTO;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
+import java.sql.SQLException;
 
 public class panel_con_nhapsanpham extends JPanel implements MouseListener {
 	private JTextField jt[];
@@ -359,7 +360,7 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
 		return true;
 	}
 	
-	public void update_chitietsanpham() {
+	public void update_chitietsanpham() throws SQLException {
 		xacnhan();
 		String masp = (String) option_masp.getSelectedItem();
 		String masize = (String) option_masize.getSelectedItem();
