@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -220,7 +221,7 @@ public void show_control( Trangnhanvien_GUI nvGUI,Nhanvien_DTO nv) {
     control.setBounds((chieurong - 300) / 2, (chieucao - 280) / 2, chieurong, 200);
     control.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
     control.setLayout(new FlowLayout(1, 10, 0));
-    JLabel title = new JLabel("Bạn muốn thay đổi thông tin nhân viên?", JLabel.LEFT);
+    JLabel title = new JLabel("Chọn thao tác với thông tin nhân viên?", JLabel.LEFT);
     title.setForeground(Color.decode("#60A3BC"));
     title.setPreferredSize(new Dimension(chieurong-294, 50)); 
     title.setFont(new Font(title.getFont().getName(), Font.BOLD, 14));
@@ -252,6 +253,7 @@ public void show_control( Trangnhanvien_GUI nvGUI,Nhanvien_DTO nv) {
                     if (dsnv.check_accNV(nv))
                     {
                         dsnv.update_tt(nv);
+                            JOptionPane.showMessageDialog(null, "Đã cập nhật trạng thái nhân viên!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         try {
                             reloadPagecontrol();
                         } catch (SQLException ex) {
@@ -260,6 +262,7 @@ public void show_control( Trangnhanvien_GUI nvGUI,Nhanvien_DTO nv) {
                     else {
                         removePanel(itemNV, control);
                         dsnv.delete(nv);
+                        JOptionPane.showMessageDialog(null, "Đã xóa nhân viên thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Trangnhanvien_GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -325,8 +328,49 @@ public void show_control( Trangnhanvien_GUI nvGUI,Nhanvien_DTO nv) {
     });
 }
 
+        public void search(ArrayList<Nhanvien_DTO> list) throws SQLException{   
+        this.setPreferredSize(new Dimension(chieurong,chieucao));
+        this.setLayout(new FlowLayout(0,0,0));
 
+                    String[] columnNames = {"MANV", "TEN", "CHUCVU","SDT","DIACHI","EMAIL","TTH" };
+                    
+                    JPanel titlePanel = new JPanel();
+                        titlePanel.setLayout(new FlowLayout(0,0,0));
+                        titlePanel.setBackground(Color.decode("#60A3BC"));
+                        titlePanel.setPreferredSize(new Dimension((chieurong), 50));
 
+//                        title.setForeground(Color.red);
+                        for (String col : columnNames) {
+                            if( col == columnNames[4] || col == columnNames[5] ){
+                            JLabel l = new JLabel(col,JLabel.CENTER);
+                                l.setPreferredSize(new Dimension((chieurong)/4, 50));
+                                l.setFont(new Font(l.getFont().getName(), Font.BOLD, 18));
+                                l.setForeground(Color.decode("#0A3D62"));
+                        titlePanel.add(l);
+                            }
+                           
+                                    else{
+                                JLabel l = new JLabel(col,JLabel.CENTER);
+                                l.setPreferredSize(new Dimension((chieurong)/10, 30));
+                                l.setFont(new Font(l.getFont().getName(), Font.BOLD, 18));
+                                l.setForeground(Color.decode("#0A3D62"));
+                        titlePanel.add(l);
+                            }
+                        }
+                this.add(titlePanel);
+                
+                JPanel listPanel = new JPanel();
+                        listPanel.setLayout(new FlowLayout(0,0,3));
+                        listPanel.setBackground(Color.white);
+                        listPanel.setPreferredSize(new Dimension((chieurong), 600));
+
+                        for (Nhanvien_DTO nv : list) {
+                            System.out.println(nv.getManv());
+                            addNV_gui(this,nv);
+                        }
+    }
+
+        
 // Hàm xóa panel khỏi container
 public void removePanel(JPanel itemNV, JPanel control) {
     this.remove(itemNV); // Xóa panel itemNV khỏi container
@@ -337,27 +381,38 @@ public void removePanel(JPanel itemNV, JPanel control) {
 
 // reload trang nhân viên
     public void reloadPage() throws SQLException {
-        // Xóa toàn bộ nội dung của frame
         this.removeAll();
-
-        // Khởi tạo lại giao diện mới
         this.init();
-
-        // Vẽ lại frame
         revalidate();
         repaint();
     }
-public void reloadPagecontrol() throws SQLException {
-        // Xóa toàn bộ nội dung của frame
+    public void reloadPagecontrol() throws SQLException {
         this.removeAll();
-
-        // Khởi tạo lại giao diện mới
         this.control();
-
-        // Vẽ lại frame
         revalidate();
         repaint();
     }
+    
+    public void reloadSearchpage(ArrayList<Nhanvien_DTO> list) throws SQLException {
+        this.removeAll();
+        this.search(list);
+        revalidate();
+        repaint();
+    }
+    
+    public void SearchHD(ArrayList<String> data_filter) throws SQLException, ParseException {
+    for (String data : data_filter) {
+        System.out.print("-------" + data);
+    }
+    String in4 = data_filter.get(0);
+    ArrayList<Nhanvien_DTO> listnv = new ArrayList<>();
+    if (!in4.equals(""))
+            listnv = dsnv.search(in4);
+    else 
+            JOptionPane.showMessageDialog(null, "Mời nhập thông tin tìm kiếm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    this.reloadSearchpage(listnv);
+}
+
      public static void main (String[] args) throws SQLException{
         JFrame f = new JFrame ();
         f.setSize(1200,800);

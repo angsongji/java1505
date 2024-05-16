@@ -42,6 +42,7 @@ public final class TrangLichsuHD extends JPanel {
     private int chieurong,chieucao;
     private Color backGroundColor;
     private Font f = new Font("Tahoma", Font.BOLD, 16);
+    private JPanel currentSelectedPanel = null;
     
     public TrangLichsuHD(int chieurong,int chieucao) throws SQLException {
        this.chieurong=chieurong;
@@ -51,47 +52,53 @@ public final class TrangLichsuHD extends JPanel {
     }
     
     public void init() throws SQLException {
-        this.setPreferredSize(new Dimension(chieurong,chieucao));
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-            right = new JPanel(); 
-            right.setPreferredSize(new Dimension(chieurong*3/5, 0));
-            right.setBackground(Color.white); 
-            right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-                p = new JPanel(); 
-                p.setLayout(new BorderLayout());
-                p.add(new JLabel("Chưa lựa chọn Hóa đơn để hiển thị chi tiết",JLabel.CENTER),BorderLayout.CENTER);
-                p.setPreferredSize(new Dimension(chieurong*3/5,0));
-                p.setBackground(Color.WHITE);
-            right.add(p);
-                
-            
-            
-            left = new JPanel();
-            left.setPreferredSize(new Dimension(chieurong*2/5, 0));
-            left.setBackground(Color.white);
-            left.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4,  Color.decode("#60A3BC")));
-        this.add(left);
-        this.add(right);
-            
-        // create title
-        String[] columnNames = {"Ngay","Thoigian","KH", "Nhanvien","Hoadon","Giamgia","Thanhtien" }; 
-                    JPanel titlePanel = new JPanel();
-                        titlePanel.setLayout(new FlowLayout(1,0,0));
-                        titlePanel.setBackground(Color.decode("#60A3BC"));
-                     for (String col : columnNames) {
-                        
-                            JLabel l = new JLabel(col,JLabel.CENTER);
-                                l.setPreferredSize(new Dimension(((chieurong)*2/5)/7, 30));
-                                l.setFont(new Font(l.getFont().getName(), Font.CENTER_BASELINE, 12));
-                                l.setForeground(Color.white);
-                        titlePanel.add(l);
-                             }
-            left.add(titlePanel);       
-        lshd = new Hoadon_BUS();
-            for (Hoadon_DTO hd : lshd.dshoadon) {
-               addHD_gui(this,hd);
-            }
+    this.setPreferredSize(new Dimension(chieurong, chieucao));
+    this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+    
+    right = new JPanel();
+    right.setPreferredSize(new Dimension(chieurong * 3 / 5, chieucao));
+    right.setBackground(Color.white);
+    right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
+    
+    p = new JPanel();
+    p.setLayout(new BorderLayout());
+    p.add(new JLabel("Chưa lựa chọn Hóa đơn để hiển thị chi tiết", JLabel.CENTER), BorderLayout.CENTER);
+    p.setPreferredSize(new Dimension(chieurong * 3 / 5, 0));
+    p.setBackground(Color.WHITE);
+    right.add(p);
+    
+    left = new JPanel();
+    left.setBackground(Color.white);
+    left.setPreferredSize(new Dimension((chieurong * 2 / 5), chieucao+50));
+    left.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, Color.decode("#60A3BC")));
+    
+    // create title
+    String[] columnNames = {"Ngay", "Thoigian", "KH", "Nhanvien", "Hoadon", "Giamgia", "Thanhtien"};
+    JPanel titlePanel = new JPanel();
+    titlePanel.setLayout(new FlowLayout(1, 0, 0));
+    titlePanel.setBackground(Color.decode("#60A3BC"));
+    for (String col : columnNames) {
+        JLabel l = new JLabel(col, JLabel.CENTER);
+        l.setPreferredSize(new Dimension(((chieurong) * 2 / 5) / 7, 30));
+        l.setFont(new Font(l.getFont().getName(), Font.CENTER_BASELINE, 12));
+        l.setForeground(Color.white);
+        titlePanel.add(l);
     }
+    left.add(titlePanel);
+    
+    lshd = new Hoadon_BUS();
+    for (Hoadon_DTO hd : lshd.dshoadon) {
+        addHD_gui(this, hd);
+    }
+    
+    JScrollPane scrollPane = new JScrollPane(left); // Wrap 'left' panel with JScrollPane
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setPreferredSize(new Dimension((chieurong * 2 / 5), chieucao+50)); // Set preferred size
+    this.add(scrollPane); // Add JScrollPane instead of 'left' directly
+//    this.add(left);
+    this.add(right);
+}
+
      public void addHD_gui( TrangLichsuHD hdGUI,Hoadon_DTO hd) {
          JPanel pa = new JPanel();
                     pa.setLayout(new FlowLayout(1,0,0));
@@ -123,88 +130,91 @@ public final class TrangLichsuHD extends JPanel {
                 pa.add(lab5);
         left.add(pa);
                 pa.addMouseListener(new MouseAdapter() {
-                @Override
-                    public void mouseClicked(MouseEvent e) {
-                        changeColorJPanelChild(pa,Cacthuoctinh_phuongthuc_chung.darkness_blue,Color.white);
-                        pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,  Color.decode("#60A3BC")));                       
-                        JPanel HDItem = (JPanel) e.getSource();
-                            HDItem.setBackground(Color.decode("#0A3D62"));
-                            Component[] components = HDItem.getComponents();
-                            for (Component component : components) {
-                                if (component instanceof JLabel) {
-                                    JLabel label = (JLabel) component;
-                                        label.setForeground(Color.WHITE);
-                                }
-                            }
-                            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.white));
-                        right.removeAll();
-                        ArrayList<String> LCont = extractLabelContents(pa);
-                        for (String l : LCont)
-                        {System.out.println(l);
-                        }
-                        inHD=true;
-                        MAHDSelect=LCont.get(4);
-                           
-                        try {
-                         
-                            ChitietHD_GUI s = new ChitietHD_GUI(chieurong, chieucao, LCont.get(4), LCont.get(0), LCont.get(1), LCont.get(2), LCont.get(3),LCont.get(5),LCont.get(6));
-                            right.add(s);
-                            right.revalidate();
-                            right.repaint();
-                      } catch (SQLException ex) {
-                            Logger.getLogger(TrangLichsuHD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        JPanel HDItem = (JPanel) e.getSource();
+                if (HDItem != currentSelectedPanel) {
+            if (currentSelectedPanel != null) {
+                resetPanelState(currentSelectedPanel);
+            }
+            currentSelectedPanel = HDItem;
+            
+            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
+            changeColorJPanelChild(HDItem, Cacthuoctinh_phuongthuc_chung.darkness_blue, Color.white);
+                        Component[] components = HDItem.getParent().getComponents(); 
+                        for (Component comp : components) {
+                if (comp instanceof JPanel && comp != HDItem) {
+                    JPanel panel = (JPanel) comp;
+                    if (panel.getMouseListeners().length > 0) {
+                        resetPanelState(panel);
                     }
+                }
+            }
+        }
+        right.removeAll();
+        ArrayList<String> LCont = extractLabelContents(pa);
+        inHD = true;
+        MAHDSelect = LCont.get(4);
+        try {
+            ChitietHD_GUI s = new ChitietHD_GUI(chieurong, chieucao, LCont.get(4), LCont.get(0), LCont.get(1), LCont.get(2), LCont.get(3), LCont.get(5), LCont.get(6));
+            right.add(s);
+            right.revalidate();
+            right.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangLichsuHD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                       
-                    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        JPanel HDItem = (JPanel) e.getSource();
+        
+       if (HDItem != currentSelectedPanel) {
+            HDItem.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
+            HDItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            Component[] components = HDItem.getComponents();
+            for (Component component : components) {
+                if (component instanceof JLabel label) {
+                    label.setForeground(Color.decode("#0A3D62"));
+                }
+            }
+        }
+    }
 
-                     @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
-    
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        JPanel HDItem = (JPanel) e.getSource();
-                        HDItem.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
-                        setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
-                        HDItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                        Component[] components = HDItem.getComponents();
-                        for (Component component : components) {
-                            if (component instanceof JLabel label) {
-                                label.setForeground(Color.decode("#0A3D62"));
-                            }
-                        }
-                    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+        JPanel HDItem = (JPanel) e.getSource();
+        
+        if (HDItem != currentSelectedPanel) {
+            resetPanelState(HDItem);
+        }
+    }
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        JPanel HDItem = (JPanel) e.getSource();
-                            HDItem.setBackground(Color.white);
-                            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
-                        Component[] components = HDItem.getComponents();
-                        for (Component component : components) {
-                            if (component instanceof JLabel label) {
-                                label.setForeground(Color.black);
-                            }
-                        }
-                    }
+    private void resetPanelState(JPanel panel) {
+        panel.setBackground(Color.white);
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
+        
+        Component[] components = panel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel label) {
+                label.setForeground(Color.black);
+            }
+        }
+    }
 
-                    private ArrayList<String> extractLabelContents(JPanel pa) {
-                        ArrayList<String> contents = new ArrayList<>();
-                            Component[] components = pa.getComponents();
-                                for (Component component : components) {
-                                    if (component instanceof JLabel) {
-                                        JLabel label = (JLabel) component;
-                                        contents.add(label.getText());
-                                    }
-                                }
-                        return contents;                  
-                    }
-                });
-    }            
+    private ArrayList<String> extractLabelContents(JPanel pa) {
+        ArrayList<String> contents = new ArrayList<>();
+        Component[] components = pa.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+                contents.add(label.getText());
+            }
+        }
+        return contents;                  
+    }
+});}
     
      public void control() throws SQLException {
         this.setPreferredSize(new Dimension(chieurong,chieucao));
@@ -227,8 +237,6 @@ public final class TrangLichsuHD extends JPanel {
             left.setPreferredSize(new Dimension(chieurong*2/5, 0));
             left.setBackground(Color.white);
             left.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4,  Color.decode("#60A3BC")));
-        this.add(left);
-        this.add(right);
             
         JPanel Panel = new JPanel();
                         Panel.setLayout(null);
@@ -255,7 +263,12 @@ public final class TrangLichsuHD extends JPanel {
                                 l.setForeground(Color.white);
                         titlePanel.add(l);
                              }    
-            left.add(titlePanel);       
+            left.add(titlePanel); 
+            JScrollPane scrollPane = new JScrollPane(left); 
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setPreferredSize(new Dimension((chieurong * 2 / 5), chieucao+50)); 
+    this.add(scrollPane);
+    this.add(right);
         lshd = new Hoadon_BUS();
             for (Hoadon_DTO hd : lshd.dshoadon) {
                show_control(this,hd);
@@ -383,15 +396,37 @@ public final class TrangLichsuHD extends JPanel {
     pa.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
+            JPanel HDItem = (JPanel) e.getSource();
+                if (HDItem != currentSelectedPanel) {
+            if (currentSelectedPanel != null) {
+                resetPanelState(currentSelectedPanel);
+            }
+            currentSelectedPanel = HDItem;
+            
+            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
+            changeColorJPanelChild(HDItem, Cacthuoctinh_phuongthuc_chung.darkness_blue, Color.white);
+                        Component[] components = HDItem.getParent().getComponents(); 
+                        for (Component comp : components) {
+                if (comp instanceof JPanel && comp != HDItem) {
+                    JPanel panel = (JPanel) comp;
+                    if (panel.getMouseListeners().length > 0) {
+                        resetPanelState(panel);
+                    }
+                }
+            }
+        }
             control.setVisible(true);
             control.revalidate();
             control.repaint();
-            
         }
+        
+        
 
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            JPanel HDItem = (JPanel) e.getSource();
+       @Override
+    public void mouseEntered(MouseEvent e) {
+        JPanel HDItem = (JPanel) e.getSource();
+        
+       if (HDItem != currentSelectedPanel) {
             HDItem.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
             HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
             HDItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -402,103 +437,42 @@ public final class TrangLichsuHD extends JPanel {
                 }
             }
         }
+    }
 
-        @Override
-        public void mouseExited(MouseEvent e) {
-            JPanel HDItem = (JPanel) e.getSource();
-            HDItem.setBackground(Color.decode("#d3eaf2"));
-            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
-            Component[] components = HDItem.getComponents();
-            for (Component component : components) {
-                if (component instanceof JLabel label) {
-                    label.setForeground(Color.black);
-                }
+    @Override
+    public void mouseExited(MouseEvent e) {
+        JPanel HDItem = (JPanel) e.getSource();
+        
+        if (HDItem != currentSelectedPanel) {
+            resetPanelState(HDItem);
+        }
+    }
+
+    private void resetPanelState(JPanel panel) {
+        panel.setBackground(Color.white);
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
+        
+        Component[] components = panel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel label) {
+                label.setForeground(Color.black);
             }
         }
-    });
-                pa.addMouseListener(new MouseAdapter() {
-                @Override
-                    public void mouseClicked(MouseEvent e) {
-                        changeColorJPanelChild(pa,Cacthuoctinh_phuongthuc_chung.darkness_blue,Color.white);
-                            pa.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,  Color.decode("#60A3BC")));                       
-                        JPanel HDItem = (JPanel) e.getSource();
-                            HDItem.setBackground(Color.decode("#0A3D62"));
-                            Component[] components = HDItem.getComponents();
-                            for (Component component : components) {
-                                if (component instanceof JLabel) {
-                                    JLabel label = (JLabel) component;
-                                        label.setForeground(Color.WHITE);
-                                }
-                            }
-                            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.white));
-                        right.removeAll();
-                        ArrayList<String> LCont = extractLabelContents(pa);
-                        for (String l : LCont)
-                        {System.out.println(l);
-                        }
-                        try {
-                            ChitietHD_GUI s = new ChitietHD_GUI(chieurong, chieucao, LCont.get(4), LCont.get(0), LCont.get(1), LCont.get(2), LCont.get(3),LCont.get(5),LCont.get(6));
-                            right.add(s);
-                            right.revalidate();
-                            right.repaint();
-                      } catch (SQLException ex) {
-                            Logger.getLogger(TrangLichsuHD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                       
+    }
 
-                        
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                       
-                    }
-
-                     @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
-    
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        JPanel HDItem = (JPanel) e.getSource();
-                        HDItem.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
-                        setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
-                        HDItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                        Component[] components = HDItem.getComponents();
-                        for (Component component : components) {
-                            if (component instanceof JLabel label) {
-                                label.setForeground(Color.decode("#0A3D62"));
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        JPanel HDItem = (JPanel) e.getSource();
-                            HDItem.setBackground(Color.white);
-                            HDItem.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#60A3BC")));
-                        Component[] components = HDItem.getComponents();
-                        for (Component component : components) {
-                            if (component instanceof JLabel label) {
-                                label.setForeground(Color.black);
-                            }
-                        }
-                    }
-
-                    private ArrayList<String> extractLabelContents(JPanel pa) {
-                        ArrayList<String> contents = new ArrayList<>();
-                            Component[] components = pa.getComponents();
-                                for (Component component : components) {
-                                    if (component instanceof JLabel) {
-                                        JLabel label = (JLabel) component;
-                                        contents.add(label.getText());
-                                    }
-                                }
-                        return contents;                  
-                    }
-                });
-     }
-   
+    private ArrayList<String> extractLabelContents(JPanel pa) {
+        ArrayList<String> contents = new ArrayList<>();
+        Component[] components = pa.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+                contents.add(label.getText());
+            }
+        }
+        return contents;                  
+    }
+});
+}
     
     public void search(ArrayList<Hoadon_DTO> list) throws SQLException {
         this.setPreferredSize(new Dimension(chieurong,chieucao));
@@ -561,6 +535,8 @@ public final class TrangLichsuHD extends JPanel {
         }
 
     }
+    
+   
 // reload trang nhân viên
     public void reloadPage() throws SQLException {
         // Xóa toàn bộ nội dung của frame
@@ -598,7 +574,7 @@ public void reloadPagecontrol() throws SQLException {
     ArrayList<Hoadon_DTO> listhd = new ArrayList<>();
 
     if (!id_search.equals("")) {
-        if (begin_d.equals(end_d) && begin_d.equals("2024/05/16")) {
+        if (begin_d.equals(end_d) && begin_d.equals("2024/05/17")) {
             listhd = lshd.search_for_ID(id_search);
         } else {
             listhd = lshd.search_for_IDDate(id_search, begin_d, end_d);

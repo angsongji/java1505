@@ -7,9 +7,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -125,8 +128,12 @@ public class SanPhamGUI extends JPanel implements MouseListener {
             lblChiTietSP.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    //gọi chi tiết sản phẩm ở đây
-                    frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(index));
+                    try {
+                        //gọi chi tiết sản phẩm ở đây
+                        frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(index));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SanPhamGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
 

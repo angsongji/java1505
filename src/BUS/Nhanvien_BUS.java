@@ -122,15 +122,9 @@ public class Nhanvien_BUS {
         return nvDAO.check_accNV(nv.getManv());
     }
     
-    public ArrayList<Nhanvien_DTO> search(ArrayList<String> data_filter){
-        ArrayList<Nhanvien_DTO> re = new ArrayList<>();
-        for(String i : data_filter){
-            for(Nhanvien_DTO j : listnv){
-                if(j.getManv().equals(i) || j.getTennv().equalsIgnoreCase(i))
-                    re.add(j);
-                    
-            }      
-    }
+    public ArrayList<Nhanvien_DTO> search(String in4) throws SQLException{
+        Nhanvien_DAO nvDAO = new Nhanvien_DAO();
+        ArrayList<Nhanvien_DTO> re = nvDAO.search(in4);
         return re;
     }
     public void delete(Nhanvien_DTO nv) throws SQLException
@@ -162,9 +156,6 @@ public class Nhanvien_BUS {
             }
         }
         return flag;
-    }
-    public ArrayList<Nhanvien_DTO> getlist(){
-        return this.listnv;
     }
     
          public static void main(String[] args) throws SQLException {

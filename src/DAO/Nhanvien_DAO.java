@@ -18,7 +18,7 @@ public class Nhanvien_DAO {
         ArrayList<Nhanvien_DTO> dsnv = new ArrayList<>();
         try {
             mySQL.connect();
-            String sql = "SELECT * FROM nhanvien WHERE TRANGTHAI = 1";
+            String sql = "SELECT * FROM nhanvien WHERE 1";
             ResultSet rs = mySQL.executeQuery(sql);
             while(rs.next())
             {
@@ -39,7 +39,6 @@ public class Nhanvien_DAO {
         catch (SQLException ex) {
             System.out.println("Lay danh sach nhan vien that bai");
         }
-         System.out.println("so luong nv dao"+ dsnv.size());
             return dsnv;
     }
     
@@ -117,7 +116,7 @@ public boolean check_accNV(String id) throws SQLException {
     boolean success = false; // Khởi tạo biến success với giá trị mặc định là false
     mySQL.connect();
     try {
-        String query = "SELECT *  FROM `qlba`.taikhoan WHERE MANV = '"+id+"';";
+        String query = "SELECT *  FROM taikhoan WHERE MANV = '"+id+"';";
         ResultSet rs = mySQL.executeQuery(query);
         if (rs.next()) {
                 success = true; // Đặt success thành true nếu có ít nhất một dòng dữ liệu
@@ -130,16 +129,57 @@ public boolean check_accNV(String id) throws SQLException {
     return success;
 }
 
+    public ArrayList<Nhanvien_DTO> search(String in4) {
+    ArrayList<Nhanvien_DTO> dsnv = new ArrayList<>();
+    try {
+        mySQL.connect();
+        String sql = null ;
+        if (Character.isLetter(in4.charAt(0))) {
+            String[] ids = {"AD", "NV", "QL"};
+            for (String id : ids) {
+                if (in4.startsWith(id)) {
+                   sql = "SELECT * FROM nhanvien WHERE MANV='" + in4 + "';"; 
+                   break; // Thêm break để thoát khỏi vòng lặp khi tìm thấy MANV phù hợp
+                }
+            }
+            if(sql == null) { // Nếu không tìm thấy MANV phù hợp, sử dụng in4 làm Tên NV
+                sql = "SELECT * FROM nhanvien WHERE TENNV='" + in4 + "';";
+            }
+        } else {   
+            sql = "SELECT * FROM nhanvien WHERE SDT=" + Integer.parseInt(in4.substring(1)) + ";";
+        }
+        try (ResultSet rs = mySQL.executeQuery(sql)){
+            while (rs.next()) {
+                String id = rs.getString("MANV");
+                String tennv = rs.getString("TENNV");
+                String chucvu = rs.getString("CHUCVU");
+                int sdt = rs.getInt("SDT");
+                String diachi = rs.getString("DIACHI");
+                String email  = rs.getString("EMAIL");
+                int tt = rs.getInt("TRANGTHAI");
+                Nhanvien_DTO nv = new Nhanvien_DTO (id, tennv, chucvu, sdt, diachi, email,tt );   
+                dsnv.add(nv);
+                System.out.println(nv.getManv()+"--"+nv.getTennv());
+            }
+            System.out.println("Tìm kiếm NV thành công!");
+        }
+        mySQL.disconnect();
+    } catch (SQLException ex) {
+        System.out.println("Tìm kiếm NV thất bại");
+    }
+    return dsnv;
+}
 
+    
     public static void main (String[] args) throws SQLException{
         Nhanvien_DAO nv = new Nhanvien_DAO();
 //        Nhanvien_DTO n1 = new Nhanvien_DTO("NV005","haha","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com");
-        Nhanvien_DTO n2 = new Nhanvien_DTO("NV5","UYEN","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com",1);
-//        nv.update(n2);
-        nv.add(n2);
+//        Nhanvien_DTO n2 = new Nhanvien_DTO("NV5","UYEN","Nhân viên",987666789 ,"TP HCM","6383uyejn@gmail.com",1);
+////        nv.update(n2);
+//        nv.add(n2);
         boolean re = nv.check_accNV("QL4");
         System.out.println(re);
-        ArrayList<Nhanvien_DTO> list = nv.list();
+        ArrayList<Nhanvien_DTO> list = nv.search("NV1");
         
     }
 }

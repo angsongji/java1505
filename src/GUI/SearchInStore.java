@@ -477,6 +477,12 @@ public class SearchInStore extends JPanel implements MouseListener {
                 lshd.repaint();
                 lshd.validate();
                 break;
+            case "NV":
+                Trangnhanvien_GUI nvGUI = (Trangnhanvien_GUI) components[0];
+                nvGUI.SearchHD(data_filter);
+                nvGUI.repaint();
+                nvGUI.validate();
+                break;
         }
     }
 
@@ -523,6 +529,11 @@ public class SearchInStore extends JPanel implements MouseListener {
                 data_filter.add("Tất cả");
                 break;
             case "HD": {
+                data_filter.add("");
+                data_filter.add("Tất cả");
+                break;
+            }
+            case "NV": {
                 data_filter.add("");
                 data_filter.add("Tất cả");
                 break;
