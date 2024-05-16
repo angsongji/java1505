@@ -30,6 +30,7 @@ import DAO.DAO_chitietphieunhap;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
 import DTO.phieunhap_DTO;
+import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
 
 public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	private phieunhap_DTO phieunhap_DTO;
@@ -189,7 +190,7 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 		this.DAO_chiChitietphieunhap = new DAO_chitietphieunhap();
 		this.clicked_chinhsua = false;
 		Font f = new Font(TOOL_TIP_TEXT_KEY, 1, 20);
-		 d = new DecimalFormat("#,###") ;
+		 d = new DecimalFormat("#,###.00") ;
 		this.phieunhap_GUI = phieunhap_GUI;
 		Color mau = Color.decode("#60A3BC");
 		
@@ -347,12 +348,14 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 			JPanel l = new JPanel();
 			
 			jltt[0] = new JLabel("Lưu",JLabel.CENTER);
-			jltt[0].setBackground(Color.decode("#60A3BC"));jltt[0].setOpaque(true);
+                        jltt[0].setForeground(Color.white);
+			jltt[0].setBackground(Color.decode("#0A3D62"));jltt[0].setOpaque(true);
 			jltt[0].setPreferredSize(new Dimension(40,20));
 			
 			
 			jltt[1] = new JLabel("Hủy",JLabel.CENTER);
-			jltt[1].setBackground(Color.decode("#60A3BC"));jltt[1].setOpaque(true);
+                        jltt[1].setForeground(Color.white);
+			jltt[1].setBackground(Color.decode("#0A3D62"));jltt[1].setOpaque(true);
 			jltt[1].setPreferredSize(new Dimension(40,20));
 			jltt[0].addMouseListener(this);
 			jltt[1].addMouseListener(this);
@@ -439,6 +442,10 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	public String thong_bao_thay_doi_gia() {
 		return this.panel_bang_chitietphieunhap.thong_bao_doi_gia();
 	}
+        
+        public void return_gia_tri_cu(){
+            this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
+        }
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
@@ -466,7 +473,10 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 				}
 		}
 		if (e.getSource() == jltt[1]) {
-			
+                    
+                    this.phieunhap_GUI.thong_bao_update_thongtin("Trả về giá trị ban đầu");
+                    
+//			this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
 		}
 		
 	}
@@ -479,13 +489,30 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource() == jltt[0]){
+                    jltt[0].setBackground(Color.decode("#60A3BC"));
+                    jltt[0].setOpaque(true);
+                }
+                
+                    if (e.getSource() == jltt[1]){
+                    jltt[1].setBackground(Color.decode("#60A3BC"));
+                    jltt[1].setOpaque(true);
+                }
+                
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource() == jltt[0]){
+                    jltt[0].setBackground(Color.decode("#0A3D62"));
+                    jltt[0].setOpaque(true);
+                }
+                
+                    if (e.getSource() == jltt[1]){
+                    jltt[1].setBackground(Color.decode("#0A3D62"));
+                    jltt[1].setOpaque(true);
+                }
 		
 	}
 	

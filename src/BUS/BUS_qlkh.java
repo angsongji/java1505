@@ -51,9 +51,9 @@ public class BUS_qlkh {
 			}
 		}
 	}
-	public void search(String ma, String ten,String sdt,String diem) {
+	public void search(String ma, String ten,String sdt,int diemmin,int diemmax) {
 		DAO_qlks d = new DAO_qlks();
-		dskh = d.search(ma, ten, sdt, diem);
+		dskh = d.search(ma, ten, sdt, diemmin,diemmax);
 		
 	}
 	public ArrayList<model_qlkh> getlist(){

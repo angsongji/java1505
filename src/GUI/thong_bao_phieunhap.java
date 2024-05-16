@@ -21,6 +21,7 @@ import BUS.chitietsanpham_BUS;
 import BUS.phieunhap_BUS;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
+import static java.awt.image.ImageObserver.ALLBITS;
 
 public class thong_bao_phieunhap extends JPanel implements MouseListener{
 	private JFrame j;
@@ -31,10 +32,10 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 	private phieunhap_GUI phieunhap_GUI;
 	private chitietphieunhap_BUS chitietphieunhap_BUS;
 	
-	public thong_bao_phieunhap(JFrame j, String t,phieunhap_GUI phieunhap_GUI) {
+	public thong_bao_phieunhap( String t,phieunhap_GUI phieunhap_GUI) {
 		this.phieunhap_GUI = phieunhap_GUI;
 		
-		this.setSize(600,400);
+		this.setSize(400,400);
 		
 		this.content = t;
 		this.setLayout(new BorderLayout());
@@ -99,7 +100,8 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 			
 		panel_c2 = new JPanel();
 		panel_c2.setPreferredSize(new Dimension(this.getWidth(),(this.getHeight()-30)/3));
-		jl_c2 = new JLabel(t,JLabel.LEFT);jl_c2.setBackground(Color.white);jl_c2.setOpaque(true);
+		jl_c2 = new JLabel(t,JLabel.LEFT);
+//                jl_c2.setBackground(Color.white);jl_c2.setOpaque(true);
 		jl_c2.setPreferredSize(new Dimension(panel_c2.getPreferredSize().width-panel_c2.getPreferredSize().width/3,panel_c2.getPreferredSize().height-panel_c2.getPreferredSize().height/3));
 		jl_c2.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
 		panel_c2.setLayout(new FlowLayout(1));
@@ -137,7 +139,7 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 		this.add(panel_north, BorderLayout.NORTH);
 		this.add(panel_center, BorderLayout.CENTER);
 		
-		
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		
 		
 	}
@@ -153,23 +155,39 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 			
 			String t =  phieunhap_GUI.Frame_them_phieunhap().panel_them_phieunhap().kiem_tra_gia_update();
 			if (t.contains("SP")  ) {
-				frame_thong_bao_phieunhap c = new frame_thong_bao_phieunhap(t, phieunhap_GUI);
+                            this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                            this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+                                this.phieunhap_GUI.thong_bao_update_thongtin(t);
+                                
+//				frame_thong_bao_phieunhap c = new frame_thong_bao_phieunhap(t, phieunhap_GUI);
 			} else {
 				JOptionPane.showMessageDialog(this, "Đã thêm thành công");
+                                
 				this.phieunhap_GUI.Frame_them_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_them_phieu_nhap();
+                                
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+                                
+//                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+//                        this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 			}
 				
 			
-			j.setVisible(false);
+			
 				
 			}
 			/////////////////////////////////////////// thay đổi giá  /////////////////////////////
 			if(this.content.contains("thấp hơn giá cũ bạn có muốn cập nhật?")) {
 				
 				this.phieunhap_GUI.update_gia_thap_hon();
-				JOptionPane.showMessageDialog(this, "Đã thêm thành công");
-				j.setVisible(false);
+				
+				
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 				this.phieunhap_GUI.Frame_them_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_them_phieu_nhap();
+                                
 				
 			}
 			if (this.content.contains("Bạn có muốn thay đổi dữ liệu")) {
@@ -181,14 +199,19 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 					if (t.contains("SP")) {
 						JOptionPane.showMessageDialog(j,t );
 					}
-					JOptionPane.showMessageDialog(j,"Sửa thành công" );
-					j.setVisible(false);
+					JOptionPane.showMessageDialog(this.phieunhap_GUI.frame_thong_bao_phieunhap(),"Sửa thành công" );
+                                        this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                        this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+					
 			}
 			if (this.content.contains("Hủy bỏ các hoạt động và tiếp tục tìm kiếm")) {
 				this.phieunhap_GUI.return_false_clicksua();
 				this.phieunhap_GUI.return_false_clickedxoa();
 				this.phieunhap_GUI.dinh_dang();
-				j.setVisible(false);
+				
+                                
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 			} 
 			if(this.content.contains("Làm mới bảng danh sách và hủy bỏ tất cả hoạt dộng")) {
 				
@@ -196,29 +219,46 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 				this.phieunhap_GUI.return_false_clicksua();
 				this.phieunhap_GUI.dinh_dang();
 				this.phieunhap_GUI.Refresh_moi();
-				j.setVisible(false);
+				
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 			}
 			if (this.content.contains("Thoát trạng thái sửa và bắt đầu xóa")) {
 				this.phieunhap_GUI.return_false_clicksua();
 				this.phieunhap_GUI.return_true_clicked_xoa();
 				this.phieunhap_GUI.dinh_dang();
 				this.phieunhap_GUI.refresh_giu_ctpn();
-				JOptionPane.showMessageDialog(j,"Click vào phiếu nhập bạn muốn xóa" );
-				j.setVisible(false);
+				
+                                
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+				JOptionPane.showMessageDialog(this.phieunhap_GUI.frame_thong_bao_phieunhap(),"Click vào phiếu nhập bạn muốn xóa" );
 			}
 			if (this.content.contains("Thoát chế độ xóa và hủy các thao tác")) {
 				this.phieunhap_GUI.return_false_clickedxoa();
 				this.phieunhap_GUI.return_true_clicked_sua();
+                                this.phieunhap_GUI.dinh_dang();
 				this.phieunhap_GUI.Refresh_moi();
-				JOptionPane.showMessageDialog(j,"Click vào phiếu nhập bạn muốn sửa");
-				j.setVisible(false);
+				
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+                                JOptionPane.showMessageDialog(this.phieunhap_GUI.frame_thong_bao_phieunhap(),"Click vào phiếu nhập bạn muốn sửa");
+				
 			}
 			if (this.content.contains("Hủy bỏ các thay đổi")) {
 				this.phieunhap_GUI.return_false_clicksua();
 				this.phieunhap_GUI.refresh_giu_ctpn();
 				this.phieunhap_GUI.dinh_dang();
-				j.setVisible(false);
+				
+                                this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                                this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
 			}
+                        if(this.content.contains("Trả về giá trị ban đầu")){
+                            this.phieunhap_GUI.tra_ve_gia_tri_cu();
+                            
+                            this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                            this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+                        }
                         
                        
 			
@@ -230,10 +270,14 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (e.getSource() == jl_no) {
-			this.j.setVisible(false);
+                    this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                    this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+			
 		}
                 if (e.getSource() == jl_n2){
-                    this.setVisible(false);
+                    this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
+                    this.phieunhap_GUI.return_null_frame_thong_bao_phieunhap();
+//                    this.setVisible(false);
                 }
 		
 	}
