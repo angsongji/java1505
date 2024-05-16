@@ -22,6 +22,9 @@ import BUS.phieunhap_BUS;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
 import static java.awt.image.ImageObserver.ALLBITS;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class thong_bao_phieunhap extends JPanel implements MouseListener{
 	private JFrame j;
@@ -192,7 +195,11 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 			}
 			if (this.content.contains("Bạn có muốn thay đổi dữ liệu")) {
 					this.phieunhap_GUI.update_ctpn_sau_chinh_sua();
-					this.phieunhap_GUI.update_ctsp_sau_chinh_sua();
+                            try {
+                                this.phieunhap_GUI.update_ctsp_sau_chinh_sua();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(thong_bao_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 					this.phieunhap_GUI.update_phieunhap();
 					
 					String t = this.phieunhap_GUI.thong_bao_doi_gia();
@@ -227,7 +234,11 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 				this.phieunhap_GUI.return_false_clicksua();
 				this.phieunhap_GUI.return_true_clicked_xoa();
 				this.phieunhap_GUI.dinh_dang();
-				this.phieunhap_GUI.refresh_giu_ctpn();
+                            try {
+                                this.phieunhap_GUI.refresh_giu_ctpn();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(thong_bao_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				
                                 
                                 this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);
@@ -247,7 +258,11 @@ public class thong_bao_phieunhap extends JPanel implements MouseListener{
 			}
 			if (this.content.contains("Hủy bỏ các thay đổi")) {
 				this.phieunhap_GUI.return_false_clicksua();
-				this.phieunhap_GUI.refresh_giu_ctpn();
+                            try {
+                                this.phieunhap_GUI.refresh_giu_ctpn();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(thong_bao_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				this.phieunhap_GUI.dinh_dang();
 				
                                 this.phieunhap_GUI.frame_thong_bao_phieunhap().setVisible(false);

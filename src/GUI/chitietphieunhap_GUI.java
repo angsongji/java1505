@@ -30,6 +30,9 @@ import DAO.DAO_chitietphieunhap;
 import DTO.chitietphieunhap_DTO;
 import DTO.chitietsanpham_DTO;
 import DTO.phieunhap_DTO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
 
 public class chitietphieunhap_GUI extends JPanel implements MouseListener {
@@ -49,7 +52,7 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	private phieunhap_BUS phieunhap_BUS;
 	private int w,h;
 	
-	public chitietphieunhap_GUI(int w,int h,phieunhap_DTO phieunhap_DTO,phieunhap_GUI phieunhap_GUI) {
+	public chitietphieunhap_GUI(int w,int h,phieunhap_DTO phieunhap_DTO,phieunhap_GUI phieunhap_GUI) throws SQLException {
 		this.setPreferredSize(new Dimension(w,h));
 		this.setLayout(new BorderLayout());
 		this.phieunhap_DTO = phieunhap_DTO;
@@ -182,7 +185,7 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	}
 	
 	
-	public void che_do_xem() {
+	public void che_do_xem() throws SQLException {
 		this.removeAll();
 		this.setPreferredSize(new Dimension(w,h));
 		this.setLayout(new BorderLayout());
@@ -408,7 +411,7 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 		
 	}
 	
-	public void update_ctsp_sau_chinh_sua() {
+	public void update_ctsp_sau_chinh_sua() throws SQLException {
 		for (chitietsanpham_DTO h : this.panel_bang_chitietphieunhap.ds_ctsp_da_chinh_sua()) {
 			System.out.println(h.toString());
 			chitietsanpham_BUS.update(h);
@@ -444,7 +447,11 @@ public class chitietphieunhap_GUI extends JPanel implements MouseListener {
 	}
         
         public void return_gia_tri_cu(){
-            this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
+            try {
+                this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
+            } catch (SQLException ex) {
+                Logger.getLogger(chitietphieunhap_GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 	@Override
 	public void mouseClicked(MouseEvent e) {

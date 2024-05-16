@@ -85,7 +85,8 @@ public class CenterContentStore extends JPanel {
         }
        
  chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, thongkeloai);
-
+ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, cnThK);
+                showThaotac(JP_thaotac);
                 showPageContent(cnThK);
         
     }
@@ -252,7 +253,8 @@ public class CenterContentStore extends JPanel {
                 
             case "NULLThK":{
                 chucnangThongke cnThK = new chucnangThongke(this, cnDTO, maquyen, 0);
-
+                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, cnThK);
+                showThaotac(JP_thaotac);
                 showPageContent(cnThK);
                 break;
             }

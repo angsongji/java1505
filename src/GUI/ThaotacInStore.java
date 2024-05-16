@@ -120,6 +120,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     case "In PDF":
                         pathImangeIcon += "pdf_icon.png";
                         break;
+                    case "Xem biểu đồ":
+                        pathImangeIcon +="graph_icon.png";
+                        break;
 
                 }
                 hanhdongGUI thaotac = new hanhdongGUI(listHanhdong.get(i).getHANHDONG(), pathImangeIcon);
@@ -157,6 +160,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
         }
         if (MACHUCNANG.equals("NCC")) {
             hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Import Excel"));
+        }
+        if (MACHUCNANG.equals("NULLThK")) {
+            hanhdong.add(new chitietquyenDTO(MAQUYEN, MACHUCNANG, "Xem biểu đồ"));
         }
         return hanhdong;
     }
@@ -321,7 +327,19 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         }
                         break;
                     }  
-                }   }
+                } 
+            }
+             case "NULLThK": {
+                 chucnangThongke hdGUI = (chucnangThongke) pageContent;
+                 switch (hdGUI.thongkeloai) {
+                     case 0:
+                          JOptionPane.showMessageDialog(null, "Doanh thu");
+                         break;
+                     case 1:
+                         JOptionPane.showMessageDialog(null, "Top bán được");
+                         break;
+                 }
+             }
         }
     }
 

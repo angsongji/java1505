@@ -5,6 +5,7 @@ import DTO.Hoadon_DTO;
 import DAO.Hoadon_DAO;
 import DTO.chitietsanpham_DTO;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,25 @@ public final class Hoadon_BUS {
         cd.delete(hd.getMaHD());
         hdDAO.delete(hd.getMaHD());   
     }
+    
+    public ArrayList<Hoadon_DTO> search_for_ID(String id) throws SQLException {
+        Hoadon_DAO hdDAO = new Hoadon_DAO();
+        ArrayList<Hoadon_DTO> dshd = hdDAO.search_for_ID(id);
+        return dshd;
+    }
+    
+    public ArrayList<Hoadon_DTO> search_for_Date(String begin, String end) throws SQLException, ParseException {
+        Hoadon_DAO hdDAO = new Hoadon_DAO();
+        ArrayList<Hoadon_DTO> dshd = hdDAO.search_for_Date(begin, end);
+        return dshd;
+    }
+    
+    public ArrayList<Hoadon_DTO> search_for_IDDate(String id,String begin, String end) throws SQLException, ParseException {
+        Hoadon_DAO hdDAO = new Hoadon_DAO();
+        ArrayList<Hoadon_DTO> dshd = hdDAO.search_for_IDDate(id,begin, end);
+        return dshd;
+    }
+    
     
     public ArrayList<Hoadon_DTO> search(ArrayList<String> data_filter) {
     ArrayList<Hoadon_DTO> re = new ArrayList<>();

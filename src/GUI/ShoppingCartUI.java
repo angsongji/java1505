@@ -57,7 +57,7 @@ public class ShoppingCartUI extends JPanel {
     private int diemTL;
     // int sl=1;
 
-    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt, ArrayList<chitietsanpham_DTO> dsctsptt ,int soluong, String maSize, String maNV) {
+    public ShoppingCartUI(int crong, int ccao, ArrayList<SanPhamDTO> dssptt, ArrayList<chitietsanpham_DTO> dsctsptt ,int soluong, String maSize, String maNV) throws SQLException {
         // this.chucnang = chucnang;
         // int crong = chucnang.getCrong();
         // int heightJP_content = chucnang.getHeightJPContent();
@@ -330,12 +330,21 @@ public class ShoppingCartUI extends JPanel {
                               ChitietHD_DTO cthd = new ChitietHD_DTO(mahd,ctsp.getMASP(),s.getTenSP(), ctsp.getMASIZE(), ctsp.getSoluong(),s.getPrice(), s.getPrice()*ctsp.getSoluong());
                               cthdBUS.addInSQL(cthd);
                              
-                              chitietsanpham_BUS ctspBUS = new chitietsanpham_BUS();
+                              chitietsanpham_BUS ctspBUS = null;
+                            try {
+                                ctspBUS = new chitietsanpham_BUS();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(ShoppingCartUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                               for(chitietsanpham_DTO duyet : ctspBUS.getlist()){
                                   if(duyet.getMASP().equals(ctsp.getMASP()) && duyet.getMASIZE().equals(ctsp.getMASIZE()))
                                   {
                                       duyet.setSoluong(duyet.getSoluong()-ctsp.getSoluong());
-                                       ctspBUS.updateAfterTT(duyet);
+                                      try {
+                                          ctspBUS.updateAfterTT(duyet);
+                                      } catch (SQLException ex) {
+                                          Logger.getLogger(ShoppingCartUI.class.getName()).log(Level.SEVERE, null, ex);
+                                      }
                                   }
                               }
                              
@@ -403,7 +412,7 @@ public class ShoppingCartUI extends JPanel {
 
     }
 
-    private void refreshOrderPanel(ArrayList<SanPhamDTO> dssptt) {
+    private void refreshOrderPanel(ArrayList<SanPhamDTO> dssptt) throws SQLException {
         cartPanel.removeAll();
         for (int i = 0; i < dsctsptt.size(); i++) {
             for (int j = 0; j < dssptt.size(); j++) {
@@ -415,7 +424,7 @@ public class ShoppingCartUI extends JPanel {
         repaint();
     }
 
-   private JPanel createOrderPanel(SanPhamDTO sp,String masizeluachon, int slluachon) {
+   private JPanel createOrderPanel(SanPhamDTO sp,String masizeluachon, int slluachon) throws SQLException {
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(255, 255, 255));

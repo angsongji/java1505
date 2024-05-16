@@ -2,6 +2,8 @@
 package BUS;
 
 import DAO.ChitietHD_DAO;
+import DAO.DAO_chitietsanpham;
+import DAO.Hoadon_DAO;
 import DTO.ChitietHD_DTO;
 import DTO.chitietsanpham_DTO;
 import java.util.ArrayList;
@@ -46,6 +48,39 @@ public class ChitietHD_BUS {
         }
         
     }
+    
+    public String[] get_AllSize(String id) throws SQLException
+    {
+        DAO_chitietsanpham cpDAO = new DAO_chitietsanpham();
+        String[] allSize = cpDAO.get_AllSIZE(id);
+        return allSize;
+    }
+    
+    public int get_slsp (String id, String s) throws SQLException{
+        DAO_chitietsanpham cpDAO = new DAO_chitietsanpham();
+        int sl = cpDAO.get_sl(id, s);
+        return sl;
+    }
+    public void update (String idhd, String idsp, String size, int sl) throws SQLException{
+        ChitietHD_DAO cdDAO = new ChitietHD_DAO();
+        cdDAO.update(idhd, idsp, size, sl);
+    }
+    public void restore(String id, int sl, String s) throws SQLException{
+        DAO_chitietsanpham cpDAO = new DAO_chitietsanpham();
+        String ids = cpDAO.Get_Masize(s);
+        cpDAO.Restore_pro(sl, id, ids);
+    }
+    
+       public void updatehd(String id,int tt) throws SQLException {
+            Hoadon_DAO hd = new Hoadon_DAO();
+            hd.updatehd(id, tt);
+      }
+       
+       public String Get_Masize(String tensize) throws SQLException{
+            DAO_chitietsanpham cpDAO = new DAO_chitietsanpham();
+            String ids = cpDAO.Get_Masize(tensize);
+            return ids;
+       }
          public static void main (String[] args) throws SQLException{
         ChitietHD_BUS hd = new ChitietHD_BUS("HD002");
         hd.listtorestore("HD002");

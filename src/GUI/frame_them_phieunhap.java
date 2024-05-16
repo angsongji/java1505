@@ -1,6 +1,9 @@
 package GUI;
 
 import DTO.TaiKhoanDTO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class frame_them_phieunhap  extends JFrame{
@@ -34,7 +37,11 @@ public class frame_them_phieunhap  extends JFrame{
 //	 }
 	 
 	 public void update_chitietsanpham() {
-		 this.c.update_chitietsanpham();
+            try {
+                this.c.update_chitietsanpham();
+            } catch (SQLException ex) {
+                Logger.getLogger(frame_them_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	 }
 	 
 	 public void update_gia_thap_hon() {

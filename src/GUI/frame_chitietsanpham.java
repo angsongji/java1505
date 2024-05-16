@@ -5,6 +5,7 @@
 package GUI;
 
 import DTO.SanPhamDTO;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 
 /**
@@ -12,7 +13,7 @@ import javax.swing.JFrame;
  * @author LENOVO
  */
 public class frame_chitietsanpham extends JFrame{
-       public frame_chitietsanpham(SanPhamDTO h){
+       public frame_chitietsanpham(SanPhamDTO h) throws SQLException{
            this.setSize(600,450);
            this.setLocationRelativeTo(null);
            this.setUndecorated(true);

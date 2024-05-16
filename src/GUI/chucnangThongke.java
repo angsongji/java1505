@@ -73,7 +73,7 @@ public class chucnangThongke extends JPanel {
 
                     chucnangDTO cn = new chucnangDTO(btn_clicked.getName());
 
-                    System.out.println("So thu tu " + indexPage);
+                    
 
                     centerContent.changeCenterContent(cn, maquyen, indexPage);
                 }

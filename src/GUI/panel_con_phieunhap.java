@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 
 import DTO.SanPhamDTO;
 import DTO.phieunhap_DTO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class panel_con_phieunhap extends JPanel implements MouseListener{
 	
@@ -54,7 +57,11 @@ public class panel_con_phieunhap extends JPanel implements MouseListener{
 		
 		if (this.phieunhap_GUI.clicked_sua()) {
 			if (this.phieunhap_GUI.so_sanh()) {
-				this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
+                            try {
+                                this.phieunhap_GUI.show_chitietphieunhap_chinhsua(phieunhap_DTO);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(panel_con_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			} else if (!this.phieunhap_GUI.so_sanh()) {
 				String t = "Bạn có muốn hủy bỏ các chỉnh sửa";
 				frame_thong_bao_phieunhap m = new frame_thong_bao_phieunhap(t, phieunhap_GUI);
@@ -64,7 +71,11 @@ public class panel_con_phieunhap extends JPanel implements MouseListener{
 			
 			
 		} else if (!this.phieunhap_GUI.clicked_sua() && !this.phieunhap_GUI.clickedxoa()) {
-			this.phieunhap_GUI.show_chitietphieunhap(phieunhap_DTO);
+                    try {
+                        this.phieunhap_GUI.show_chitietphieunhap(phieunhap_DTO);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(panel_con_phieunhap.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 		}
 		
 		

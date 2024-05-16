@@ -39,6 +39,7 @@ import DTO.TaiKhoanDTO;
 import DTO.chitietphieunhap_DTO;
 import DTO.nhacungcapDTO;
 import DTO.phieunhap_DTO;
+import java.sql.SQLException;
 
 public class panel_them_phieunhap extends JPanel implements MouseListener{
 	private JPanel[] jp;
@@ -517,7 +518,7 @@ public class panel_them_phieunhap extends JPanel implements MouseListener{
 //	}
 	
 	
-	public void update_chitietsanpham() {
+	public void update_chitietsanpham() throws SQLException {
 		for (panel_con_nhapsanpham h : ds) {
 			h.update_chitietsanpham();
 		}
