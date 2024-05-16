@@ -37,6 +37,8 @@ import DTO.chitietphieunhap_DTO;
 import DTO.nhacungcapDTO;
 import DTO.phieunhap_DTO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -545,7 +547,7 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 	}
 	
 	
-	public void show_chitietphieunhap(phieunhap_DTO phieunhap_DTO) {
+	public void show_chitietphieunhap(phieunhap_DTO phieunhap_DTO) throws SQLException {
 		
 		
 		jp[5].removeAll();
@@ -567,7 +569,7 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 		
 	}
 	
-	public void show_chitietphieunhap_chinhsua(phieunhap_DTO phieunhap_DTO) {
+	public void show_chitietphieunhap_chinhsua(phieunhap_DTO phieunhap_DTO) throws SQLException {
 		jp[5].removeAll();
 		jp[4].removeAll();
 		int t = this.getPreferredSize().width;
@@ -649,7 +651,7 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 	}
 	
 	
-	public void update_ctsp_sau_chinh_sua() {
+	public void update_ctsp_sau_chinh_sua() throws SQLException {
 		this.chitietphieunhap_GUI.update_ctsp_sau_chinh_sua();
 	}
 	
@@ -688,7 +690,7 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 		jp[4].revalidate();
 	}
 	
-	public void refresh_giu_ctpn() {
+	public void refresh_giu_ctpn() throws SQLException {
 		
 		int i = jp[4].getPreferredSize().width;
 		jp[4].removeAll();
@@ -820,7 +822,11 @@ public class phieunhap_GUI extends JPanel implements MouseListener{
 						
 					} else {
 						clickedchinhsua = false;
-						this.refresh_giu_ctpn();
+                                            try {
+                                                this.refresh_giu_ctpn();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger(phieunhap_GUI.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
 						dinh_dang();
 						
 					}

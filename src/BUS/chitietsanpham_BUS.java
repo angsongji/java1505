@@ -11,13 +11,13 @@ import java.sql.SQLException;
 
 public class chitietsanpham_BUS {
 	ArrayList<chitietsanpham_DTO> ds;
-	public chitietsanpham_BUS() {
+	public chitietsanpham_BUS() throws SQLException {
 		newlist();
         }
         
 	
 
-	public void newlist() {
+	public void newlist() throws SQLException {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();
 		
 		ds = c.select_all();
@@ -35,18 +35,18 @@ public class chitietsanpham_BUS {
 	public ArrayList<chitietsanpham_DTO> getlist(){
 		return this.ds;
 	}
-	public void add( chitietsanpham_DTO d) {
+	public void add( chitietsanpham_DTO d) throws SQLException {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();
 		this.ds.add(d);
 		c.add(d);
 	}
-        public void updateAfterTT(chitietsanpham_DTO d) {
+        public void updateAfterTT(chitietsanpham_DTO d) throws SQLException {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();
 		c.updateAfterTT(d);
 	}
         
 	
-	public void update(chitietsanpham_DTO d) {
+	public void update(chitietsanpham_DTO d) throws SQLException {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();
 		c.update(d);
 		for (int i = 0; i < ds.size(); i++) {

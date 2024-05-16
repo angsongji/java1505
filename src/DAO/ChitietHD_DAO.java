@@ -98,16 +98,27 @@ public class ChitietHD_DAO {
     mySQL.disconnect();
     return success;
 }
-public void add(ChitietHD_DTO item) {
-        try {
-            mySQL.connect();
-            
-            String query = "INSERT INTO chitiethoadon(`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) VALUES ('" + item.getMaHD()+ "','" + item.getMaSP()+"','" + item.getMaSize()+ "','" + item.getSl()+"','" + item.getGia()+"');";
-            mySQL.executeUpdate(query);
-            mySQL.disconnect();
-        } catch (SQLException e) {
-        }
+public void add(ChitietHD_DTO item) throws SQLException {
+    mySQL.connect();
+    String query = "INSERT INTO chitiethoadon(`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) VALUES ('" + item.getMaHD()+ "','" + item.getMaSP()+"','" + item.getMaSize()+ "','" + item.getSl()+"','" + item.getGia()+"');";
+    mySQL.executeUpdate(query);
+    mySQL.disconnect();
     }
+
+     public void update(String idhd, String idsp, String size, int sl) throws SQLException {
+            mySQL.connect(); // TODO Auto-generated catch block
+            String sql = "update chitiethoadon set SOLUONG = " + sl +", MASIZE ='"+ size +"' where MASP = '" + idsp + "' and SOHD = '" + idhd +"';";
+            mySQL.executeUpdate(sql);
+            mySQL.disconnect();
+	}
+     
+     public String[] get_AllSize(String masp) throws SQLException
+    {
+        DAO_chitietsanpham cpDAO = new DAO_chitietsanpham();
+        String[] allSize = cpDAO.get_AllSIZE(masp);
+        return allSize;
+    }
+     
     public static void main (String[] args) throws SQLException{
         ChitietHD_DAO cthd = new ChitietHD_DAO();
         ArrayList<ChitietHD_DTO> list = cthd.list("HD001");
