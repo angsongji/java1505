@@ -47,7 +47,7 @@ public class panel_con_chitietphieunhap extends JPanel implements MouseListener{
 		this.h = h;
 		this.phieunhap_GUI = phieunhap_GUI;
 		this.phieunhap_BUS = new phieunhap_BUS();
-		 format_double = new DecimalFormat("#,###");
+		 format_double = new DecimalFormat("#,###.0");
 		 soluong = h.getSoluong();
 		 gianhap = h.getGianhap();
 		String thanh_tien = format_double.format(h.getThanhtien());
@@ -278,8 +278,8 @@ public class panel_con_chitietphieunhap extends JPanel implements MouseListener{
 	public boolean so_sanh_gia_sanpham() {
 		
 		
-		SanPhamDTO m = sanPhamBUS.select_by_id(h.getMasp());
-		if (Double.parseDouble(jt[1].getText().replaceAll(",", "")) != m.getPrice()) {
+		
+		if (Double.parseDouble(jt[1].getText().replaceAll(",", "")) != h.getGianhap()) {
 			return false;
 		}
 		return true;

@@ -189,7 +189,7 @@ public class DAO_qlks {
 	}
 	
 
-	public ArrayList<model_qlkh> search(String ma_kh,String ten,String sdt,String diem){
+	public ArrayList<model_qlkh> search(String ma_kh,String ten,String sdt,int diemmin,int diemmax){
 		ArrayList<model_qlkh> h = new ArrayList<model_qlkh>();
 	
 		
@@ -200,41 +200,23 @@ public class DAO_qlks {
 //		Statement st = conn.createStatement();
 		
 		
-		String mkh = "",tenn="" ,dtll ="";
 		
-		if (ma_kh.equals("min-max") ) {
-			mkh = "asc";
-		} else if (ma_kh.equals("max-min")) {
-			mkh = "desc";
-		}
-		if (ten.equals("a-z") ) {
-			tenn = "asc";
-		} else if (ten.equals("z-a")) {
-			tenn = "desc";
-		}
-		if (diem.equals("min-max") ) {
-			dtll = "asc";
-		} else if (diem.equals("max-min")) {
-			dtll = "desc";
-		}
-		if (ten.equals("a-z") || ten.equals("z-a")) {
-			ten = "";
-		} 
-		if (ma_kh.equals("min-max") || ma_kh.equals("max-min")) {
-			ma_kh = "";
-		}
-		if (diem.equals("min-max") || diem.equals("max-min")) {
-			diem = "";
-		}
+		
+                
+                
+                
 		String sql = "select * from khachhang where TENKH like '%" + ten + "%' and SDT like '%" + sdt +"%' " +
-				"and MAKH like '%" + ma_kh +"%' "+ "and DIEMTICHLUY like '%" +diem+"%' "+ 
-				"order by MAKH " + mkh + " ,TENKH " + tenn + ", DIEMTICHLUY "+ dtll; 
-		
+				"and MAKH like '%" + ma_kh +"%' "+ "and DIEMTICHLUY BETWEEN "+ diemmin  +" AND " + diemmax  ;
+                        
+                
+                
+                
+				
+		          System.out.println(sql);
 		c.connect();
 		
 		ResultSet rs = c.executeQuery(sql);
-		System.out.println(sql);
-		System.out.println("mkh = " + mkh + " , tenn = " + tenn);
+		
 		while(rs.next()) {
 			int makh = rs.getInt("MAKH");
 			String tenkh = rs.getString("TENKH");
@@ -293,12 +275,6 @@ public class DAO_qlks {
         // Trả về giá trị mặc định nếu không lấy được từ cơ sở dữ liệu
         return 0;
     }
-	 public static void main(String[] args) {
-		DAO_qlks c = new DAO_qlks();
-		String t = "QQLBH";
-		for (String m : c.select_hanhdong_qlkh("QQLBH")) {
-			System.out.println(m);
-		}
-	} 
+
 	
 }

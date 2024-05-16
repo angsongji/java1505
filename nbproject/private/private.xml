@@ -3,6 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
+
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/thong_bao_phieunhap.java</file>
+           <file>file:/C:/Study/DOAN_JAVA/src/GUI/view_thong_bao.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/phieunhap_GUI.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/frame_them_phieunhap.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/chitietphieunhap_GUI.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/DAO/DAO_phieunhap.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/frame_thong_bao_phieunhap.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/view_quan_li_khach_hang.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/panel_them_phieunhap.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/GUI/frame_thong_bao_update.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/BUS/BUS_qlkh.java</file>
+            <file>file:/C:/Study/DOAN_JAVA/src/DAO/DAO_qlks.java</file>
+
+
             <file>file:/C:/Study/DOAN_JAVA/src/GUI/ShoppingCartUI.java</file>
             <file>file:/C:/Study/DOAN_JAVA/src/DAO/SanPhamDAO.java</file>
             <file>file:/C:/Study/DOAN_JAVA/src/DAO/ChitietHD_DAO.java</file>
@@ -10,6 +26,7 @@
             <file>file:/C:/Study/DOAN_JAVA/src/DTO/ChitietHD_DTO.java</file>
             <file>file:/C:/Study/DOAN_JAVA/src/BUS/Hoadon_BUS.java</file>
             <file>file:/C:/Study/DOAN_JAVA/src/Main/Main.java</file>
+
         </group>
     </open-files>
 </project-private>
