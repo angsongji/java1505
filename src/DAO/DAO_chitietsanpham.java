@@ -122,6 +122,19 @@ public class DAO_chitietsanpham {
 		return h ;
 		
 	}
+        	public void updateAfterTT(chitietsanpham_DTO d) {
+		try {
+			mySQL.connect();
+			String sql = "update chitietsanpham set SOLUONG = " + d.getSoluong() +" where MASP = '" + d.getMASP()  + "' and MASIZE = '" + d.getMASIZE() +"'";             
+					
+			mySQL.executeUpdate(sql);
+			
+			mySQL.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void update(chitietsanpham_DTO d) {
 		try {

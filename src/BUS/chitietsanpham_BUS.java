@@ -40,6 +40,11 @@ public class chitietsanpham_BUS {
 		this.ds.add(d);
 		c.add(d);
 	}
+        public void updateAfterTT(chitietsanpham_DTO d) {
+		DAO_chitietsanpham c = new DAO_chitietsanpham();
+		c.updateAfterTT(d);
+	}
+        
 	
 	public void update(chitietsanpham_DTO d) {
 		DAO_chitietsanpham c = new DAO_chitietsanpham();

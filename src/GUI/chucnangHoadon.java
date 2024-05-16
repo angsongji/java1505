@@ -37,13 +37,13 @@ public class chucnangHoadon extends JPanel implements MouseListener {
     private CenterContentStore centerContent;
     private int crong, heightJP_content;
 
-    public chucnangHoadon(CenterContentStore centerContent, chucnangDTO cnDTO, String maquyen) throws SQLException {
+    public chucnangHoadon(CenterContentStore centerContent, chucnangDTO cnDTO, String maquyen, String maNV) throws SQLException {
         this.centerContent = centerContent;
         ccao = (int) centerContent.pageContent.getPreferredSize().getHeight();
         crong = (int) centerContent.pageContent.getPreferredSize().getWidth();
         listChucnangCon = new ArrayList<>();
 
-        init(cnDTO, maquyen);
+        init(cnDTO, maquyen,maNV);
     }
 
     public int getCrong() {
@@ -54,7 +54,7 @@ public class chucnangHoadon extends JPanel implements MouseListener {
         return heightJP_content;
     }
 
-    private void init(chucnangDTO cnDTO, String maquyen) throws SQLException {
+    private void init(chucnangDTO cnDTO, String maquyen, String maNV) throws SQLException {
         chitietquyenBUS ctqBUS = new chitietquyenBUS();
         if (ctqBUS.search(new chitietquyenDTO(maquyen, "HD", "Thêm"))) {
             System.out.println("CO HAY KHONGGG");
@@ -118,7 +118,8 @@ public class chucnangHoadon extends JPanel implements MouseListener {
         switch (cnDTO.getMACHUCNANG()) {
             case "NULLHD":
                 ShoppingCartUI p = new ShoppingCartUI(crong, heightJP_content,
-                        view_chi_tiet_san_pham.dssptt, view_chi_tiet_san_pham.dsctsptt, view_chi_tiet_san_pham.soluong, view_chi_tiet_san_pham.maSizeThem);
+                        view_chi_tiet_san_pham.dssptt, view_chi_tiet_san_pham.dsctsptt, view_chi_tiet_san_pham.soluong,
+                        view_chi_tiet_san_pham.maSizeThem, maNV);
                 // p.setPreferredSize(new Dimension(crong,heightJP_content));
                 JP_contentCuaNameChucnangCon.add(p);
                 break;

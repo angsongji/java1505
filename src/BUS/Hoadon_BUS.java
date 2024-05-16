@@ -6,6 +6,8 @@ import DAO.Hoadon_DAO;
 import DTO.chitietsanpham_DTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class Hoadon_BUS {
 
@@ -58,6 +60,27 @@ public final class Hoadon_BUS {
     }
     return re;
 }
+     public String createMAHD() {
+        int max =0;
+        for(int i=0;i<dshoadon.size();i++){
+            String MAHDlast = dshoadon.get(i).getMaHD();
+             String so = MAHDlast.replaceAll("[^0-9]","");
+        int stt = Integer.parseInt(so) + 1;
+        if(stt > max) max = stt;
+        }
+        return "HD" + max;
+      
+        
+    }
+
+     public void addInSQL(Hoadon_DTO item){
+        try {
+            Hoadon_DAO hdDAO = new Hoadon_DAO();
+            hdDAO.add(item);
+        } catch (SQLException ex) {
+            Logger.getLogger(Hoadon_BUS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
 
     
 //     public static void main(String[] args) throws SQLException {

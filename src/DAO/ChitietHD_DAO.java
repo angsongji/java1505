@@ -98,7 +98,16 @@ public class ChitietHD_DAO {
     mySQL.disconnect();
     return success;
 }
-
+public void add(ChitietHD_DTO item) {
+        try {
+            mySQL.connect();
+            
+            String query = "INSERT INTO chitiethoadon(`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) VALUES ('" + item.getMaHD()+ "','" + item.getMaSP()+"','" + item.getMaSize()+ "','" + item.getSl()+"','" + item.getGia()+"');";
+            mySQL.executeUpdate(query);
+            mySQL.disconnect();
+        } catch (SQLException e) {
+        }
+    }
     public static void main (String[] args) throws SQLException{
         ChitietHD_DAO cthd = new ChitietHD_DAO();
         ArrayList<ChitietHD_DTO> list = cthd.list("HD001");

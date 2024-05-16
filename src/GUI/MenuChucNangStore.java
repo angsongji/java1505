@@ -285,11 +285,13 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
         chucnangDTO cnSelelect = new chucnangDTO(itemChucnang.getName());
         switch (cnSelelect.getMACHUCNANG()) {
             case "TK": {
-                try {
-                    SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
-                } catch (SQLException ex) {
-                    Logger.getLogger(MenuChucNangStore.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               
+            try {
+                SS_main.centerContent.changeCenterContent(new chucnangDTO("NULL" + cnSelelect.getMACHUCNANG(), "NULLTEN"), MAQUYEN);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuChucNangStore.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
             }
             break;
 

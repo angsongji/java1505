@@ -67,7 +67,15 @@ public class Hoadon_DAO {
     return success;
 }
    
-     
+   public void add(Hoadon_DTO item) {
+        try {
+            mySQL.connect();
+            String query = "INSERT INTO hoadon (`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`, `TIENGIAMGIA`, `THOIGIAN`)  VALUES ('" + item.getMaHD()+ "','" + item.getNgayHD()+ "','" + item.getMaKH()+ "','" + item.getMaNV()+ "','" + item.getTongTien()+ "','" + item.getGiamgia()+ "','" + item.getThoigian()+ "');";
+            mySQL.executeUpdate(query);
+            mySQL.disconnect();
+        } catch (SQLException e) {
+        }
+    }  
     
      
      public static void main (String[] args) throws SQLException{

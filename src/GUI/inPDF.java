@@ -7,10 +7,12 @@ import BUS.ChitietHD_BUS;
 import BUS.Hoadon_BUS;
 import BUS.Nhanvien_BUS;
 import BUS.SanPhamBUS;
+import BUS.SizeBUS;
 import DTO.ChitietHD_DTO;
 import DTO.Hoadon_DTO;
 import DTO.Nhanvien_DTO;
 import DTO.SanPhamDTO;
+import DTO.SizeDTO;
 import DTO.model_qlkh;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
@@ -106,7 +108,7 @@ public class inPDF {
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDoc = new PdfDocument(pdfWriter);
         
-        PageSize customPageSize = new PageSize(150, PageSize.A6.getHeight());
+        PageSize customPageSize = new PageSize(200, PageSize.A6.getHeight());
         pdfDoc.setDefaultPageSize(customPageSize);
         
         Document doc = new Document(pdfDoc);
@@ -178,8 +180,8 @@ public class inPDF {
         doc.add(labelKH);
         
         
-        String []headerTable={"Tên sản phẩm","SL","Đơn giá","Thành tiền"};
-        float []colWidth={60,15,30,35};
+        String []headerTable={"Tên sản phẩm","Size","SL","Đơn giá","Thành tiền"};
+        float []colWidth={80,20,20,30,35};
         Table chitietsanpham = new Table(colWidth);
         for(String i : headerTable){
             Paragraph title = new Paragraph(new Text(i).setBold());
@@ -198,6 +200,10 @@ public class inPDF {
             infor.setTextAlignment(TextAlignment.CENTER); 
             chitietsanpham.addCell(infor);
             
+            Paragraph infor0=new Paragraph(c.getMaSize()) ;
+            infor0.setFontSize(4);
+            infor0.setTextAlignment(TextAlignment.CENTER); 
+            chitietsanpham.addCell(infor0);
             
               Paragraph infor1 = new Paragraph(c.getSl()+"");
                 infor1.setFontSize(4);

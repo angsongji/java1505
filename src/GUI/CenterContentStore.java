@@ -158,9 +158,10 @@ public class CenterContentStore extends JPanel {
                 break;
             }
             case "NULLHD":{
+                String maNV = SS_main.getTaiKhoanDTO().getMaNV();
                 chucnangHoadon cnhd;
                 try {
-                    cnhd = new chucnangHoadon(this, cnDTO, maquyen);
+                    cnhd = new chucnangHoadon(this, cnDTO, maquyen,maNV);
                     ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, cnhd);
                     showThaotac(JP_thaotac);
                     showPageContent(cnhd);
@@ -217,9 +218,10 @@ public class CenterContentStore extends JPanel {
             }
                 
             case "HD":{
+                String maNV = SS_main.getTaiKhoanDTO().getMaNV();
                  chucnangHoadon cnhd;
                 try {
-                    cnhd = new chucnangHoadon(this, cnDTO, maquyen);
+                    cnhd = new chucnangHoadon(this, cnDTO, maquyen,maNV);
                     ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, cnhd);
                 showThaotac(JP_thaotac);
                 showPageContent(cnhd);
